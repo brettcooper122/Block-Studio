@@ -1,10 +1,20 @@
 # Block Studio
 
-Brett's freelance product design and strategy practice — a team of one, positioned like a senior studio, not a hobbyist.
+A creative consulting studio based in Toronto, Canada — a team of one, positioned like a senior studio, not a hobbyist.
+
+## Goals & objectives
+
+Distilled from the studio's competitive positioning audit and messaging work (full docs in [`docs/`](./docs)):
+
+1. **Reposition from "design" to business outcome.** Stop selling design as a craft and start selling what it moves — adoption, conversion, retention, trust. Design is the method, never the pitch.
+2. **Make solo-and-senior the pitch, not the caveat.** Name it directly: fewer projects, more attention; sharpest, not biggest. A one-person studio competes on focus, not on hiding headcount.
+3. **Finalize per-service messaging.** Turn the three services below into a shipped heading, description, "who it's for," and "what's included" for each — the immediate next task (see [`docs/Block-Studio-Messaging-Services-Context.md`](./docs/Block-Studio-Messaging-Services-Context.md)).
+4. **Ship a focused site, not a big one.** One sharp hero, the three services by outcome, 2–3 case studies with a real number, a "who this is for / isn't" section, one call to action, an honest About. Nothing a team of one can't credibly maintain.
+5. **Lead with proof, not breadth.** Claim enterprise/B2B, AI-native products, and design systems first — the strongest evidenced ground — rather than naming every vertical at once.
 
 ## Positioning
 
-The core finding from a competitive audit of nine studios and two solo practitioners (full detail in [`docs/`](./docs)):
+The core finding from a competitive audit of nine studios and two solo practitioners:
 
 > None of these studios sell "design." Each one swaps the word for a business outcome — adoption, conversion, retention, trust, funding, or speed. Design is the method, never the pitch.
 >
@@ -61,7 +71,7 @@ Lead with one or two verticals rather than naming all of them at once.
 
 **Skip, for a team of one:** programmatic SEO service pages, subscription pricing tiers, a weekly blog cadence, awards walls, multi-office listings, heavy motion work that eats weeks to build.
 
-**Not yet decided:** final hero line (three directions drafted, ten variants total, none locked — see `docs/`), a written "who this is for / not for" section, whether this site structure is live yet.
+**Not yet decided:** final hero line (three directions drafted, ten variants total, none locked — see `docs/`), a written "who this is for / not for" section, per-service "who it's for" and "what's included" sections (the next task), whether this site structure is live yet.
 
 **Full detail:** [`docs/Block-Studio-Messaging-Services-Context.md`](./docs/Block-Studio-Messaging-Services-Context.md) (voice rules, approved copy, buyer segments — canonical reference for any agent writing Block Studio copy), [`docs/Block-Studio-Positioning-Audit-Handoff.md`](./docs/Block-Studio-Positioning-Audit-Handoff.md) (full competitor research narrative), and the interactive [`docs/Block-Studio-Positioning-Audit.html`](./docs/Block-Studio-Positioning-Audit.html).
 
