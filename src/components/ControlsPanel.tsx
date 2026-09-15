@@ -29,7 +29,7 @@ function Slider({
   onChange: (value: number) => void;
 }) {
   return (
-    <label className="flex flex-col gap-1.5">
+    <label className="flex flex-col gap-stack-tight">
       <span className="text-ink">{label}</span>
       <input
         type="range"
@@ -76,7 +76,7 @@ export function ControlsPanel({
   onChange,
 }: ControlsPanelProps) {
   return (
-    <div className="absolute top-6 right-6 bottom-6 flex w-60 flex-col gap-4 overflow-y-auto rounded-panel border border-border bg-surface/90 p-4 text-[13px] backdrop-blur-md">
+    <div className="absolute top-gutter right-gutter bottom-gutter flex w-60 flex-col gap-stack overflow-y-auto rounded-panel border border-border bg-surface/90 p-stack text-[13px] backdrop-blur-md">
       <h1 className="text-sm font-semibold text-ink">Block Studio — grid test</h1>
 
       <Slider label="Density" value={density} min={0} max={1} onChange={(v) => onChange({ density: v })} />

@@ -57,8 +57,46 @@
   --color-accent-strong: var(--color-orange-700);
   --color-accent-subtle: var(--color-orange-100);
 
+  /* ---- Primitives: spacing ----
+   * Tailwind v4 doesn't enumerate a spacing scale like colors — every
+   * numeric utility (p-4, gap-6, top-8, w-10, …) is generated on the fly
+   * as `calc(var(--spacing) * N)`. So the one thing we own here is the
+   * base unit itself; overriding it would rescale the entire numeric
+   * scale at once. 0.25rem (4px) is Tailwind's default and matches a
+   * standard 4px grid, so we're keeping it, just declaring it explicitly
+   * as our primitive rather than leaving it as an invisible default.
+   */
+  --spacing: 0.25rem;
+
+  /* ---- Primitives: radius ----
+   * Tailwind ships these as default theme values; restated explicitly so
+   * they live in this file as an owned scale rather than an invisible
+   * framework default.
+   */
+  --radius-xs: 0.125rem;
+  --radius-sm: 0.25rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
+  --radius-3xl: 1.5rem;
+  --radius-full: 9999px;
+
+  /* ---- Semantic: spacing ----
+   * Named, intent-based spacing built from the primitive --spacing unit.
+   * Generates matching utilities (p-stack, gap-stack, top-gutter, …)
+   * alongside Tailwind's plain numeric scale (p-4, gap-6, …) — reach for
+   * these when the value means something specific in the layout, and the
+   * numeric scale for one-off adjustments.
+   */
+  --spacing-stack-tight: calc(var(--spacing) * 1.5); /* 6px — label to control */
+  --spacing-stack: calc(var(--spacing) * 4); /* 16px — grouped elements, panel padding */
+  --spacing-gutter: calc(var(--spacing) * 6); /* 24px — page/panel edge offset */
+  --spacing-section: calc(var(--spacing) * 16); /* 64px — major layout rhythm */
+
   /* ---- Semantic: radius ---- */
   --radius-control: var(--radius-md);
   --radius-panel: var(--radius-xl);
   --radius-card: var(--radius-2xl);
+  --radius-pill: var(--radius-full);
 }
