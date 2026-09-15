@@ -7,10 +7,6 @@ dist-ssr
 !.vscode/extensions.json
 .idea
 .DS_Store
-
-# unrelated local working docs — not part of this project
-Block-Studio-Positioning-Audit-Handoff.md
-Block-Studio-Positioning-Audit.html
 *.suo
 *.ntvs*
 *.njsproj

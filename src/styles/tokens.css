@@ -58,15 +58,24 @@
   --color-accent-subtle: var(--color-orange-100);
 
   /* ---- Primitives: spacing ----
-   * Tailwind v4 doesn't enumerate a spacing scale like colors — every
-   * numeric utility (p-4, gap-6, top-8, w-10, …) is generated on the fly
-   * as `calc(var(--spacing) * N)`. So the one thing we own here is the
-   * base unit itself; overriding it would rescale the entire numeric
-   * scale at once. 0.25rem (4px) is Tailwind's default and matches a
-   * standard 4px grid, so we're keeping it, just declaring it explicitly
-   * as our primitive rather than leaving it as an invisible default.
+   * Non-negotiable spacing scale: 4, 8, 16, 24, 32, 40, 48, 56, 64 (px).
+   * Tailwind v4 generates its plain numeric utilities (p-4, gap-6, top-8,
+   * …) on the fly as `calc(var(--spacing) * N)` off one base unit — it
+   * doesn't stop you from using an off-scale multiplier like p-3 or p-5.
+   * These named steps are the sanctioned scale: every spacing decision in
+   * this project should resolve to one of --spacing-3xs..--spacing-3xl,
+   * never an arbitrary value or an off-scale numeric utility.
    */
-  --spacing: 0.25rem;
+  --spacing: 0.25rem; /* 4px base unit */
+  --spacing-3xs: calc(var(--spacing) * 1); /* 4px */
+  --spacing-2xs: calc(var(--spacing) * 2); /* 8px */
+  --spacing-xs: calc(var(--spacing) * 4); /* 16px */
+  --spacing-sm: calc(var(--spacing) * 6); /* 24px */
+  --spacing-md: calc(var(--spacing) * 8); /* 32px */
+  --spacing-lg: calc(var(--spacing) * 10); /* 40px */
+  --spacing-xl: calc(var(--spacing) * 12); /* 48px */
+  --spacing-2xl: calc(var(--spacing) * 14); /* 56px */
+  --spacing-3xl: calc(var(--spacing) * 16); /* 64px */
 
   /* ---- Primitives: radius ----
    * Tailwind ships these as default theme values; restated explicitly so
@@ -83,16 +92,17 @@
   --radius-full: 9999px;
 
   /* ---- Semantic: spacing ----
-   * Named, intent-based spacing built from the primitive --spacing unit.
-   * Generates matching utilities (p-stack, gap-stack, top-gutter, …)
-   * alongside Tailwind's plain numeric scale (p-4, gap-6, …) — reach for
-   * these when the value means something specific in the layout, and the
-   * numeric scale for one-off adjustments.
+   * Named, intent-based aliases onto the primitive scale above — never a
+   * raw calc() or an off-scale value. Generates matching utilities
+   * (p-stack, gap-stack, top-gutter, …) alongside Tailwind's plain
+   * numeric scale — reach for these when the value means something
+   * specific in the layout, the numeric scale (still 4px-stepped) for
+   * one-off adjustments that stay on the sanctioned steps.
    */
-  --spacing-stack-tight: calc(var(--spacing) * 1.5); /* 6px — label to control */
-  --spacing-stack: calc(var(--spacing) * 4); /* 16px — grouped elements, panel padding */
-  --spacing-gutter: calc(var(--spacing) * 6); /* 24px — page/panel edge offset */
-  --spacing-section: calc(var(--spacing) * 16); /* 64px — major layout rhythm */
+  --spacing-stack-tight: var(--spacing-2xs); /* 8px — label to control */
+  --spacing-stack: var(--spacing-xs); /* 16px — grouped elements, panel padding */
+  --spacing-gutter: var(--spacing-sm); /* 24px — page/panel edge offset */
+  --spacing-section: var(--spacing-3xl); /* 64px — major layout rhythm */
 
   /* ---- Semantic: radius ---- */
   --radius-control: var(--radius-md);

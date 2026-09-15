@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Language Audit — How the best AI-native studios sell</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0C0D10;
+    --panel:#15171C;
+    --panel-2:#1C1F26;
+    --edge:#2A2E38;
+    --edge-bright:#3A4050;
+    --text:#E7E9EE;
+    --muted:#8B93A3;
+    --dim:#5E6675;
+    --acid:#C6F24E;
+    --acid-dim:#8FA83A;
+    --quote:#9FE0C4;
+    --warn:#FFA24B;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .shell{max-width:1000px;margin:0 auto;padding:0 24px;}
+
+  header.masthead{
+    padding:56px 0 32px;
+    border-bottom:1px solid var(--edge);
+  }
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;
+    color:var(--acid-dim);
+    margin-bottom:20px;
+  }
+  header.masthead h1{
+    font-family:'Fraunces',serif;
+    font-weight:500;
+    font-size:clamp(30px,5vw,50px);
+    line-height:1.05;
+    letter-spacing:-0.01em;
+    margin-bottom:20px;
+  }
+  header.masthead p{
+    color:var(--muted);
+    font-size:16px;
+    max-width:64ch;
+  }
+  .studios-line{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11.5px;
+    color:var(--dim);
+    margin-top:24px;
+    line-height:2;
+  }
+  .studios-line b{color:var(--muted);font-weight:500;}
+
+  nav.tabs{
+    position:sticky;top:0;z-index:20;
+    background:rgba(12,13,16,0.92);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--edge);
+    display:flex;gap:2px;overflow-x:auto;
+    padding:0;
+  }
+  nav.tabs button{
+    background:none;border:none;cursor:pointer;
+    color:var(--dim);
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;
+    padding:16px 16px 14px;
+    border-bottom:2px solid transparent;
+    white-space:nowrap;
+    transition:color .15s;
+  }
+  nav.tabs button:hover{color:var(--muted);}
+  nav.tabs button.active{color:var(--acid);border-bottom-color:var(--acid);}
+
+  section.tab{display:none;padding:44px 0 20px;}
+  section.tab.active{display:block;animation:fade .3s ease;}
+  @keyframes fade{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
+
+  h2.section-h{
+    font-family:'Fraunces',serif;
+    font-weight:500;
+    font-size:28px;
+    letter-spacing:-0.01em;
+    margin-bottom:8px;
+  }
+  .section-lead{color:var(--muted);font-size:15px;max-width:66ch;margin-bottom:32px;}
+
+  h3.block-h{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;
+    color:var(--acid-dim);
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    margin:36px 0 16px;
+    padding-bottom:8px;
+    border-bottom:1px solid var(--edge);
+  }
+
+  p.body{color:var(--text);font-size:15px;margin-bottom:16px;max-width:68ch;}
+  p.body.muted{color:var(--muted);}
+
+  .quote{
+    background:var(--panel);
+    border:1px solid var(--edge);
+    border-left:2px solid var(--quote);
+    border-radius:0 6px 6px 0;
+    padding:18px 20px;
+    margin-bottom:14px;
+  }
+  .quote .q{
+    font-family:'Fraunces',serif;
+    font-size:17px;
+    color:var(--quote);
+    line-height:1.45;
+    margin-bottom:10px;
+  }
+  .quote .src{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    color:var(--dim);
+  }
+  .quote .why{
+    color:var(--muted);
+    font-size:13.5px;
+    margin-top:8px;
+    padding-top:8px;
+    border-top:1px dashed var(--edge);
+  }
+
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 22px;}
+  .chip{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;
+    background:var(--panel-2);
+    border:1px solid var(--edge);
+    color:var(--muted);
+    padding:5px 11px;border-radius:20px;
+  }
+  .chip.hot{border-color:var(--acid-dim);color:var(--acid);}
+
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:8px;}
+  .col-card{
+    background:var(--panel);border:1px solid var(--edge);
+    border-radius:8px;padding:20px;
+  }
+  .col-card h4{font-family:'Inter';font-weight:600;font-size:15px;margin-bottom:6px;}
+  .col-card.yes h4{color:var(--acid);}
+  .col-card.no h4{color:var(--warn);}
+  .col-card ul{list-style:none;}
+  .col-card li{
+    font-size:14px;color:var(--muted);
+    padding:6px 0 6px 18px;position:relative;
+  }
+  .col-card li::before{
+    content:'';position:absolute;left:0;top:13px;
+    width:6px;height:6px;border-radius:50%;
+  }
+  .col-card.yes li::before{background:var(--acid);}
+  .col-card.no li::before{background:var(--warn);}
+
+  table{width:100%;border-collapse:collapse;margin:8px 0 24px;font-size:14px;}
+  th{
+    text-align:left;font-family:'JetBrains Mono',monospace;
+    font-size:11px;color:var(--dim);text-transform:uppercase;
+    letter-spacing:0.05em;padding:10px 12px;border-bottom:1px solid var(--edge-bright);
+  }
+  td{padding:12px;border-bottom:1px solid var(--edge);color:var(--muted);vertical-align:top;}
+  td strong{color:var(--text);font-weight:600;}
+  tr:last-child td{border-bottom:none;}
+
+  .formula{
+    background:linear-gradient(180deg,var(--panel-2),var(--panel));
+    border:1px solid var(--edge-bright);
+    border-radius:10px;padding:26px;margin:18px 0 28px;
+  }
+  .formula .label{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--acid-dim);margin-bottom:14px;}
+  .formula .eq{font-family:'Fraunces',serif;font-size:20px;line-height:1.5;color:var(--text);}
+  .formula .eq span{color:var(--acid);}
+
+  .builder{background:var(--panel);border:1px solid var(--edge);border-radius:10px;padding:24px;margin-bottom:24px;}
+  .builder label{display:block;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim);margin:14px 0 6px;text-transform:uppercase;letter-spacing:.05em;}
+  .builder .opts{display:flex;flex-wrap:wrap;gap:8px;}
+  .builder .opt{
+    background:var(--panel-2);border:1px solid var(--edge);color:var(--muted);
+    font-size:13px;padding:8px 13px;border-radius:6px;cursor:pointer;transition:.15s;
+    font-family:'Inter';
+  }
+  .builder .opt:hover{border-color:var(--edge-bright);color:var(--text);}
+  .builder .opt.sel{background:rgba(198,242,78,0.12);border-color:var(--acid-dim);color:var(--acid);}
+  .builder .out{
+    margin-top:22px;padding:20px;background:var(--bg);border:1px dashed var(--edge-bright);border-radius:8px;
+    font-family:'Fraunces',serif;font-size:19px;line-height:1.5;min-height:64px;color:var(--text);
+  }
+  .builder .out .ph{color:var(--dim);font-family:'Inter';font-size:14px;font-style:italic;}
+  .builder .out b{color:var(--acid);font-weight:500;}
+
+  .imposter{
+    background:linear-gradient(135deg,rgba(198,242,78,0.06),rgba(159,224,196,0.04));
+    border:1px solid var(--edge-bright);border-radius:12px;padding:28px;margin:20px 0;
+  }
+  .imposter h3{font-family:'Fraunces',serif;font-weight:500;font-size:22px;color:var(--text);margin-bottom:14px;}
+  .imposter p{color:var(--muted);font-size:15px;margin-bottom:14px;max-width:70ch;}
+  .imposter .reveal{
+    background:var(--panel);border:1px solid var(--edge);border-radius:8px;
+    padding:16px 18px;margin-top:10px;
+  }
+  .imposter .reveal .myth{color:var(--warn);font-family:'JetBrains Mono',monospace;font-size:12px;margin-bottom:6px;}
+  .imposter .reveal .truth{color:var(--text);font-size:14.5px;}
+
+  .tag-count{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim);margin-left:6px;}
+
+  footer{border-top:1px solid var(--edge);margin-top:40px;padding:28px 0 60px;color:var(--dim);font-family:'JetBrains Mono',monospace;font-size:11px;}
+
+  @media(max-width:680px){
+    .cols{grid-template-columns:1fr;}
+    header.masthead{padding:40px 0 26px;}
+    section.tab{padding:32px 0 10px;}
+  }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="shell">
+    <div class="eyebrow">LANGUAGE AUDIT / 001 — PREPARED FOR BLOCK STUDIO</div>
+    <h1>How the best AI-native studios talk about what they do</h1>
+    <p>A teardown of the language, hooks, and structure the sharpest small product studios use, and a plain map of what to borrow, what to skip, and how to say what Block Studio already does without it reading as a stretch.</p>
+    <div class="studios-line">
+      STUDIED: <b>Lazarev</b> · <b>925studios</b> · <b>Ramotion</b> · <b>Spaceberry</b> · <b>Webgamma</b> · <b>Tennis</b> · <b>Phoenux</b> · <b>The Gradient</b>
+    </div>
+  </div>
+</header>
+
+<nav class="tabs" id="tabnav">
+  <div class="shell" style="display:flex;gap:2px;">
+    <button class="active" data-tab="positioning">Positioning</button>
+    <button data-tab="hooks">Hooks &amp; Language</button>
+    <button data-tab="structure">Site Structure</button>
+    <button data-tab="industries">Your Industries</button>
+    <button data-tab="you">Position Yourself</button>
+    <button data-tab="services">Your Services</button>
+    <button data-tab="imposter">The Imposter Part</button>
+  </div>
+</nav>
+
+<div class="shell">
+
+<!-- POSITIONING -->
+<section class="tab active" id="positioning">
+  <h2 class="section-h">What they're actually selling</h2>
+  <p class="section-lead">None of these studios sell "design." They each pick one sharp idea and repeat it everywhere. Here's the through-line behind each one.</p>
+
+  <h3 class="block-h">The one move they all make</h3>
+  <p class="body">Every studio here replaces the word "design" with a business outcome. Design is the method; the promise is adoption, conversion, trust, funding, or speed. The single most quoted line from the whole audit says it bluntly:</p>
+  <div class="quote">
+    <div class="q">"If design isn't moving revenue, adoption, or retention, it's decoration."</div>
+    <div class="src">— Lazarev</div>
+    <div class="why">This is the entire mindset shift in one sentence. They're not promising pretty screens, they're promising the thing the buyer's boss actually asks them about.</div>
+  </div>
+
+  <h3 class="block-h">Each studio's core bet</h3>
+  <table>
+    <tr><th>Studio</th><th>The idea they own</th><th>Who it's for</th></tr>
+    <tr><td><strong>Lazarev</strong></td><td>Design that moves revenue/adoption for complex AI &amp; data products</td><td>Heads of AI, B2B founders under pressure to show usage</td></tr>
+    <tr><td><strong>The Gradient</strong></td><td>"You can't design AI in static mocks — you have to build it to design it"</td><td>Teams building real AI products, not chat skins</td></tr>
+    <tr><td><strong>Spaceberry</strong></td><td>"We're not building the biggest studio. We're building the sharpest one."</td><td>Post-seed startups needing senior design without a full hire</td></tr>
+    <tr><td><strong>925studios</strong></td><td>Investor-grade product design at startup speed</td><td>AI SaaS / fintech founders who need to move fast</td></tr>
+    <tr><td><strong>Ramotion</strong></td><td>Takes fewer projects on purpose — depth over volume</td><td>High-growth startups wanting senior attention</td></tr>
+    <tr><td><strong>Phoenux</strong></td><td>Named AI-native service lines + a clear list of work they refuse</td><td>Product teams adding AI without breaking trust</td></tr>
+    <tr><td><strong>Webgamma</strong></td><td>Every screen is a conversion step in a funnel</td><td>Products with users but weak activation/retention</td></tr>
+  </table>
+
+  <h3 class="block-h">The pattern worth stealing</h3>
+  <p class="body">Notice none of these are "we do UX/UI for everyone." Each is a narrow, opinionated claim, often defined as much by what they refuse as what they offer. Phoenux literally lists "Not for 'guarantee #1 in ChatGPT' SEO theatre." Spaceberry says "zero tolerance for mediocre." Saying no loudly is itself the positioning.</p>
+</section>
+
+<!-- HOOKS -->
+<section class="tab" id="hooks">
+  <h2 class="section-h">The exact language they use</h2>
+  <p class="section-lead">Real pulled lines, grouped by the job each one does. This is the vocabulary that was missing, not because the skill wasn't there, but because nobody had translated it into the buyer's terms yet.</p>
+
+  <h3 class="block-h">Hook type 1 — Name the buyer's pain, not your service</h3>
+  <div class="quote">
+    <div class="q">"From stalled pilot to a launch people adopt."</div>
+    <div class="src">— Lazarev</div>
+    <div class="why">Names a specific, humbling problem (a pilot that went nowhere) and the relief. No mention of "design" at all.</div>
+  </div>
+  <div class="quote">
+    <div class="q">"Users aren't converting, retention is lower than it should be, or the product works but doesn't feel good enough to compete."</div>
+    <div class="src">— Spaceberry</div>
+    <div class="why">They describe the client's symptoms so precisely the client thinks "that's exactly me." Diagnosis sells before the cure does.</div>
+  </div>
+
+  <h3 class="block-h">Hook type 2 — The philosophy line (a stated belief)</h3>
+  <div class="quote">
+    <div class="q">"AI is probabilistic. Dynamic. Alive. You can't design it in static mocks. You have to build it to design it."</div>
+    <div class="src">— The Gradient</div>
+    <div class="why">This is Block Studio's positioning, already written by someone else. It justifies building in real code instead of handing off Figma, which is exactly the working method already in place.</div>
+  </div>
+  <div class="quote">
+    <div class="q">"A designer who sits in Figma all day won't cut it."</div>
+    <div class="src">— Spaceberry</div>
+    <div class="why">Draws a line between old-way designers and new-way ones, and puts themselves on the right side. Block Studio is on the right side of this line too.</div>
+  </div>
+
+  <h3 class="block-h">Hook type 3 — Reframe the risk of NOT hiring them</h3>
+  <div class="quote">
+    <div class="q">"...reduce the risk that your next AI release is another unused toggle in a settings menu."</div>
+    <div class="src">— Lazarev</div>
+    <div class="why">Makes the cost of inaction vivid and specific. Fear of a wasted release does the selling.</div>
+  </div>
+
+  <h3 class="block-h">The keyword bank — words that recur across all of them</h3>
+  <p class="body muted">These are the terms buyers in this space expect to hear. Not jargon for its own sake, this is the shared vocabulary of the category.</p>
+  <div class="chips">
+    <span class="chip hot">adoption</span><span class="chip hot">conversion</span><span class="chip hot">retention</span>
+    <span class="chip hot">trust</span><span class="chip">activation</span><span class="chip">ship / shipped</span>
+    <span class="chip">end-to-end</span><span class="chip">production-ready</span><span class="chip">design system</span>
+    <span class="chip">rapid prototyping</span><span class="chip">validate</span><span class="chip">0→1</span>
+    <span class="chip">explainability</span><span class="chip">agentic</span><span class="chip">investor-grade</span>
+    <span class="chip">sprint pace</span><span class="chip">complex → clear</span><span class="chip">business outcome</span>
+  </div>
+
+  <h3 class="block-h">Tone — how they sound</h3>
+  <p class="body">Confident, plain, and specific. Short declarative sentences. Almost no adjectives about themselves ("beautiful," "stunning"). The confidence comes from naming the buyer's world precisely, not from praising their own work. Spaceberry even writes in a slightly funny voice ("Don't be like Dwight Schrute"). The takeaway: sounding credible does not require sounding corporate, it requires sounding specific.</p>
+</section>
+
+<!-- STRUCTURE -->
+<section class="tab" id="structure">
+  <h2 class="section-h">What's on their sites — and what's actually needed</h2>
+  <p class="section-lead">These sites carry dozens of pages built by full teams. Block Studio is one person. Here's the honest split between what's worth copying now and what's overkill at this stage.</p>
+
+  <div class="cols">
+    <div class="col-card yes">
+      <h4>Build these now</h4>
+      <ul>
+        <li>One sharp hero line (pain + outcome, not "product designer")</li>
+        <li>3–4 named services, described by outcome</li>
+        <li>2–3 case studies with a before/after and one number</li>
+        <li>A short "who this is for / not for" section</li>
+        <li>One clear next step (book a call)</li>
+        <li>A simple About that tells the real story</li>
+      </ul>
+    </div>
+    <div class="col-card no">
+      <h4>Skip for now (overkill at 1 person)</h4>
+      <ul>
+        <li>40+ SEO service pages (Lazarev's footer) — that's a full-time team's job</li>
+        <li>Subscription pricing tiers &amp; billing infrastructure</li>
+        <li>A blog committed to weekly — one good post beats ten stubs</li>
+        <li>Awards walls (those come later)</li>
+        <li>Multi-office location lists</li>
+        <li>Motion-heavy interactions that take weeks to build</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 class="block-h">The clever features worth noting</h3>
+  <div class="quote">
+    <div class="q">"Still unsure? Let ChatGPT or Claude explore Spaceberry for you."</div>
+    <div class="src">— Spaceberry (buttons that open an AI pre-filled with a prompt about them)</div>
+    <div class="why">Cheap to build, memorable, and perfectly on-brand for an AI-native studio. This is the kind of single clever touch worth one afternoon — spend the boldness in one place.</div>
+  </div>
+  <div class="quote">
+    <div class="q">The 3-day / 8-hour free trial</div>
+    <div class="src">— Spaceberry &amp; 925studios (risk reversal)</div>
+    <div class="why">Removes the buyer's fear of committing to an unknown. A scoped "paid pilot" or "first deliverable in X days" is the solo-friendly version.</div>
+  </div>
+  <div class="quote">
+    <div class="q">The "not for you if…" section</div>
+    <div class="src">— Lazarev &amp; Phoenux</div>
+    <div class="why">Counterintuitively builds trust. Turning away wrong-fit work signals real confidence about who the work is right for. Easy to write, high impact.</div>
+  </div>
+</section>
+
+<!-- INDUSTRIES -->
+<section class="tab" id="industries">
+  <h2 class="section-h">Industries Block Studio can credibly name</h2>
+  <p class="section-lead">These studios all narrow to specific verticals, which makes them findable and believable. Here's where the real background gives Block Studio the right to speak, ranked by how strong the claim is.</p>
+
+  <h3 class="block-h">Strongest claim — lead with these</h3>
+  <table>
+    <tr><th>Industry</th><th>Why the claim holds</th></tr>
+    <tr><td><strong>Enterprise / B2B product</strong></td><td>WTD-era work on Mitsubishi, Hyundai, Kraft Heinz — real enterprise-scale experience most solo designers can't claim.</td></tr>
+    <tr><td><strong>AI-native products</strong></td><td>The actual working method (building with AI, shipping real prototypes) IS the credential here. This is the fastest-growing lane.</td></tr>
+    <tr><td><strong>Design systems</strong></td><td>The OpenText / Blueprint work is literally enterprise design-system work. Nameable right now.</td></tr>
+  </table>
+
+  <h3 class="block-h">Credible with framing — name once a case study exists</h3>
+  <div class="chips">
+    <span class="chip">Fintech</span><span class="chip">Loyalty / rewards (Scene+)</span>
+    <span class="chip">Marketplaces (Kijiji)</span><span class="chip">Automotive (Hyundai, Mitsubishi)</span>
+    <span class="chip">SaaS / B2B tools</span><span class="chip">Accessibility-critical products</span>
+  </div>
+
+  <h3 class="block-h">The whole market's hottest verticals right now</h3>
+  <p class="body muted">Across every studio audited, the industries that appear most often, meaning that's where the budgets and demand are: AI products, fintech, healthtech, B2B SaaS, and web3. There's a genuine right to speak to the first four through the existing background. Better to pick one or two to lead with rather than claiming all of them at once.</p>
+</section>
+
+<!-- POSITION YOURSELF -->
+<section class="tab" id="you">
+  <h2 class="section-h">Block Studio's positioning, drawn from all of this</h2>
+  <p class="section-lead">The work is already there. This is just how to say it in the language buyers recognize. Start with the formula, then build a live version below.</p>
+
+  <div class="formula">
+    <div class="label">THE POSITIONING FORMULA (distilled from all 8 studios)</div>
+    <div class="eq">For <span>[specific buyer]</span> who <span>[specific pain]</span>, we <span>[outcome in their words]</span> — by <span>[unfair advantage]</span>, not <span>[the old, slow way]</span>.</div>
+  </div>
+
+  <h3 class="block-h">Interactive — build a one-liner</h3>
+  <p class="body muted">Tap one option in each row. The positioning line assembles live at the bottom. There are no wrong answers, this is for trying on language, not committing.</p>
+
+  <div class="builder" id="builder">
+    <label>Who this helps</label>
+    <div class="opts" data-slot="buyer">
+      <div class="opt" data-val="early-stage founders">early-stage founders</div>
+      <div class="opt" data-val="AI product teams">AI product teams</div>
+      <div class="opt" data-val="B2B SaaS teams">B2B SaaS teams</div>
+      <div class="opt" data-val="funded startups">funded startups</div>
+    </div>
+
+    <label>Their pain</label>
+    <div class="opts" data-slot="pain">
+      <div class="opt" data-val="have an idea but no way to make it real">have an idea but no way to make it real</div>
+      <div class="opt" data-val="are stuck waiting weeks on design handoffs">stuck waiting on design handoffs</div>
+      <div class="opt" data-val="shipped an AI feature users don't trust">shipped AI users don't trust</div>
+      <div class="opt" data-val="need to show investors something real">need something real for investors</div>
+    </div>
+
+    <label>The outcome delivered</label>
+    <div class="opts" data-slot="outcome">
+      <div class="opt" data-val="ship a real, working product in weeks">ship a real, working product in weeks</div>
+      <div class="opt" data-val="turn ideas into products people actually adopt">turn ideas into products people adopt</div>
+      <div class="opt" data-val="design and build the whole experience end-to-end">design + build end-to-end</div>
+    </div>
+
+    <label>The unfair advantage</label>
+    <div class="opts" data-slot="edge">
+      <div class="opt" data-val="building in real code with AI-native tools">building in real code with AI-native tools</div>
+      <div class="opt" data-val="a decade of enterprise product experience">enterprise product experience</div>
+      <div class="opt" data-val="one senior team, not a junior bench">one senior team, not a junior bench</div>
+    </div>
+
+    <div class="out" id="builderOut">
+      <span class="ph">Pick an option in each row to assemble the line…</span>
+    </div>
+  </div>
+
+  <h3 class="block-h">Three starter hero lines (adapt freely)</h3>
+  <div class="quote">
+    <div class="q">"We turn ideas into working products — designed and built end-to-end — in weeks, not quarters."</div>
+    <div class="src">Block Studio's version of Lazarev's speed + Gradient's build-to-design</div>
+  </div>
+  <div class="quote">
+    <div class="q">"Most designers hand off a Figma file. We hand off something your users can actually click."</div>
+    <div class="src">Block Studio's version of Spaceberry's "won't cut it" line</div>
+  </div>
+  <div class="quote">
+    <div class="q">"One senior team that ships. No agency overhead, no junior bench, no handoff gap."</div>
+    <div class="src">Block Studio's version of Ramotion's depth + Spaceberry's "sharpest not biggest"</div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="tab" id="services">
+  <h2 class="section-h">The three services, written in Block Studio's voice</h2>
+  <p class="section-lead">Each one framed by the pain it resolves, the buyer it speaks to, and copy grounded in the exact language the sharpest studios in this lane are already using.</p>
+
+  <h3 class="block-h">Who these are for</h3>
+  <div class="cols">
+    <div class="col-card yes">
+      <h4>Founders (pre-seed to Series A)</h4>
+      <ul>
+        <li>Shipping fast, but hiding weak signal behind velocity</li>
+        <li>Cannot afford a full design hire, cannot risk a bad one</li>
+        <li>Building for investors who want to see something real, not a Figma export</li>
+        <li>Sitting on features that shipped but nobody adopts</li>
+      </ul>
+    </div>
+    <div class="col-card yes">
+      <h4>Small businesses &amp; agencies</h4>
+      <ul>
+        <li>Design system exists but keeps drifting from what the product actually ships</li>
+        <li>Chasing overflow work with no bench to catch it</li>
+        <li>Guessing at what users want without the resources to run proper research</li>
+        <li>Repositioning around AI without a designer who understands the shift</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- SERVICE 1 -->
+  <h3 class="block-h">Service 01 — Agentic End-to-End UX Design &amp; Development</h3>
+
+  <p class="body"><strong>The pain it resolves.</strong> Product teams building AI-adjacent experiences are stuck in a handoff loop built for a slower era. A designer ships Figma, engineering waits on tickets, and users get something four sprints later that half-answers the original brief. Once the product involves an AI agent, the loop compounds; static mocks cannot capture behaviour that is dynamic, probabilistic, and shifting by the day.</p>
+
+  <p class="body"><strong>What clients actually get.</strong> Design and build, in the same set of hands, from the first sketch through to production-ready code. States, confidence displays, and handoff patterns for when the agent needs to pass control back to a person, all built in real code so the experience can be tested before the team commits to it.</p>
+
+  <div class="quote">
+    <div class="q">Most designers hand off files and wait weeks for engineering to bring them to life. We bring designs to life ourselves, in real code, so the product you test with users is the product your team can ship.</div>
+    <div class="src">Draft copy — Agentic End-to-End UX Design &amp; Development</div>
+  </div>
+
+  <div class="quote">
+    <div class="q">↪️ Static mocks cannot capture AI behaviour. Agentic UX has to be built to be designed; anything less is a guess dressed up in Figma.</div>
+    <div class="src">Alternative hook, tighter and closer to Block Studio's LinkedIn voice</div>
+  </div>
+
+  <!-- SERVICE 2 -->
+  <h3 class="block-h">Service 02 — Creative Strategy: user &amp; market research</h3>
+
+  <p class="body"><strong>The pain it resolves.</strong> Founders fall in love with a solution before confirming enough people have the problem, and have it badly enough to pay to solve it. The validation itself often carries a built-in trap: leading questions asked of socially connected respondents, feedback that confirms what the team already wants to hear. The result is a product built on flattering data, launched into a market that never asked for it.</p>
+
+  <p class="body"><strong>What clients actually get.</strong> User interviews scoped to the exact question the business needs answered, competitive analysis that filters out the fluff and surfaces the patterns worth borrowing, and positioning work that connects the product to the language the market is already using in searches, forum posts, and reviews. Research that shapes the decision, not research that decorates one already made.</p>
+
+  <div class="quote">
+    <div class="q">Most teams design for the customer they imagine, then wonder why the real one never shows up. Creative strategy connects your product to the language the market is already using: the words your buyer types into a search bar, not the words your team writes on a roadmap.</div>
+    <div class="src">Draft copy — Creative Strategy</div>
+  </div>
+
+  <div class="quote">
+    <div class="q">↪️ Research should shape the decision, not decorate one already made. From the outset, this is about finding the pattern the market is showing you, so you build the product it is asking for.</div>
+    <div class="src">Alternative hook</div>
+  </div>
+
+  <!-- SERVICE 3 -->
+  <h3 class="block-h">Service 03 — Rapid Pattern Generation &amp; System Scaling</h3>
+
+  <p class="body"><strong>The pain it resolves.</strong> A design system exists, and it worked well for the first eighteen months. Now the product has grown past what the system was scoped for; new patterns are needed weekly, and the team is either rebuilding the system from scratch or watching hardcoded values quietly slip into production. Neither is sustainable. Neither is necessary.</p>
+
+  <p class="body"><strong>What clients actually get.</strong> New components and patterns generated to slot into the existing system, respecting token hierarchy from primitive to semantic to component. Governance stays intact; the library keeps its integrity as it scales. This is the work agents cannot do alone, and juniors take too long to do carefully. It sits in the middle, and that middle is where the value is.</p>
+
+  <div class="quote">
+    <div class="q">Your design system does not need a rebuild. It needs someone who can extend it at the pace your product is actually shipping, without breaking the hierarchy it was built on.</div>
+    <div class="src">Draft copy — Rapid Pattern Generation &amp; System Scaling</div>
+  </div>
+
+  <div class="quote">
+    <div class="q">↪️ Systems drift when growth outpaces governance. New patterns generated in the shape of your existing tokens, carrying the same rules, so scaling does not cost you the consistency the system was built for in the first place.</div>
+    <div class="src">Alternative hook</div>
+  </div>
+
+  <h3 class="block-h">How the three connect</h3>
+  <p class="body">Each service resolves a different failure mode, but they share a common thread: the work happens closer to the product than most design engagements permit. Creative Strategy answers what to build. Agentic End-to-End brings the answer to life in real code. Rapid Pattern Generation keeps the system holding as the product scales past its original brief. Together they cover the arc from the question to the shipped feature, without the handoff gaps that eat the weeks of runway a founder does not have.</p>
+</section>
+
+<!-- IMPOSTER -->
+<section class="tab" id="imposter">
+  <h2 class="section-h">The part that's actually in the way</h2>
+  <p class="section-lead">The feeling going into this audit was that these sites talk about business and value in a way that felt out of reach, and that it made the work feel like a stretch. Worth taking that apart directly, since it was the real blocker, not the skill.</p>
+
+  <div class="imposter">
+    <h3>The gap is a vocabulary gap, not a capability gap.</h3>
+    <p>Read back through the Hooks tab. Every line that stood out is describing something already being done, just described in the buyer's language instead of a designer's. "From stalled pilot to a launch people adopt" is not a harder skill than the enterprise work already done on those accounts. It's the same work, named differently.</p>
+    <p>These studios didn't out-design anyone. They out-described the work. And description is learnable in an afternoon, which is what this document is for.</p>
+  </div>
+
+  <h3 class="block-h">The myths, and what's actually true</h3>
+  <div class="imposter">
+    <div class="reveal">
+      <div class="myth">MYTH: "They're bigger and more capable."</div>
+      <div class="truth">925studios is essentially one person (Mohammad Yusuf, Top-Rated on Upwork). Spaceberry says outright it would "rather have ten designers than fifty." Their websites look like big teams; several are as small as Block Studio or close to it. The polish is copywriting and a good template, not headcount.</div>
+    </div>
+    <div class="reveal" style="margin-top:12px;">
+      <div class="myth">MYTH: "Business and conversion language would never come naturally."</div>
+      <div class="truth">The same week this audit was built also involved pricing, positioning, conversion, retainers, and funnel decisions for Block Studio itself. That thinking was already happening; it just hadn't been seen mirrored back in polished web copy yet. Now the vocabulary bank sits on the Hooks tab.</div>
+    </div>
+    <div class="reveal" style="margin-top:12px;">
+      <div class="myth">MYTH: "A team of one is a weakness to hide."</div>
+      <div class="truth">Ramotion sells "fewer projects, more attention." Spaceberry sells "sharpest, not biggest." Solo and senior is a positioning, not a limitation: the client works directly with the person doing the work, no juniors, no handoff telephone. Worth naming as the advantage it is.</div>
+    </div>
+    <div class="reveal" style="margin-top:12px;">
+      <div class="myth">MYTH: "The 40-page site, the awards, the subscription tiers are all needed."</div>
+      <div class="truth">No. See the Structure tab. Those are the artifacts of years of operation, not the price of entry. A one-person site with a sharp hero, three outcome-named services, two real case studies, and a booking link competes fine. More would actually read as less honest at this stage.</div>
+    </div>
+  </div>
+
+  <div class="imposter">
+    <h3>The one thing to hold onto</h3>
+    <p>Feeling like an imposter usually means comparing your own behind-the-scenes to someone else's finished website. The doubts and unfinished pages are visible from the inside; only the published surface is visible from the outside. That's not a fair comparison, and it isn't evidence about ability. The work was real. The clients were real. The skill was real. What was missing was the language, and that's now sitting in the other tabs of this document.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="shell">LANGUAGE AUDIT 001 · BLOCK STUDIO · SOURCES: LAZAREV, 925STUDIOS, RAMOTION, SPACEBERRY, WEBGAMMA, TENNIS, PHOENUX, THE GRADIENT · QUOTES ARE EXCERPTS FOR STUDY</div>
+</footer>
+
+</div>
+
+<script>
+  const tabBtns = document.querySelectorAll('#tabnav button');
+  const tabs = document.querySelectorAll('section.tab');
+  tabBtns.forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const t = btn.dataset.tab;
+      tabBtns.forEach(b=>b.classList.toggle('active',b===btn));
+      tabs.forEach(s=>s.classList.toggle('active',s.id===t));
+      window.scrollTo({top:0,behavior:'smooth'});
+    });
+  });
+
+  const slots = {buyer:null,pain:null,outcome:null,edge:null};
+  document.querySelectorAll('#builder .opts').forEach(group=>{
+    const slot = group.dataset.slot;
+    group.querySelectorAll('.opt').forEach(opt=>{
+      opt.addEventListener('click',()=>{
+        group.querySelectorAll('.opt').forEach(o=>o.classList.toggle('sel',o===opt));
+        slots[slot]=opt.dataset.val;
+        renderLine();
+      });
+    });
+  });
+  function renderLine(){
+    const out = document.getElementById('builderOut');
+    if(Object.values(slots).every(v=>v)){
+      out.innerHTML = 'For <b>'+slots.buyer+'</b> who <b>'+slots.pain+'</b>, we <b>'+slots.outcome+'</b> — by <b>'+slots.edge+'</b>.';
+    } else {
+      const chosen = Object.entries(slots).filter(([k,v])=>v);
+      if(chosen.length===0){
+        out.innerHTML = '<span class="ph">Pick an option in each row to assemble the line…</span>';
+      } else {
+        out.innerHTML = '<span class="ph">'+(4-chosen.length)+' more to go…</span>';
+      }
+    }
+  }
+</script>
+</body>
+</html>
