@@ -1,0 +1,61 @@
+.app {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.glitch-grid-canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+}
+
+.controls-panel {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  bottom: 24px;
+  width: 240px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid #d9d9d9;
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  font-size: 13px;
+  overflow-y: auto;
+  backdrop-filter: blur(6px);
+}
+
+.controls-panel h1 {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0 0 4px;
+}
+
+.controls-panel label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.controls-panel label.color-row {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.controls-panel input[type="range"] {
+  width: 100%;
+}
+
+.controls-panel input[type="color"] {
+  width: 40px;
+  height: 24px;
+  padding: 0;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  background: none;
+}
