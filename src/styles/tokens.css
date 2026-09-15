@@ -2,61 +2,60 @@
 
 /**
  * Design tokens, two layers:
- *  - Foundational: raw palette/scale values. Never referenced directly in
+ *  - Primitives: raw brand palette values. Never referenced directly in
  *    components — only used to build semantic tokens below.
  *  - Semantic: meaning-based aliases (surface, border, accent, ink, …).
  *    Components and Tailwind utility classes (bg-surface, text-ink, …)
  *    should only ever use these.
  *
- * Placeholder values below come from the initial grid-effect test
- * (#f8f8f8 / #b3b3b3 / #DA6233). Swap the foundational scales for the real
- * Block Studio brand palette — the semantic layer won't need to change.
+ * Source: Brett's personal brand palette (orange + charcoal + white).
+ * Note the brand's own scale runs dark→light (100→900); Tailwind's
+ * convention is the opposite (100/50 = lightest, 900 = darkest), so the
+ * steps below are flipped to match every other Tailwind color scale.
  */
 @theme {
-  /* ---- Foundational: neutrals ---- */
-  --color-neutral-0: #ffffff;
-  --color-neutral-50: #f8f8f8;
-  --color-neutral-100: #eeeeee;
-  --color-neutral-200: #dddddd;
-  --color-neutral-300: #b3b3b3;
-  --color-neutral-400: #949494;
-  --color-neutral-500: #757575;
-  --color-neutral-600: #575757;
-  --color-neutral-700: #3d3d3d;
-  --color-neutral-800: #262626;
-  --color-neutral-900: #141414;
+  /* ---- Primitives: charcoal ---- */
+  --color-charcoal-50: #ffffff;
+  --color-charcoal-100: #e9e9e9;
+  --color-charcoal-200: #d3d3d3;
+  --color-charcoal-300: #bdbdbd;
+  --color-charcoal-400: #a7a7a7;
+  --color-charcoal-500: #7a7a7a;
+  --color-charcoal-600: #4e4e4e;
+  --color-charcoal-700: #222222;
+  --color-charcoal-800: #1b1b1b;
+  --color-charcoal-900: #141414;
 
-  /* ---- Foundational: brand orange ---- */
-  --color-orange-50: #fdf1ea;
-  --color-orange-100: #fad9c4;
-  --color-orange-200: #f4b48c;
-  --color-orange-300: #ea8f5c;
-  --color-orange-400: #e17540;
-  --color-orange-500: #da6233;
-  --color-orange-600: #b84f27;
-  --color-orange-700: #953f1f;
-  --color-orange-800: #713019;
-  --color-orange-900: #4d2011;
+  /* ---- Primitives: brand orange ---- */
+  --color-orange-100: #faebe6;
+  --color-orange-200: #f6d8cc;
+  --color-orange-300: #f1c4b3;
+  --color-orange-400: #edb199;
+  --color-orange-500: #e38966;
+  --color-orange-600: #da6233;
+  --color-orange-700: #d13b00;
+  --color-orange-800: #a72f00;
+  --color-orange-900: #7d2300;
 
   /* ---- Semantic: surfaces ---- */
-  --color-surface: var(--color-neutral-50);
-  --color-surface-raised: var(--color-neutral-0);
-  --color-surface-sunken: var(--color-neutral-100);
+  --color-surface: var(--color-charcoal-100);
+  --color-surface-raised: var(--color-charcoal-50);
+  --color-surface-sunken: var(--color-charcoal-200);
 
   /* ---- Semantic: borders & grid ---- */
-  --color-border: var(--color-neutral-200);
-  --color-border-strong: var(--color-neutral-300);
-  --color-grid-line: var(--color-neutral-300);
+  --color-border: var(--color-charcoal-200);
+  --color-border-strong: var(--color-charcoal-300);
+  --color-grid-line: var(--color-charcoal-300);
 
   /* ---- Semantic: text ---- */
-  --color-ink: var(--color-neutral-900);
-  --color-ink-muted: var(--color-neutral-500);
-  --color-ink-inverse: var(--color-neutral-0);
+  --color-ink: var(--color-charcoal-900);
+  --color-ink-muted: var(--color-charcoal-600);
+  --color-ink-inverse: var(--color-charcoal-50);
 
   /* ---- Semantic: brand/accent ---- */
-  --color-accent: var(--color-orange-500);
-  --color-accent-strong: var(--color-orange-600);
-  --color-accent-subtle: var(--color-orange-50);
+  --color-accent: var(--color-orange-600);
+  --color-accent-strong: var(--color-orange-700);
+  --color-accent-subtle: var(--color-orange-100);
 
   /* ---- Semantic: radius ---- */
   --radius-control: var(--radius-md);

@@ -6,9 +6,9 @@ function App() {
   const [density, setDensity] = useState(0.55);
   const [motionIntensity, setMotionIntensity] = useState(0.3);
   const [speed, setSpeed] = useState(0.5);
-  const [bgColor, setBgColor] = useState("#f8f8f8");
-  const [gridColor, setGridColor] = useState("#b3b3b3");
-  const [squareColor, setSquareColor] = useState("#DA6233");
+  const [bgColor, setBgColor] = useState("#ffffff"); // charcoal-50
+  const [gridColor, setGridColor] = useState("#bdbdbd"); // charcoal-300
+  const [squareColor, setSquareColor] = useState("#da6233"); // orange-600
 
   return (
     <div className="relative h-screen w-screen overflow-hidden">
