@@ -1,0 +1,65 @@
+@import "tailwindcss";
+
+/**
+ * Design tokens, two layers:
+ *  - Foundational: raw palette/scale values. Never referenced directly in
+ *    components — only used to build semantic tokens below.
+ *  - Semantic: meaning-based aliases (surface, border, accent, ink, …).
+ *    Components and Tailwind utility classes (bg-surface, text-ink, …)
+ *    should only ever use these.
+ *
+ * Placeholder values below come from the initial grid-effect test
+ * (#f8f8f8 / #b3b3b3 / #DA6233). Swap the foundational scales for the real
+ * Block Studio brand palette — the semantic layer won't need to change.
+ */
+@theme {
+  /* ---- Foundational: neutrals ---- */
+  --color-neutral-0: #ffffff;
+  --color-neutral-50: #f8f8f8;
+  --color-neutral-100: #eeeeee;
+  --color-neutral-200: #dddddd;
+  --color-neutral-300: #b3b3b3;
+  --color-neutral-400: #949494;
+  --color-neutral-500: #757575;
+  --color-neutral-600: #575757;
+  --color-neutral-700: #3d3d3d;
+  --color-neutral-800: #262626;
+  --color-neutral-900: #141414;
+
+  /* ---- Foundational: brand orange ---- */
+  --color-orange-50: #fdf1ea;
+  --color-orange-100: #fad9c4;
+  --color-orange-200: #f4b48c;
+  --color-orange-300: #ea8f5c;
+  --color-orange-400: #e17540;
+  --color-orange-500: #da6233;
+  --color-orange-600: #b84f27;
+  --color-orange-700: #953f1f;
+  --color-orange-800: #713019;
+  --color-orange-900: #4d2011;
+
+  /* ---- Semantic: surfaces ---- */
+  --color-surface: var(--color-neutral-50);
+  --color-surface-raised: var(--color-neutral-0);
+  --color-surface-sunken: var(--color-neutral-100);
+
+  /* ---- Semantic: borders & grid ---- */
+  --color-border: var(--color-neutral-200);
+  --color-border-strong: var(--color-neutral-300);
+  --color-grid-line: var(--color-neutral-300);
+
+  /* ---- Semantic: text ---- */
+  --color-ink: var(--color-neutral-900);
+  --color-ink-muted: var(--color-neutral-500);
+  --color-ink-inverse: var(--color-neutral-0);
+
+  /* ---- Semantic: brand/accent ---- */
+  --color-accent: var(--color-orange-500);
+  --color-accent-strong: var(--color-orange-600);
+  --color-accent-subtle: var(--color-orange-50);
+
+  /* ---- Semantic: radius ---- */
+  --radius-control: var(--radius-md);
+  --radius-panel: var(--radius-xl);
+  --radius-card: var(--radius-2xl);
+}

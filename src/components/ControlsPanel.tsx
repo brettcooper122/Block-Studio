@@ -15,6 +15,57 @@ export interface ControlsPanelProps {
   }>) => void;
 }
 
+function Slider({
+  label,
+  value,
+  min,
+  max,
+  onChange,
+}: {
+  label: string;
+  value: number;
+  min: number;
+  max: number;
+  onChange: (value: number) => void;
+}) {
+  return (
+    <label className="flex flex-col gap-1.5">
+      <span className="text-ink">{label}</span>
+      <input
+        type="range"
+        min={min}
+        max={max}
+        step={0.01}
+        value={value}
+        onChange={(e) => onChange(Number(e.target.value))}
+        className="accent-accent"
+      />
+    </label>
+  );
+}
+
+function ColorField({
+  label,
+  value,
+  onChange,
+}: {
+  label: string;
+  value: string;
+  onChange: (value: string) => void;
+}) {
+  return (
+    <label className="flex items-center justify-between">
+      <span className="text-ink">{label}</span>
+      <input
+        type="color"
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        className="h-6 w-10 rounded-control border border-border-strong bg-transparent p-0"
+      />
+    </label>
+  );
+}
+
 export function ControlsPanel({
   density,
   motionIntensity,
@@ -25,59 +76,22 @@ export function ControlsPanel({
   onChange,
 }: ControlsPanelProps) {
   return (
-    <div className="controls-panel">
-      <h1>Block Studio — grid test</h1>
+    <div className="absolute top-6 right-6 bottom-6 flex w-60 flex-col gap-4 overflow-y-auto rounded-panel border border-border bg-surface/90 p-4 text-[13px] backdrop-blur-md">
+      <h1 className="text-sm font-semibold text-ink">Block Studio — grid test</h1>
 
-      <label>
-        Density
-        <input
-          type="range"
-          min={0}
-          max={1}
-          step={0.01}
-          value={density}
-          onChange={(e) => onChange({ density: Number(e.target.value) })}
-        />
-      </label>
+      <Slider label="Density" value={density} min={0} max={1} onChange={(v) => onChange({ density: v })} />
+      <Slider
+        label="Motion intensity"
+        value={motionIntensity}
+        min={0}
+        max={1}
+        onChange={(v) => onChange({ motionIntensity: v })}
+      />
+      <Slider label="Speed" value={speed} min={0} max={2} onChange={(v) => onChange({ speed: v })} />
 
-      <label>
-        Motion intensity
-        <input
-          type="range"
-          min={0}
-          max={1}
-          step={0.01}
-          value={motionIntensity}
-          onChange={(e) => onChange({ motionIntensity: Number(e.target.value) })}
-        />
-      </label>
-
-      <label>
-        Speed
-        <input
-          type="range"
-          min={0}
-          max={2}
-          step={0.01}
-          value={speed}
-          onChange={(e) => onChange({ speed: Number(e.target.value) })}
-        />
-      </label>
-
-      <label className="color-row">
-        Background
-        <input type="color" value={bgColor} onChange={(e) => onChange({ bgColor: e.target.value })} />
-      </label>
-
-      <label className="color-row">
-        Grid lines
-        <input type="color" value={gridColor} onChange={(e) => onChange({ gridColor: e.target.value })} />
-      </label>
-
-      <label className="color-row">
-        Squares
-        <input type="color" value={squareColor} onChange={(e) => onChange({ squareColor: e.target.value })} />
-      </label>
+      <ColorField label="Background" value={bgColor} onChange={(v) => onChange({ bgColor: v })} />
+      <ColorField label="Grid lines" value={gridColor} onChange={(v) => onChange({ gridColor: v })} />
+      <ColorField label="Squares" value={squareColor} onChange={(v) => onChange({ squareColor: v })} />
     </div>
   );
 }

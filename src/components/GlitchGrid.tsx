@@ -120,5 +120,5 @@ export function GlitchGrid({
     };
   }, []);
 
-  return <canvas ref={canvasRef} className="glitch-grid-canvas" />;
+  return <canvas ref={canvasRef} className="absolute inset-0 block" />;
 }

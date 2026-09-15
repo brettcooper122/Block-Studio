@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { GlitchGrid } from "./components/GlitchGrid";
 import { ControlsPanel } from "./components/ControlsPanel";
-import "./App.css";
 
 function App() {
   const [density, setDensity] = useState(0.55);
@@ -12,7 +11,7 @@ function App() {
   const [squareColor, setSquareColor] = useState("#DA6233");
 
   return (
-    <div className="app">
+    <div className="relative h-screen w-screen overflow-hidden">
       <GlitchGrid
         density={density}
         motionIntensity={motionIntensity}
