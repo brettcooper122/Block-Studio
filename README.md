@@ -8,7 +8,7 @@ Distilled from the studio's competitive positioning audit and messaging work (fu
 
 1. **Reposition from "design" to business outcome.** Stop selling design as a craft and start selling what it moves — adoption, conversion, retention, trust. Design is the method, never the pitch.
 2. **Make solo-and-senior the pitch, not the caveat.** Name it directly: fewer projects, more attention; sharpest, not biggest. A one-person studio competes on focus, not on hiding headcount.
-3. **Finalize per-service messaging.** Turn the three services below into a shipped heading, description, "who it's for," and "what's included" for each — the immediate next task (see [`docs/Block-Studio-Messaging-Services-Context.md`](./docs/Block-Studio-Messaging-Services-Context.md)).
+3. **Finalize per-service messaging.** ✅ First draft done — headline, description, "who it's for," and "what you get" for each service, see [`docs/Block-Studio-Service-Copy.md`](./docs/Block-Studio-Service-Copy.md).
 4. **Ship a focused site, not a big one.** One sharp hero, the three services by outcome, 2–3 case studies with a real number, a "who this is for / isn't" section, one call to action, an honest About. Nothing a team of one can't credibly maintain.
 5. **Lead with proof, not breadth.** Claim enterprise/B2B, AI-native products, and design systems first — the strongest evidenced ground — rather than naming every vertical at once.
 
@@ -48,14 +48,13 @@ Apply to any Block Studio-facing copy without being asked again:
 
 Three lines, designed to connect end to end — Creative Strategy answers *what* to build, Agentic End-to-End brings it to life in real code, and Rapid Pattern Generation keeps the system holding as the product outgrows its original brief.
 
+**Finalized headline, description, "what you get," and "who it's for" copy for each service:** [`docs/Block-Studio-Service-Copy.md`](./docs/Block-Studio-Service-Copy.md) (first draft, pending sign-off — this is the canonical, most current version).
+
 **01 — Agentic End-to-End UX Design & Development.** Design and build in the same hands, from first sketch to production-ready code — states, confidence displays, and agent-to-human handoff patterns included. Closes the handoff loop that breaks down once an AI agent's behaviour can no longer be captured in a static mock.
-> "Most designers hand off files and wait weeks for engineering to bring them to life. We bring designs to life ourselves, in real code, so the product you test with users is the product your team can ship."
 
 **02 — Creative Strategy** (user & market research). Scoped interviews, competitive analysis that filters out the fluff, and positioning grounded in the language the market already uses — so a founder confirms the problem is real before building the solution.
-> "Most teams design for the customer they imagine, then wonder why the real one never shows up. Creative strategy connects your product to the language the market is already using: the words your buyer types into a search bar, not the words your team writes on a roadmap."
 
 **03 — Rapid Pattern Generation & System Scaling.** New components generated to slot into an existing design system, respecting the primitive → semantic → component token hierarchy, so a system keeps its integrity as the product scales instead of forcing a full rebuild.
-> "Your design system does not need a rebuild. It needs someone who can extend it at the pace your product is actually shipping, without breaking the hierarchy it was built on."
 
 **Internal only, not a public service line:** automations (built through Claude Cowork) is a fourth capability Brett named, but it's delivery language, not a client-facing offer — never a service page, nav item, or named as "Claude Cowork"/"automations" in client-facing copy. Where relevant it can appear as an implementation detail inside Service 01 or 03.
 
@@ -71,9 +70,9 @@ Lead with one or two verticals rather than naming all of them at once.
 
 **Skip, for a team of one:** programmatic SEO service pages, subscription pricing tiers, a weekly blog cadence, awards walls, multi-office listings, heavy motion work that eats weeks to build.
 
-**Not yet decided:** final hero line (three directions drafted, ten variants total, none locked — see `docs/`), a written "who this is for / not for" section, per-service "who it's for" and "what's included" sections (the next task), whether this site structure is live yet.
+**Not yet decided:** final hero line (three directions drafted, ten variants total, none locked — see `docs/`), a written studio-level "who this is for / not for" section, whether this site structure is live yet.
 
-**Full detail:** [`docs/Block-Studio-Messaging-Services-Context.md`](./docs/Block-Studio-Messaging-Services-Context.md) (voice rules, approved copy, buyer segments — canonical reference for any agent writing Block Studio copy), [`docs/Block-Studio-Positioning-Audit-Handoff.md`](./docs/Block-Studio-Positioning-Audit-Handoff.md) (full competitor research narrative), and the interactive [`docs/Block-Studio-Positioning-Audit.html`](./docs/Block-Studio-Positioning-Audit.html).
+**Full detail:** [`docs/Block-Studio-Service-Copy.md`](./docs/Block-Studio-Service-Copy.md) (finalized per-service copy, first draft), [`docs/Block-Studio-Messaging-Services-Context.md`](./docs/Block-Studio-Messaging-Services-Context.md) (voice rules, buyer segments, rough notes the copy was drafted from — canonical reference for any agent writing Block Studio copy), [`docs/Block-Studio-Positioning-Audit-Handoff.md`](./docs/Block-Studio-Positioning-Audit-Handoff.md) (full competitor research narrative), and the interactive [`docs/Block-Studio-Positioning-Audit.html`](./docs/Block-Studio-Positioning-Audit.html).
 
 ---
 
