@@ -6,7 +6,7 @@ Lead pain point for all three: the handoff/speed gap. Each service is framed aro
 
 Headlines address the reader directly ("your roadmap," "scale your design system") rather than describing a generic third party ("most teams"), per Brett's direction. A humanizer skill pass on this file flagged a repeated "X, not Y" negative-tail construction across multiple bullets and the word "quietly"; both are cleaned up below except where noted.
 
-**Still open:** Service 02's description and "who it's for" and Service 03's description and "who it's for" haven't been revisited yet. Service 03's description in particular is due for a rewrite to fold in language Brett gave directly: the existing design system is the client's source of truth, drift has caused it to falter and scale inconsistently, and this service positions the system as a lever for scale rather than a ceiling. That language belongs in the description, not the deliverable bullets, and is queued for the next pass rather than applied yet.
+**Still open:** Service 03's "who it's for" hasn't been revisited yet (Brett chose to leave it for a later pass rather than block on it). Everything else in this file is locked.
 
 **Service 01's scope note:** "Agentic" here means Block Studio uses AI-augmented workflows to design and build faster, not that the service designs UX for products containing AI agents. The copy below reflects that.
 
@@ -32,7 +32,7 @@ Founders and product teams who need a real, working website launched fast, not a
 Validate your product and identify the right problems before investing a build cycle in the wrong solution.
 
 **Description**
-Scoped user interviews, competitive analysis, and market-language research replace guesswork with evidence before a single screen gets designed. This exists because founders fall for a solution before confirming the problem is painful enough to pay for, and the usual validation, friendly people answering leading questions, only confirms what the team already wants to hear. The result is a direction grounded in the words the market is already using, not the words on an internal roadmap.
+The velocity offered by AI-native tooling has reduced the cost of exploration for founders looking to compress time-to-launch cycles, at the critical expense of observed user behaviour as a result of shipping purely on internal assumption. We help founders of SMEs, marketing agencies, and B2B enterprises target the right problems before investing in the wrong solution.
 
 **What you get**
 - Qualitative insights from relevant users, scoped to the questions your business needs answered
@@ -41,7 +41,7 @@ Scoped user interviews, competitive analysis, and market-language research repla
 - Information architecture and end-to-end journey maps that account for every conversion flow, catching friction points before they become 5-alarm fires post-launch
 
 **Who it's for**
-Founders about to commit budget to a build who need to know the problem is real before they build for it, and small teams whose last round of "user feedback" came from people too close to say no.
+Founders investing in build cycles based on internal assumption, and organizations relying on outdated personas as the source of truth for launching new products.
 
 ## Service 03 — Rapid Pattern Generation & System Scaling
 
@@ -49,7 +49,7 @@ Founders about to commit budget to a build who need to know the problem is real 
 Scale your design system at the pace your product ships, without losing the rules it was built on.
 
 **Description**
-New components and patterns get generated to slot directly into an existing system, respecting the token hierarchy from primitive to semantic to component, so the system extends at the pace the product is shipping instead of falling behind it. This is the point where teams usually choose between a costly rebuild or letting hardcoded values quietly slip into production; neither is necessary. Governance and consistency survive the scale-up, because every new pattern inherits the same rules the system was already built on.
+Your design system has drifted as it scales, with commits outpacing the library, documentation quickly going stale, and teams left guessing instead of reusing, breeding redundancy, bloat, and disparity across your live product. We craft adaptive design systems, from Figma to codebase, built to move at the pace of the teams pulling from and contributing to them: a lever for scale instead of a ceiling that slows them down, complete with documentation built in the language of every team so nobody has to guess.
 
 **What you get**
 - A discovery audit, run through working sessions with your product and creative teams, surfacing the redundancies and inefficiencies already living in your system, so nothing gets rebuilt that's already working
