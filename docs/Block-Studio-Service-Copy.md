@@ -6,7 +6,7 @@ Lead pain point for all three: the handoff/speed gap. Each service is framed aro
 
 Headlines address the reader directly ("your roadmap," "scale your design system") rather than describing a generic third party ("most teams"), per Brett's direction. A humanizer skill pass on this file flagged a repeated "X, not Y" negative-tail construction across multiple bullets and the word "quietly"; both are cleaned up below except where noted.
 
-**Still open:** Service 03's "who it's for" hasn't been revisited yet (Brett chose to leave it for a later pass rather than block on it). Everything else in this file is locked.
+**Status:** all headlines, descriptions, "what you get," and "who it's for" sections for all three services are locked.
 
 **Service 01's scope note:** "Agentic" here means Block Studio uses AI-augmented workflows to design and build faster, not that the service designs UX for products containing AI agents. The copy below reflects that.
 
@@ -58,7 +58,7 @@ Your design system has drifted as it scales, with commits outpacing the library,
 - Spec documentation for each new pattern, hosted in Storybook so your internal engineering team can pick it up directly
 
 **Who it's for**
-Teams with a design system already in production that has outgrown its original scope, adding new patterns weekly, and stuck choosing between a full rebuild and letting inconsistency slide.
+Teams whose design system has drifted as it scaled, adding new patterns weekly and stuck choosing between a costly rebuild and letting redundancy and disparity slide.
 
 ## Research note
 
