@@ -2,6 +2,8 @@
 
 A creative consulting studio based in Toronto, Canada — a team of one, positioned like a senior studio, not a hobbyist.
 
+**Picking this up in a new session?** Read [`docs/Block-Studio-Session-Context.md`](./docs/Block-Studio-Session-Context.md) first — it has the current status, what's locked, and what's next.
+
 ## Goals & objectives
 
 Distilled from the studio's competitive positioning audit and messaging work (full docs in [`docs/`](./docs)):
