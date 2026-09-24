@@ -271,21 +271,20 @@
 
   /* ---------- Pull statement ---------- */
   .wedge {
-    margin: var(--s-md) 0;
-    padding: var(--s-sm) var(--s-md);
-    background: var(--accent-subtle);
-    border-left: 3px solid var(--accent);
-    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    margin: var(--s-lg) 0;
+    padding-top: var(--s-sm);
+    border-top: 2px solid var(--accent);
   }
 
   .wedge p {
     font-family: var(--display);
-    font-weight: 600;
-    font-size: clamp(19px, 2.4vw, 24px);
-    line-height: 1.3;
-    letter-spacing: -0.015em;
-    color: var(--accent-ink);
-    max-width: 30ch;
+    font-weight: 700;
+    font-size: clamp(23px, 3.4vw, 33px);
+    line-height: 1.16;
+    letter-spacing: -0.028em;
+    color: var(--accent-strong);
+    max-width: 24ch;
+    text-wrap: balance;
   }
 
   /* ---------- Field table ---------- */
@@ -355,25 +354,25 @@
   /* ---------- Quotes ---------- */
   .quote-stack {
     display: grid;
-    gap: var(--s-xs);
+    gap: 0;
     margin-top: var(--s-sm);
+    border-top: 1px solid var(--border-strong);
   }
 
   figure {
     margin: 0;
-    padding: var(--s-sm) var(--s-md);
-    background: var(--surface-raised);
-    border: 1px solid var(--border);
-    border-left: 3px solid var(--quote-rule);
-    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    padding: var(--s-sm) 0;
+    border-bottom: 1px solid var(--border);
+    display: grid;
+    gap: var(--s-2xs);
   }
 
   blockquote {
-    margin: 0 0 var(--s-2xs);
-    font-size: 18px;
+    margin: 0;
+    font-size: 19px;
     line-height: 1.5;
-    font-style: italic;
-    max-width: 60ch;
+    max-width: 58ch;
+    text-indent: -0.42em;
   }
 
   figcaption {
