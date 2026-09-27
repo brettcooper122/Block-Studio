@@ -6,9 +6,21 @@ Lead pain point across the set: the handoff/speed gap. Each service is framed ar
 
 Headlines address the reader directly ("your roadmap," "scale your design system") rather than describing a generic third party ("most teams"), per Brett's direction. A humanizer skill pass on this file flagged a repeated "X, not Y" negative-tail construction across multiple bullets and the word "quietly"; both are cleaned up below except where noted.
 
-**Status:** Services 01-03 are fully locked. Service 04 is a first draft from 2026-09-24, pending a smoothing pass.
+**Status:** the brand positioning statement and Services 01-03 are locked. Service 04 is a first draft from 2026-09-24, pending a smoothing pass. Still to write: the About section and the studio-level "who this is for / who it isn't."
 
 **Service 01's scope note:** "Agentic" here means Block Studio uses AI-augmented workflows to design and build faster, not that the service designs UX for products containing AI agents. The copy below reflects that.
+
+## Brand positioning statement
+
+*Locked 2026-09-27. The lead statement for the homepage, written to sit above the services.*
+
+> Block Studio is a Toronto-based AI-native creative consulting studio that takes brands from inference to evidence, pairing velocity with analytics so startup founders and agency players solve the right problems before investing in the wrong solutions.
+
+**Brand pillars:** velocity, partnership, information over assumption.
+
+**Audience:** startup founders and agency players who want to identify the right problems before designing the wrong solution.
+
+**Positioning intent:** an active partner beside brands rather than a vendor at arm's length. Structure follows the pattern the audited studios use in their own lead statements: say who you are and where you operate, then who you help and how, without self-praise adjectives.
 
 ## Service 01 — Agentic End-to-End UX Design & Development
 

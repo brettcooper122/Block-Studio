@@ -19,7 +19,8 @@ A creative consulting studio based in Toronto, Canada — Brett's solo practice,
 | `README.md` (repo root) | Studio-level overview: goals/objectives, positioning, voice rules, buyer segments, services (one-liners), lead industries, site direction |
 | `docs/Block-Studio-Positioning-Audit-Handoff.md` + `docs/Block-Studio-Positioning-Audit.html` | The original competitor research: 9 studios + 2 solo practitioners, core finding ("design is the method, never the pitch"), positioning formula, keyword bank, hero line drafts (unfinalized), the "reframing the imposter feeling" section |
 | `docs/Block-Studio-Messaging-Services-Context.md` | Voice rules (canonical), buyer segments, rough per-service pain notes — the source material the finalized Service Copy doc was drafted from. Some of it is now superseded (see below) |
-| `docs/Block-Studio-Service-Copy.md` | **The finalized, locked first-draft copy** for all three services: headline, description, "what you get," "who it's for." This is the most current and authoritative service copy — if it conflicts with the Messaging Context doc, trust this one |
+| `docs/Block-Studio-Service-Copy.md` | **The finalized, locked first-draft copy**: the brand positioning statement plus all four services (headline, description, "what you get," "who it's for"). This is the most current and authoritative copy — if it conflicts with the Messaging Context doc, trust this one |
+| `docs/Block-Studio-Dossier.html` | Shareable dossier covering the research, the eleven practices analyzed, the lead statement, and all four services' copy. Published at **https://claude.ai/artifact/7YzSksuYCmt3Hi2roz53Ln** (private by default; share from the page's Share menu). Republish by passing that URL as `url`, or by republishing this file path from the session that owns it |
 | `PRD.md` | Spec for the interactive grid hero effect (technical, unrelated to messaging) |
 | `src/styles/tokens.css` | Tailwind v4 design tokens: primitive palette (charcoal/orange) + semantic aliases, non-negotiable spacing scale (4/8/16/24/32/40/48/56/64px) |
 
@@ -31,22 +32,30 @@ A creative consulting studio based in Toronto, Canada — Brett's solo practice,
 
 ## Status: what's locked
 
-All three services in `docs/Block-Studio-Service-Copy.md` are **fully locked** — headline, description, "what you get," and "who it's for" for each of:
+**Brand positioning statement**, locked 2026-09-27, the homepage lead statement:
+
+> Block Studio is a Toronto-based AI-native creative consulting studio that takes brands from inference to evidence, pairing velocity with analytics so startup founders and agency players solve the right problems before investing in the wrong solutions.
+
+Brand pillars behind it: velocity, partnership, information over assumption. Positioning intent: an active partner beside the brand rather than a vendor at arm's length. Audience: startup founders and agency players.
+
+**Services 01-03** in `docs/Block-Studio-Service-Copy.md` are fully locked — headline, description, "what you get," and "who it's for" for each of:
 1. Agentic End-to-End UX Design & Development
 2. Creative Strategy (user & market research)
 3. Rapid Pattern Generation & System Scaling
 
-This was done live, service by service, as an interview/riff process (draft → show current copy → Brett redirects or tightens → lock → move on), not a one-shot draft. If continuing in this style, keep that pattern rather than rewriting everything at once.
+**Service 04 — Self-Serve System Enablement & Brand Continuity** is drafted but not smoothed. All four sections exist; it has not been through the riff-and-tighten cycle or humanizer pass the others got. Sold standalone, to any client with an existing system regardless of who built it.
+
+This was all done live, piece by piece, as an interview/riff process (draft → show current copy → Brett redirects or tightens → lock → move on), not a one-shot draft. If continuing in this style, keep that pattern rather than rewriting everything at once.
 
 ## Roadmap — what we're trying to achieve, and what's next
 
 **The sequence Brett wants:** finish all site copy first, compile it into one complete docx as the finalized first draft, and only then move into visual design. Design work should not start before the copy is done.
 
-**Still open, in likely order:**
-1. **Hero landing statement** — the lead statement on the homepage, called out as the most important copy on the site. Not yet drafted as a locked piece. Three rough directions exist in `Block-Studio-Messaging-Services-Context.md` ("We turn ideas into working products...", "Most designers hand off a Figma file...", "One senior team that ships...") out of ten variants originally drafted, none chosen. Given how service copy evolved through this session (action-first openers, direct second-person address, AI-native-tooling-cost framing), the hero will likely need the same live-interview treatment rather than just picking one of the three old drafts as-is.
+**Still open, in agreed order:**
+1. **Service 04 smoothing pass** — humanizer pass over all four sections, tightened to match the rhythm of Services 01-03.
 2. **About section** — confirmed needed (it's part of the originally recommended minimal site structure: hero, 3-4 services, 2-3 case studies, who-this-is-for, one CTA, About). Scope: short, 2-3 sentences, not a full bio page. Not yet started.
-3. **Studio-level "who this is for / not for" section** — mentioned throughout the research as recommended, separate from the per-service "who it's for" already locked. Not yet drafted.
-4. **Full docx compile** — once the above are done, compile everything (positioning, services, hero, About, who-this-is-for) into one finalized docx as the complete first draft, per Brett's explicit request. This is the deliverable that gates the start of visual design.
+3. **Studio-level "who this is for / not for" section** — mentioned throughout the research as recommended, separate from the per-service "who it's for" already locked. Must now cover two buyers: founders for Services 01-03, and design or marketing leads for Service 04. Not yet drafted.
+4. **Full docx compile** — once the above are done, compile everything (positioning statement, services, About, who-this-is-for) into one finalized docx as the complete first draft, per Brett's explicit request. This is the deliverable that gates the start of visual design.
 
 **Already exists but is separate from the messaging work above:** an interactive dither/glitch grid effect prototype for the homepage hero (canvas-based, domain-warped noise field, see `PRD.md`), and a full Tailwind design token system (primitives + semantic, `src/styles/tokens.css`). These are real, working, and pushed — but they're a visual/technical prototype done early in the project, before the "finish copy first" sequencing was established. Don't treat their existence as permission to jump back into visual work before the copy above is finished.
 
