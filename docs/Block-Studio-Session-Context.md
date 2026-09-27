@@ -34,9 +34,11 @@ A creative consulting studio based in Toronto, Canada — Brett's solo practice,
 
 **Brand positioning statement**, locked 2026-09-27, the homepage lead statement:
 
-> Block Studio is a Toronto-based AI-native creative consulting studio that takes brands from inference to evidence, pairing velocity with analytics so startup founders and agency players solve the right problems before investing in the wrong solutions.
+> We're a Toronto-based AI-native creative consulting studio, enabling B2B/B2C startup founders and growth-stage agencies to identify the right problems before investing build cycles in the wrong solutions, pairing velocity with analytics to move at market speed.
 
-Brand pillars behind it: velocity, partnership, information over assumption. Positioning intent: an active partner beside the brand rather than a vendor at arm's length. Audience: startup founders and agency players.
+Brand pillars behind it: velocity, partnership, information over assumption. Positioning intent: an active partner beside the brand rather than a vendor at arm's length. Audience: B2B/B2C startup founders and growth-stage agencies.
+
+Note the statement opens with "We're" and never says the studio name, so the logo and nav have to carry it. It also does not stand alone if lifted into a deck or pitch email without that context.
 
 **Services 01-03** in `docs/Block-Studio-Service-Copy.md` are fully locked — headline, description, "what you get," and "who it's for" for each of:
 1. Agentic End-to-End UX Design & Development

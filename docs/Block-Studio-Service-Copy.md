@@ -14,11 +14,11 @@ Headlines address the reader directly ("your roadmap," "scale your design system
 
 *Locked 2026-09-27. The lead statement for the homepage, written to sit above the services.*
 
-> Block Studio is a Toronto-based AI-native creative consulting studio that takes brands from inference to evidence, pairing velocity with analytics so startup founders and agency players solve the right problems before investing in the wrong solutions.
+> We're a Toronto-based AI-native creative consulting studio, enabling B2B/B2C startup founders and growth-stage agencies to identify the right problems before investing build cycles in the wrong solutions, pairing velocity with analytics to move at market speed.
 
 **Brand pillars:** velocity, partnership, information over assumption.
 
-**Audience:** startup founders and agency players who want to identify the right problems before designing the wrong solution.
+**Audience:** B2B/B2C startup founders and growth-stage agencies who want to identify the right problems before designing the wrong solution.
 
 **Positioning intent:** an active partner beside brands rather than a vendor at arm's length. Structure follows the pattern the audited studios use in their own lead statements: say who you are and where you operate, then who you help and how, without self-praise adjectives.
 
