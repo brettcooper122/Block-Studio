@@ -45,7 +45,7 @@ Note the statement opens with "We're" and never says the studio name, so the log
 2. Creative Strategy (user & market research)
 3. Rapid Pattern Generation & System Scaling
 
-**Service 04 — Self-Serve System Enablement & Brand Continuity** is drafted but not smoothed. All four sections exist; it has not been through the riff-and-tighten cycle or humanizer pass the others got. Sold standalone, to any client with an existing system regardless of who built it.
+**Service 04 — Self-Serve System Enablement & Brand Continuity** is locked as of 2026-09-27, smoothed through the same humanizer and riff cycle as the others. Sold standalone, to any client with an existing system regardless of who built it.
 
 This was all done live, piece by piece, as an interview/riff process (draft → show current copy → Brett redirects or tightens → lock → move on), not a one-shot draft. If continuing in this style, keep that pattern rather than rewriting everything at once.
 
@@ -54,10 +54,9 @@ This was all done live, piece by piece, as an interview/riff process (draft → 
 **The sequence Brett wants:** finish all site copy first, compile it into one complete docx as the finalized first draft, and only then move into visual design. Design work should not start before the copy is done.
 
 **Still open, in agreed order:**
-1. **Service 04 smoothing pass** — humanizer pass over all four sections, tightened to match the rhythm of Services 01-03.
-2. **About section** — confirmed needed (it's part of the originally recommended minimal site structure: hero, 3-4 services, 2-3 case studies, who-this-is-for, one CTA, About). Scope: short, 2-3 sentences, not a full bio page. Not yet started.
-3. **Studio-level "who this is for / not for" section** — mentioned throughout the research as recommended, separate from the per-service "who it's for" already locked. Must now cover two buyers: founders for Services 01-03, and design or marketing leads for Service 04. Not yet drafted.
-4. **Full docx compile** — once the above are done, compile everything (positioning statement, services, About, who-this-is-for) into one finalized docx as the complete first draft, per Brett's explicit request. This is the deliverable that gates the start of visual design.
+1. **About section** — confirmed needed (it's part of the originally recommended minimal site structure: hero, 3-4 services, 2-3 case studies, who-this-is-for, one CTA, About). Scope: short, 2-3 sentences, not a full bio page. Not yet started.
+2. **Studio-level "who this is for / not for" section** — mentioned throughout the research as recommended, separate from the per-service "who it's for" already locked. Must now cover two buyers: founders for Services 01-03, and design or marketing leads for Service 04. Not yet drafted.
+3. **Full docx compile** — once the above are done, compile everything (positioning statement, services, About, who-this-is-for) into one finalized docx as the complete first draft, per Brett's explicit request. This is the deliverable that gates the start of visual design.
 
 **Already exists but is separate from the messaging work above:** an interactive dither/glitch grid effect prototype for the homepage hero (canvas-based, domain-warped noise field, see `PRD.md`), and a full Tailwind design token system (primitives + semantic, `src/styles/tokens.css`). These are real, working, and pushed — but they're a visual/technical prototype done early in the project, before the "finish copy first" sequencing was established. Don't treat their existence as permission to jump back into visual work before the copy above is finished.
 

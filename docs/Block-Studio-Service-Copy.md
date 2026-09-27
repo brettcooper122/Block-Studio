@@ -6,7 +6,7 @@ Lead pain point across the set: the handoff/speed gap. Each service is framed ar
 
 Headlines address the reader directly ("your roadmap," "scale your design system") rather than describing a generic third party ("most teams"), per Brett's direction. A humanizer skill pass on this file flagged a repeated "X, not Y" negative-tail construction across multiple bullets and the word "quietly"; both are cleaned up below except where noted.
 
-**Status:** the brand positioning statement and Services 01-03 are locked. Service 04 is a first draft from 2026-09-24, pending a smoothing pass. Still to write: the About section and the studio-level "who this is for / who it isn't."
+**Status:** the brand positioning statement and all four services are locked. Still to write: the About section and the studio-level "who this is for / who it isn't."
 
 **Service 01's scope note:** "Agentic" here means Block Studio uses AI-augmented workflows to design and build faster, not that the service designs UX for products containing AI agents. The copy below reflects that.
 
@@ -74,18 +74,18 @@ Teams whose design system has drifted as it scaled, adding new patterns weekly a
 
 ## Service 04 — Self-Serve System Enablement & Brand Continuity
 
-*First draft, 2026-09-24. Sold standalone, not gated behind another service: a client with an existing system built by anyone can buy this. Distinct from Service 03, which is Block Studio doing ongoing pattern work for the client; this equips the client's own team to do it themselves.*
+*Locked 2026-09-27. Sold standalone, not gated behind another service: a client with an existing system built by anyone can buy this. Distinct from Service 03, which is Block Studio doing ongoing pattern work for the client; this equips the client's own team to do it themselves.*
 
 **Headline**
-Your next section gets built without us. It should still look like we built it.
+Continue building on-brand across every new surface, long after we've left the room.
 
 **Description**
-Brand guidelines written as prose cannot tell an LLM which token is correct, so your team's AI hand-rolls something close enough to pass, and that near-miss becomes the precedent the next section copies. We hand over a machine-readable version of your system, hosted in your repo, with the lint gates and prompt templates your team needs to extend it correctly without us in the room.
+Markdown files and brand PDFs are insufficient, failing to speak the language your agent reads to enforce consistent creative output over time, leaving you susceptible to drift that grows exponentially with every deployment. We hand over a machine-readable version of your system, with the failsafe guardrails and prompt templates your team needs to extend it correctly without us in the room.
 
 **What you get**
 - A GitHub repo carrying your system as machine-readable contracts, so an LLM reads real token values instead of guessing at them
-- Lint gates that reject off-brand output before it reaches your live product, catching hardcoded values and invented tokens automatically
-- Standardized prompt templates for the sections your team actually builds, so the result holds regardless of who writes the prompt
+- Lint agents that reject off-brand output in QA before it reaches your live product, so outputs stay 1:1 with your visual language as your system scales across surfaces
+- Standardized prompt templates that speak the language of your existing system, enabling consistent outputs that hold brand parity across channels, patterns, and use cases, regardless of who's behind the wheel
 - An end-to-end operating guide covering creation, implementation, deployment, and documentation, written in plain language for whoever picks it up
 
 **Who it's for**
