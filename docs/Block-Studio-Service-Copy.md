@@ -6,7 +6,7 @@ Lead pain point across the set: the handoff/speed gap. Each service is framed ar
 
 Headlines address the reader directly ("your roadmap," "scale your design system") rather than describing a generic third party ("most teams"), per Brett's direction. A humanizer skill pass on this file flagged a repeated "X, not Y" negative-tail construction across multiple bullets and the word "quietly"; both are cleaned up below except where noted.
 
-**Status:** the brand positioning statement and all four services are locked. Still to write: the About section and the studio-level "who this is for / who it isn't."
+**Status:** all site copy is locked as of 2026-09-27 — the brand positioning statement, the About section, and all four services. The studio-level "who this is for / who it isn't" section was dropped deliberately, since the per-service audience lines and the positioning statement already cover it. Next step is the full docx compile, which gates the start of visual design.
 
 **Service 01's scope note:** "Agentic" here means Block Studio uses AI-augmented workflows to design and build faster, not that the service designs UX for products containing AI agents. The copy below reflects that.
 
@@ -21,6 +21,18 @@ Headlines address the reader directly ("your roadmap," "scale your design system
 **Audience:** B2B/B2C startup founders and growth-stage agencies who want to identify the right problems before designing the wrong solution.
 
 **Positioning intent:** an active partner beside brands rather than a vendor at arm's length. Structure follows the pattern the audited studios use in their own lead statements: say who you are and where you operate, then who you help and how, without self-praise adjectives.
+
+## About
+
+*Locked 2026-09-27. A deeper extension of the positioning statement, naming the fallacy and the end-to-end process that debunks it.*
+
+> Consumers have become conditioned to expect products faster than they can be understood, placing immense pressure on brands to sacrifice insight in favour of compressed speed-to-market cycles. We teach B2B/B2C founders and growth-stage agencies to expect both observed behaviour and velocity as benchmarks, not a tradeoff. Every engagement opens with discovery research that provides a rigorous read on your brand and who it speaks to, so roadmaps are rooted in the right problems. As active participants, we work alongside your product, design, and engineering teams to ship production-ready design and code, complete with the documentation and guardrails that enable your system to continue scaling across surfaces long after we leave the room.
+
+**Structure:** market condition, then the fallacy debunked, then the process. The first two sentences describe the market in third person, the last two address the prospect directly. That shift is deliberate, and matches how the audited studios open their own About sections.
+
+**Known deviation:** "benchmarks, not a tradeoff" is the X-not-Y contrastive the voice rules otherwise ban. Kept intentionally after two revisions.
+
+**Research grounding:** none of the eleven audited practices open their About with a market-condition abstraction, so this one opens on observed behaviour (consumers conditioned to expect speed) rather than an industry trend. Belief-first structure follows The Gradient and Spaceberry, both of which assert something contestable and let the studio be the answer.
 
 ## Service 01 — Agentic End-to-End UX Design & Development
 

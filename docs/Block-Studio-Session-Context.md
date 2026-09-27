@@ -40,6 +40,12 @@ Brand pillars behind it: velocity, partnership, information over assumption. Pos
 
 Note the statement opens with "We're" and never says the studio name, so the logo and nav have to carry it. It also does not stand alone if lifted into a deck or pitch email without that context.
 
+**About section**, locked 2026-09-27:
+
+> Consumers have become conditioned to expect products faster than they can be understood, placing immense pressure on brands to sacrifice insight in favour of compressed speed-to-market cycles. We teach B2B/B2C founders and growth-stage agencies to expect both observed behaviour and velocity as benchmarks, not a tradeoff. Every engagement opens with discovery research that provides a rigorous read on your brand and who it speaks to, so roadmaps are rooted in the right problems. As active participants, we work alongside your product, design, and engineering teams to ship production-ready design and code, complete with the documentation and guardrails that enable your system to continue scaling across surfaces long after we leave the room.
+
+Two things about it are deliberate, not oversights. The person shifts from third to second halfway through, because the first half describes the market and the second half addresses the prospect. And "benchmarks, not a tradeoff" is the X-not-Y construction the voice rules otherwise ban, kept after two revisions.
+
 **Services 01-03** in `docs/Block-Studio-Service-Copy.md` are fully locked — headline, description, "what you get," and "who it's for" for each of:
 1. Agentic End-to-End UX Design & Development
 2. Creative Strategy (user & market research)
@@ -53,10 +59,11 @@ This was all done live, piece by piece, as an interview/riff process (draft → 
 
 **The sequence Brett wants:** finish all site copy first, compile it into one complete docx as the finalized first draft, and only then move into visual design. Design work should not start before the copy is done.
 
-**Still open, in agreed order:**
-1. **About section** — confirmed needed (it's part of the originally recommended minimal site structure: hero, 3-4 services, 2-3 case studies, who-this-is-for, one CTA, About). Scope: short, 2-3 sentences, not a full bio page. Not yet started.
-2. **Studio-level "who this is for / not for" section** — mentioned throughout the research as recommended, separate from the per-service "who it's for" already locked. Must now cover two buyers: founders for Services 01-03, and design or marketing leads for Service 04. Not yet drafted.
-3. **Full docx compile** — once the above are done, compile everything (positioning statement, services, About, who-this-is-for) into one finalized docx as the complete first draft, per Brett's explicit request. This is the deliverable that gates the start of visual design.
+**All site copy is locked as of 2026-09-27.** One item remains:
+
+1. **Full docx compile** — compile the positioning statement, the About section, and all four services into one finalized docx as the complete first draft, per Brett's explicit request. This is the deliverable that gates the start of visual design.
+
+**Dropped deliberately:** the studio-level "who this is for / who it isn't" section. Brett's call, on the grounds that the per-service audience lines and the positioning statement already cover it.
 
 **Already exists but is separate from the messaging work above:** an interactive dither/glitch grid effect prototype for the homepage hero (canvas-based, domain-warped noise field, see `PRD.md`), and a full Tailwind design token system (primitives + semantic, `src/styles/tokens.css`). These are real, working, and pushed — but they're a visual/technical prototype done early in the project, before the "finish copy first" sequencing was established. Don't treat their existence as permission to jump back into visual work before the copy above is finished.
 
