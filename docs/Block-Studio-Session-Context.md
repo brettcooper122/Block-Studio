@@ -7,6 +7,7 @@ Read this first in any new session picking up Block Studio work. It orients you 
 - **Location:** `/Users/brettcooper/Desktop/Block Studio`
 - **GitHub:** `brettcooper122/Block-Studio` (private)
 - **Gotcha:** Brett has multiple GitHub CLI accounts logged in (`brettcooper122` and `BcooperOT`). If a push fails with "Repository not found," the active `gh` account has switched — run `gh auth switch --user brettcooper122` before retrying.
+- **Branch and PR, always.** As of 2026-09-27, all work goes on a branch and opens a pull request. Do not commit directly to `main`. Leave the PR open for Brett to review and merge rather than self-merging. Everything before that date was committed straight to `main`, which is why the history shows no PRs.
 
 ## What Block Studio is
 
