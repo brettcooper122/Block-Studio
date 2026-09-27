@@ -26,11 +26,13 @@ Headlines address the reader directly ("your roadmap," "scale your design system
 
 *Locked 2026-09-27. A deeper extension of the positioning statement, naming the fallacy and the end-to-end process that debunks it.*
 
-> Consumers have become conditioned to expect products faster than they can be understood, placing immense pressure on brands to sacrifice insight in favour of compressed speed-to-market cycles. We teach B2B/B2C founders and growth-stage agencies to expect both observed behaviour and velocity as benchmarks, not a tradeoff. Every engagement opens with discovery research that provides a rigorous read on your brand and who it speaks to, so roadmaps are rooted in the right problems. As active participants, we work alongside your product, design, and engineering teams to ship production-ready design and code, complete with the documentation and guardrails that enable your system to continue scaling across surfaces long after we leave the room.
+> Consumers have become conditioned to expect products faster than they can be understood, placing immense pressure on brands to sacrifice insight in favour of compressed speed-to-market cycles. We teach B2B/B2C founders and growth-stage agencies to expect both observed behaviour and velocity as benchmarks, not a tradeoff. Every engagement opens with discovery research that provides a rigorous read on your brand and who it speaks to, so roadmap strategy is rooted in real gaps rather than assumption. As active participants, we work alongside your product, design, and engineering teams to rapidly ship production-ready design and code, complete with agent-ready documentation and guardrails that enable your system to continue scaling across surfaces long after we leave the room.
 
 **Structure:** market condition, then the fallacy debunked, then the process. The first two sentences describe the market in third person, the last two address the prospect directly. That shift is deliberate, and matches how the audited studios open their own About sections.
 
-**Known deviation:** "benchmarks, not a tradeoff" is the X-not-Y contrastive the voice rules otherwise ban. Kept intentionally after two revisions.
+**Known deviations:** two X-not-Y contrastives sit in this paragraph, which the voice rules otherwise ban — "benchmarks, not a tradeoff" and "real gaps rather than assumption." Both kept intentionally across several revisions.
+
+**"Agent-ready documentation"** deliberately echoes Service 04's machine-readable framing, so the About foreshadows the enablement offer.
 
 **Research grounding:** none of the eleven audited practices open their About with a market-condition abstraction, so this one opens on observed behaviour (consumers conditioned to expect speed) rather than an industry trend. Belief-first structure follows The Gradient and Spaceberry, both of which assert something contestable and let the studio be the answer.
 
