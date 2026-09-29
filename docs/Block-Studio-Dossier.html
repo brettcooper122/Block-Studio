@@ -326,6 +326,22 @@
     white-space: nowrap;
   }
 
+  td.studio a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent);
+    padding-bottom: 1px;
+  }
+
+  td.studio a:hover,
+  td.studio a:focus-visible { color: var(--accent); }
+
+  td.studio span.unlinked {
+    color: var(--ink);
+    border-bottom: 1px dotted var(--border-strong);
+    padding-bottom: 1px;
+  }
+
   td.locale {
     font-family: var(--mono);
     font-size: 11px;
@@ -652,7 +668,7 @@
   <section id="field">
     <p class="eyebrow">02 / The field we read</p>
     <h2>Who was analyzed, and what each one owns</h2>
-    <p class="lede">Eleven practices, read from live service and process pages rather than secondhand summaries. The final column records whether they offer anything resembling client enablement, which is the territory Service 04 enters.</p>
+    <p class="lede">Eleven practices, read from live service and process pages rather than secondhand summaries. Each name links to the site it was read from. The final column records whether they offer anything resembling client enablement, which is the territory Service 04 enters.</p>
 
     <div class="table-wrap">
       <table>
@@ -666,67 +682,67 @@
         </thead>
         <tbody>
           <tr>
-            <td class="studio">Lazarev</td>
+            <td class="studio"><a href="https://www.lazarev.agency">Lazarev</a></td>
             <td class="locale">—</td>
             <td>Design that moves revenue and adoption for complex AI and data products.</td>
             <td><span class="flag no">None</span></td>
           </tr>
           <tr>
-            <td class="studio">Ramotion</td>
+            <td class="studio"><a href="https://www.ramotion.com">Ramotion</a></td>
             <td class="locale">—</td>
             <td>Fewer projects on purpose, depth over volume. Governance frameworks and "guidance on avoiding system entropy."</td>
             <td><span class="flag yes">Direct</span></td>
           </tr>
           <tr>
-            <td class="studio">Phoenux</td>
+            <td class="studio"><a href="https://phoenux.design">Phoenux</a></td>
             <td class="locale">—</td>
             <td>Named AI-native service lines plus a published list of work they refuse. "AI is wrong ten percent of the time. Design for that."</td>
             <td><span class="flag part">Adjacent</span></td>
           </tr>
           <tr>
-            <td class="studio">Spaceberry</td>
+            <td class="studio"><a href="https://spaceberry.studio">Spaceberry</a></td>
             <td class="locale">—</td>
             <td>"We're not building the biggest studio. We're building the sharpest one."</td>
             <td><span class="flag no">None</span></td>
           </tr>
           <tr>
-            <td class="studio">925studios</td>
+            <td class="studio"><a href="https://925studios.co">925studios</a></td>
             <td class="locale">—</td>
             <td>Investor-grade product design at startup speed. Modular systems teams can build on.</td>
             <td><span class="flag no">None</span></td>
           </tr>
           <tr>
-            <td class="studio">The Gradient</td>
+            <td class="studio"><a href="https://thegradient.com">The Gradient</a></td>
             <td class="locale">—</td>
             <td>"You can't design AI in static mocks, you have to build it to design it."</td>
             <td><span class="flag no">None</span></td>
           </tr>
           <tr>
-            <td class="studio">Webgamma</td>
+            <td class="studio"><a href="https://webgamma.ca">Webgamma</a></td>
             <td class="locale">Montreal</td>
             <td>Every screen treated as a conversion step in a funnel. Ongoing management after launch.</td>
             <td><span class="flag part">Adjacent</span></td>
           </tr>
           <tr>
-            <td class="studio">Tennis</td>
+            <td class="studio"><a href="https://designtennis.com">Tennis</a></td>
             <td class="locale">Toronto</td>
             <td>Systems thinking, so "updating and customizing your website is fast and effortless."</td>
             <td><span class="flag no">None</span></td>
           </tr>
           <tr>
-            <td class="studio">Creme Digital</td>
+            <td class="studio"><a href="https://creme.digital">Creme Digital</a></td>
             <td class="locale">Toronto</td>
             <td>Punchier one-line hero style, benchmarked against for density rather than substance.</td>
             <td><span class="flag no">None</span></td>
           </tr>
           <tr>
-            <td class="studio">Nitin Gupta</td>
+            <td class="studio"><span class="unlinked">Nitin Gupta</span></td>
             <td class="locale">Toronto, solo</td>
             <td>AI-native and regulated-industry UX, as a single practitioner.</td>
             <td><span class="flag no">None</span></td>
           </tr>
           <tr>
-            <td class="studio">Jacki Torres</td>
+            <td class="studio"><span class="unlinked">Jacki Torres</span></td>
             <td class="locale">Solo</td>
             <td>AI product design for healthcare and fintech, as a single practitioner.</td>
             <td><span class="flag no">None</span></td>
@@ -734,6 +750,8 @@
         </tbody>
       </table>
     </div>
+
+    <p class="source-note">The two solo practitioners are unlinked. Their sites were read during the research but the URLs were not captured, and guessing at a person's portfolio address risks pointing somewhere wrong.</p>
 
     <h3>The hooks that recur across all of them</h3>
     <p>Three types, used consistently. Name the buyer's pain rather than your service ("From stalled pilot to a launch people adopt"). State a belief ("A designer who sits in Figma all day won't cut it"). Reframe the cost of not hiring you ("reduce the risk that your next AI release is another unused toggle in a settings menu").</p>
