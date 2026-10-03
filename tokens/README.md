@@ -89,3 +89,9 @@ Timing for the hero lives in `components.css` under the `--motion-*` tokens and 
 - The pinned wordmark acts as a header band (`--derived-band-height`), so the section starts below it and rows scroll beneath it.
 - The rows are capped at 1152px (`--derived-services-width`) and centred. The summary column sits flush to the right edge of the row. The hover disc (`--services-disc-size`, about 262px, taller than the row and overhanging the rows above and below) and sits just left of the summary, behind the row's text.
 - Tablet and below: one column, no disc, no hover dimming.
+
+## Service glyphs
+
+Each service gets a glyph from the block system: rounded-square cells on a 6x6 grid that fuse into one piece, with outer corners rounded by a quarter of a cell and inner corners kept sharp. `scripts/build-glyphs.py` holds each glyph as a text grid and writes the SVGs to `src/assets/glyphs/`. A service's glyph replaces the asterisk in its hover disc and blurred backdrop. Services without one still show the asterisk.
+
+- 01 UX Design & Development, "the last piece" (completion): a block with one gap and a loose cell above it. On hover the cell drops into the slot (`--services-glyph-drop`, `--motion-glyph-drop-*`). Fill is Brand-charcoal400.

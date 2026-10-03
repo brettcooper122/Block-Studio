@@ -1,12 +1,17 @@
+import lastPieceGlyph from "../assets/glyphs/glyph-01-last-piece.svg?raw";
+
 /**
  * The four services, from docs/Block-Studio-Service-Copy.md.
  * `summary` is the short homepage version. The full description lives on each service page.
+ * `glyph` is the service's block glyph, shown in its hover disc and blurred backdrop. Services
+ * without one yet fall back to the studio asterisk.
  */
 export type Service = {
   number: string;
   title: string;
   summary: string;
   href: string;
+  glyph?: string;
 };
 
 export const services: Service[] = [
@@ -16,6 +21,7 @@ export const services: Service[] = [
     summary:
       "We design and ship your product in the same hands, from first sketch to production-ready code, so nothing waits on an engineering handoff.",
     href: "#/services/ux-design-and-development",
+    glyph: lastPieceGlyph,
   },
   {
     number: "(02)",

@@ -54,6 +54,8 @@
   --motion-services-duration: 700ms;
   --motion-services-stagger: 80ms;
   --motion-services-rise: var(--bs-spacing-l); /* rows rise this far as they arrive */
+  --motion-glyph-drop-duration: 600ms;
+  --motion-glyph-drop-delay: 120ms; /* lets the disc appear before the cell falls */
   --motion-glyph-period: 14s; /* one slow clockwise turn of the asterisk */
   --motion-glyph-sensitivity: 300; /* px/s of scroll that add one more multiple of spin speed */
   --motion-glyph-max-boost: 14; /* ceiling on the extra spin multiples */
@@ -69,13 +71,14 @@
   --services-label-gap-inline: var(--bs-spacing-xsm); /* between the © and the word, as in the hero emblem */
   /* One badge per service. The disc and the blurred backdrop both take their colours from it. */
   --services-badge-1-bg: var(--bs-color-brand-orange-400);
-  --services-badge-1-ink: var(--bs-color-brand-charcoal-300);
+  --services-badge-1-ink: var(--bs-color-brand-charcoal-400);
   --services-badge-2-bg: var(--bs-color-brand-orange-200);
   --services-badge-2-ink: var(--bs-color-brand-orange-600);
   --services-badge-3-bg: var(--bs-color-brand-charcoal-400);
   --services-badge-3-ink: var(--bs-color-brand-orange-400);
   --services-badge-4-bg: var(--bs-color-brand-orange-300);
   --services-badge-4-ink: var(--bs-color-white);
+  --services-glyph-drop: 32px; /* two cells of the 96-unit glyph grid: the loose cell's fall into its slot */
   --services-blur: 48px;
   --services-scrim: color-mix(in srgb, var(--bs-color-brand-charcoal-200) 48%, transparent);
   --services-backdrop-glyph: 90vmin;

@@ -105,6 +105,15 @@
   animation-play-state: paused;
 }
 
+/* A service glyph holds still. Its loose cell drops into place when the row is hovered. */
+.services__disc--glyph svg {
+  animation: none;
+}
+
+.services__disc .glyph__drop {
+  transition: transform var(--motion-glyph-drop-duration) var(--derived-motion-ease);
+}
+
 @keyframes services-spin {
   to {
     transform: rotate(360deg);
@@ -128,6 +137,11 @@
   .services__item:hover .services__disc svg {
     animation-play-state: running;
   }
+
+  .services__item:hover .glyph__drop {
+    transform: translateY(var(--services-glyph-drop));
+    transition-delay: var(--motion-glyph-drop-delay);
+  }
 }
 
 .services__list:has(.services__item:focus-visible) .services__item:not(:focus-visible) {
@@ -148,9 +162,18 @@
   animation-play-state: running;
 }
 
+.services__item:focus-visible .glyph__drop {
+  transform: translateY(var(--services-glyph-drop));
+  transition-delay: var(--motion-glyph-drop-delay);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .services__disc svg {
     animation: none;
+  }
+
+  .services__disc .glyph__drop {
+    transition-duration: 0s;
   }
 }
 

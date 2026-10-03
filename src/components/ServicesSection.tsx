@@ -43,9 +43,9 @@ export function ServicesSection() {
                 <span className="services__title text-h3">{service.title}</span>
                 <span className="services__summary text-body-small">{service.summary}</span>
                 <span
-                  className="services__disc"
+                  className={`services__disc${service.glyph ? " services__disc--glyph" : ""}`}
                   aria-hidden="true"
-                  dangerouslySetInnerHTML={{ __html: asteriskSvg }}
+                  dangerouslySetInnerHTML={{ __html: service.glyph ?? asteriskSvg }}
                 />
               </a>
             </li>

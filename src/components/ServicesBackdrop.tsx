@@ -14,7 +14,7 @@ export function ServicesBackdrop() {
       {services.map((service, i) => (
         <div className="backdrop__layer" data-badge={i + 1} key={service.href}>
           <div className="backdrop__art">
-            <span className="backdrop__glyph" dangerouslySetInnerHTML={{ __html: asteriskSvg }} />
+            <span className="backdrop__glyph" dangerouslySetInnerHTML={{ __html: service.glyph ?? asteriskSvg }} />
           </div>
           <div className="backdrop__scrim" />
         </div>
