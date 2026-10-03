@@ -4,15 +4,16 @@ import { useGSAP } from "@gsap/react";
 import { CustomEase } from "gsap/CustomEase";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
-import { readBezier, readNumber, readSeconds } from "../lib/tokens";
+import { readBezier, readColor, readNumber, readSeconds } from "../lib/tokens";
 
 gsap.registerPlugin(useGSAP, CustomEase, ScrollTrigger, SplitText);
 
 /**
- * Four moves for the hero, all timed from tokens:
+ * Five moves for the hero, all timed from tokens:
  *  - the headline rises into view line by line, each line clipped by its own mask
  *  - the wordmark travels left as the page scrolls, and eases back as it scrolls up
  *  - the statement scrolls at 120% of the page, so it climbs away faster and settles back at the top
+ *  - the hero background fades from orange to charcoal across its scroll
  *  - the asterisk turns clockwise forever, faster the faster the page scrolls, in either direction
  */
 export function useHeroMotion() {
@@ -85,6 +86,19 @@ export function useHeroMotion() {
                 return tl;
               },
             });
+          });
+
+          // Orange fades to charcoal in step with the scroll and lands only once the hero has left.
+          // A colour change carries no movement, so it stays on with reduced motion too.
+          gsap.to(hero, {
+            backgroundColor: readColor("--hero-bg-scrolled"),
+            ease: "none",
+            scrollTrigger: {
+              trigger: hero,
+              start: "top top",
+              end: "bottom top",
+              scrub: true,
+            },
           });
 
           // The wordmark stays put when motion is reduced

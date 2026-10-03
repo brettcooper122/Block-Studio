@@ -26,6 +26,7 @@
 
   /* Hero */
   --hero-bg: var(--bs-color-brand-orange-400);
+  --hero-bg-scrolled: var(--bs-color-brand-charcoal-200); /* reached once the hero has scrolled fully out */
   --hero-ink: var(--bs-color-white);
   --hero-gutter: var(--bs-padding-m);
   --hero-eyebrow-gap: var(--bs-spacing-xsm);
@@ -51,12 +52,13 @@
   --motion-glyph-response: 350ms; /* how quickly the spin speed follows the scroll speed */
 
   /* Blank scroll-test section */
-  --scroll-test-bg: var(--bs-color-brand-charcoal-900);
+  --scroll-test-bg: var(--bs-color-brand-charcoal-200);
 
   /* Figma values with no variable behind them */
   --derived-motion-duration: 383ms; /* NAVITEM smart-animate duration */
   --derived-motion-ease: cubic-bezier(0.16, 1, 0.3, 1); /* Figma "Gentle", as an exponential ease-out */
   --derived-focus-ring-width: 2px;
+  --derived-z-nav: 10; /* keeps the fixed nav above every section */
   --derived-content-width: 1042px; /* hero text column, frame 64:417 */
   --derived-content-fluid-width: 80vw; /* the column holds 80% of the viewport once it is narrower than 1042px */
   --derived-content-top: 15.27svh; /* statement top: 150px of the 982px frame */

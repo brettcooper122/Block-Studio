@@ -17,3 +17,8 @@ export function readNumber(name: string): number {
 export function readBezier(name: string): string {
   return readToken(name).replace(/^cubic-bezier\(|\)$/g, "").replace(/\s+/g, "");
 }
+
+/** A colour token resolved to its final value, for tweening. */
+export function readColor(name: string): string {
+  return readToken(name);
+}

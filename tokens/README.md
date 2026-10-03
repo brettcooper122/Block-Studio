@@ -74,5 +74,6 @@ Timing for the hero lives in `components.css` under the `--motion-*` tokens and 
 
 - Headline: lines rise out of their masks one after another (`--motion-headline-*`). With reduced motion it fades in.
 - Wordmark: travels left across the hero's scroll, smoothed by `--motion-wordmark-smoothing`, and returns as the page scrolls up. With reduced motion it stays put.
+- Background: fades from orange400 to charcoal200 (`--hero-bg-scrolled`) in step with the scroll and lands only once the hero has fully scrolled out. It stays on with reduced motion, since colour carries no movement.
 - Statement: scrolls at `--motion-statement-speed` (120%), rising faster than the page and returning as you scroll back to the top.
 - Asterisk: turns clockwise on a loop (`--motion-glyph-period`) and spins faster with scroll speed in either direction (`--motion-glyph-sensitivity`, `--motion-glyph-max-boost`, `--motion-glyph-response`). It stops with reduced motion and pauses when the hero is off screen.

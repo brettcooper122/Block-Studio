@@ -13,12 +13,14 @@
   color: var(--hero-selection-ink);
 }
 
+/* Fixed to the top of the viewport at all times. Only the logo and links take clicks. */
 .hero__nav {
-  position: absolute;
+  position: fixed;
   top: 0;
   right: 0;
   left: 0;
-  z-index: 1;
+  z-index: var(--derived-z-nav);
+  pointer-events: none;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
@@ -28,6 +30,7 @@
 .hero__logo {
   display: block;
   line-height: 0;
+  pointer-events: auto;
 }
 
 .hero__logo:focus-visible {
@@ -42,6 +45,7 @@
 .hero__links {
   display: flex;
   align-items: center;
+  pointer-events: auto;
 }
 
 /* Sits at the Figma offset, 1042px wide, then 80% of the viewport once that is narrower */

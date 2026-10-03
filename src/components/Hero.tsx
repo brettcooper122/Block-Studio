@@ -31,7 +31,7 @@ export function Hero() {
           We are a Toronto-based AI-native creative consulting studio, enabling B2B/B2C startup
           founders and growth-stage agencies to{" "}
           <span className="hero__accent text-h2-serif">
-            identify the right problems before investing build cycles crafting the wrong solutions,
+            identify the right problems before investing build cycles in the wrong solutions,
           </span>{" "}
           pairing velocity with analytics to ship at warp-speed.
         </h1>
