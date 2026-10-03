@@ -74,8 +74,8 @@ Timing for the hero lives in `components.css` under the `--motion-*` tokens and 
 
 - Headline: lines rise out of their masks one after another (`--motion-headline-*`). With reduced motion it fades in.
 - Wordmark: travels left across the hero's scroll, smoothed by `--motion-wordmark-smoothing`, and returns as the page scrolls up. With reduced motion it stays put.
-- Background: fades from orange400 to charcoal200 (`--hero-bg-scrolled`) in step with the scroll and lands only once the hero has fully scrolled out. It stays on with reduced motion, since colour carries no movement.
+- Background: fades from orange400 to charcoal200 (`--hero-bg-scrolled`) in step with the scroll and lands once 80% of a screen's height has been scrolled (`--motion-background-complete`). It stays on with reduced motion, since colour carries no movement.
 - Statement: scrolls at `--motion-statement-speed` (120%), so it climbs out of view faster than the page and settles back as you scroll to the top.
 - Wordmark pin: rides the foot of the hero, then stays fixed to the top of the viewport once it reaches it, for the sections that follow.
-- Asterisk colour: turns from charcoal300 to white (`--hero-wordmark-asterisk-scrolled`) on the same scroll range as the background.
+- Asterisk colour: turns from charcoal300 to white (`--hero-wordmark-asterisk-scrolled`) on the same range as the background.
 - Asterisk: turns clockwise on a loop (`--motion-glyph-period`) and spins faster with scroll speed in either direction (`--motion-glyph-sensitivity`, `--motion-glyph-max-boost`, `--motion-glyph-response`). It stops with reduced motion and pauses when the hero is off screen.

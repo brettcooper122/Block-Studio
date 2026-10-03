@@ -91,17 +91,21 @@ export function useHeroMotion() {
             });
           });
 
-          // Orange fades to charcoal in step with the scroll and lands only once the hero has left.
+          // Colour changes finish after a set share of a screen's height has been scrolled
+          const colourRange = {
+            trigger: hero,
+            start: "top top",
+            end: () => `+=${readNumber("--motion-background-complete") * window.innerHeight}`,
+            scrub: true,
+            invalidateOnRefresh: true,
+          };
+
+          // Orange fades to charcoal in step with the scroll and lands once that share is scrolled.
           // A colour change carries no movement, so it stays on with reduced motion too.
           gsap.to(hero, {
             backgroundColor: readColor("--hero-bg-scrolled"),
             ease: "none",
-            scrollTrigger: {
-              trigger: hero,
-              start: "top top",
-              end: "bottom top",
-              scrub: true,
-            },
+            scrollTrigger: colourRange,
           });
 
           // The wordmark stays put when motion is reduced
@@ -159,17 +163,12 @@ export function useHeroMotion() {
           let stopSpin: (() => void) | undefined;
           const asterisk = wordmark.querySelector(".wordmark__asterisk");
 
-          // The asterisk turns white as the background darkens, on the same scroll range
+          // The asterisk turns white as the background darkens, on the same range
           if (asterisk) {
             gsap.to(asterisk, {
               fill: readColor("--hero-wordmark-asterisk-scrolled"),
               ease: "none",
-              scrollTrigger: {
-                trigger: hero,
-                start: "top top",
-                end: "bottom top",
-                scrub: true,
-              },
+              scrollTrigger: colourRange,
             });
           }
 
