@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Hero } from "./components/Hero";
 import { GlitchGrid } from "./components/GlitchGrid";
 import { ControlsPanel } from "./components/ControlsPanel";
 
-function App() {
+/** The original grid effect demo, kept at #grid. */
+function GridDemo() {
   const [density, setDensity] = useState(0.55);
   const [motionIntensity, setMotionIntensity] = useState(0.3);
   const [speed, setSpeed] = useState(0.5);
@@ -38,6 +40,18 @@ function App() {
       />
     </div>
   );
+}
+
+function App() {
+  const [showGrid, setShowGrid] = useState(() => window.location.hash === "#grid");
+
+  useEffect(() => {
+    const onHash = () => setShowGrid(window.location.hash === "#grid");
+    window.addEventListener("hashchange", onHash);
+    return () => window.removeEventListener("hashchange", onHash);
+  }, []);
+
+  return showGrid ? <GridDemo /> : <Hero />;
 }
 
 export default App;

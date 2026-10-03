@@ -1,4 +1,7 @@
 @import "./styles/tokens.css";
+@import "../tokens/primitives.css";
+@import "../tokens/typography.css";
+@import "../tokens/components.css";
 
 html,
 body,
@@ -6,10 +9,12 @@ body,
   margin: 0;
   padding: 0;
   width: 100%;
-  height: 100%;
-  overflow: hidden;
+  min-height: 100%;
 }
 
 body {
-  font-family: system-ui, "Segoe UI", Roboto, sans-serif;
+  font-family: var(--bs-font-family-sans);
+  background-color: var(--hero-bg);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }

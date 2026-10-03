@@ -1,0 +1,114 @@
+.hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+  overflow: hidden;
+  background-color: var(--hero-bg);
+  color: var(--hero-ink);
+}
+
+.hero ::selection {
+  background-color: var(--hero-selection-bg);
+  color: var(--hero-selection-ink);
+}
+
+.hero__nav {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: var(--hero-gutter);
+}
+
+.hero__logo {
+  display: block;
+  line-height: 0;
+}
+
+.hero__logo:focus-visible {
+  outline: var(--derived-focus-ring-width) solid var(--navitem-focus-ring);
+  outline-offset: var(--derived-focus-ring-width);
+}
+
+.hero__logo-img {
+  display: block;
+}
+
+.hero__links {
+  display: flex;
+  align-items: center;
+}
+
+/* Fills the space between the nav and the wordmark and centres the statement */
+.hero__content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--hero-content-gap);
+  width: min(var(--derived-content-width), 100% - 2 * var(--hero-gutter));
+  margin-inline: auto;
+}
+
+.hero__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: var(--hero-eyebrow-gap);
+  margin: 0;
+  color: var(--hero-ink-accent);
+}
+
+.hero__headline {
+  margin: 0;
+  text-indent: var(--hero-headline-indent);
+  text-wrap: pretty;
+}
+
+.hero__accent {
+  color: var(--hero-ink-accent);
+}
+
+/* Bleeds off the right edge, as in the Figma frame */
+.hero__wordmark {
+  width: var(--derived-wordmark-width);
+  margin-left: var(--hero-wordmark-inset);
+  margin-bottom: var(--hero-wordmark-inset);
+  line-height: 0;
+  pointer-events: none;
+  user-select: none;
+}
+
+.hero__wordmark svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.hero__wordmark .wordmark__letter {
+  fill: var(--hero-ink);
+}
+
+.hero__wordmark .wordmark__asterisk {
+  fill: var(--hero-wordmark-asterisk);
+}
+
+/* The type scale has one desktop mode, so smaller screens step down the same scale */
+@media (max-width: 900px) {
+  .hero__headline,
+  .hero__accent {
+    font-size: var(--bs-font-size-h3);
+    line-height: var(--bs-line-height-h3);
+  }
+}
+
+@media (max-width: 600px) {
+  .hero__headline,
+  .hero__accent {
+    font-size: var(--bs-font-size-h4);
+    line-height: var(--bs-line-height-h4);
+  }
+
+  .hero__headline {
+    text-indent: var(--bs-spacing-l);
+  }
+}

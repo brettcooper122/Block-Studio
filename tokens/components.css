@@ -1,0 +1,46 @@
+/**
+ * Component and layout tokens for the hero and NavItem.
+ * Every colour, radius, space and type value is an alias to a primitive in
+ * primitives.css, taken from the variable bindings on the Figma components
+ * (NAVITEM 64:348) and the hero frame (64:416).
+ *
+ * The last block holds the few values Figma stores as raw numbers with no
+ * variable behind them. They are named here once so no component file carries
+ * a literal. Each one is a candidate for a real Figma variable.
+ */
+:root {
+  /* NavItem: colour and shape per state */
+  --navitem-bg-rest: var(--bs-color-brand-charcoal-900);
+  --navitem-bg-hover: var(--bs-color-brand-charcoal-300);
+  --navitem-bg-press: var(--bs-color-brand-charcoal-200);
+  /* Figma binds the rest label to charcoal-500, which reads 3.5:1 on charcoal-900.
+     charcoal-400 reads 6.9:1. Swap back to charcoal-500 to match Figma exactly. */
+  --navitem-label-rest: var(--bs-color-brand-charcoal-400);
+  --navitem-label-hover: var(--bs-color-brand-charcoal-900);
+  --navitem-radius-rest: var(--bs-radius-sm);
+  --navitem-radius-hover: var(--bs-radius-xl);
+  --navitem-padding-block: var(--bs-padding-xsm);
+  --navitem-padding-inline: var(--bs-spacing-sm);
+  --navitem-label-gap: var(--bs-spacing-xsm);
+  --navitem-focus-ring: var(--bs-color-white);
+
+  /* Hero */
+  --hero-bg: var(--bs-color-brand-orange-400);
+  --hero-ink: var(--bs-color-white);
+  --hero-ink-accent: var(--bs-color-brand-charcoal-300);
+  --hero-gutter: var(--bs-padding-m);
+  --hero-eyebrow-gap: var(--bs-spacing-xsm);
+  --hero-content-gap: var(--bs-spacing-l);
+  --hero-headline-indent: var(--bs-spacing-xxl);
+  --hero-wordmark-inset: var(--bs-spacing-m);
+  --hero-wordmark-asterisk: var(--bs-color-brand-charcoal-300);
+  --hero-selection-bg: var(--bs-color-brand-charcoal-300);
+  --hero-selection-ink: var(--bs-color-white);
+
+  /* Figma values with no variable behind them */
+  --derived-motion-duration: 383ms; /* NAVITEM smart-animate duration */
+  --derived-motion-ease: cubic-bezier(0.16, 1, 0.3, 1); /* Figma "Gentle", as an exponential ease-out */
+  --derived-focus-ring-width: 2px;
+  --derived-content-width: 1042px; /* hero text column, frame 64:417 */
+  --derived-wordmark-width: 140.1vw; /* wordmark 2119px against the 1512px frame */
+}
