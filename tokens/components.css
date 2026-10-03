@@ -80,7 +80,7 @@
   --services-scrim: color-mix(in srgb, var(--bs-color-brand-charcoal-200) 48%, transparent);
   --services-backdrop-glyph: 90vmin;
   --services-backdrop-duration: 500ms;
-  --services-disc-size: calc(var(--bs-spacing-xxl) * 4);
+  --services-disc-size: calc(var(--bs-spacing-xxl) * 4 * 0.8); /* 20% smaller than the earlier 328px */
   --services-measure: calc(var(--bs-spacing-xxl) * 4); /* summary column, flush to the right edge */
   --services-title-max: calc(var(--bs-spacing-xxl) * 6 + var(--bs-spacing-xl)); /* titles wrap here, which keeps each to two lines */
   --services-number-col: var(--bs-spacing-xxl);
