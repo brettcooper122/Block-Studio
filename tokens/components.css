@@ -49,19 +49,50 @@
   --motion-background-complete: 0.8; /* the background is fully charcoal after this share of a screen's height is scrolled */
   --motion-statement-fade-to: 0; /* opacity the statement reaches as it leaves the top of the screen */
   --motion-statement-speed: 1.2; /* the statement scrolls at 120% of the page */
+  --motion-services-duration: 700ms;
+  --motion-services-stagger: 80ms;
+  --motion-services-rise: var(--bs-spacing-l); /* rows rise this far as they arrive */
   --motion-glyph-period: 14s; /* one slow clockwise turn of the asterisk */
   --motion-glyph-sensitivity: 300; /* px/s of scroll that add one more multiple of spin speed */
   --motion-glyph-max-boost: 14; /* ceiling on the extra spin multiples */
   --motion-glyph-response: 350ms; /* how quickly the spin speed follows the scroll speed */
 
-  /* Blank scroll-test section */
-  --scroll-test-bg: var(--bs-color-brand-charcoal-200);
+  /* Services section */
+  --services-bg: var(--bs-color-brand-charcoal-200);
+  --services-ink: color-mix(in srgb, var(--bs-color-white) 88%, transparent);
+  --services-ink-dim: color-mix(in srgb, var(--bs-color-white) 32%, transparent);
+  --services-ink-active: var(--bs-color-white);
+  --services-rule: color-mix(in srgb, var(--bs-color-white) 16%, transparent);
+  --services-label-bg: var(--bs-color-brand-charcoal-900);
+  --services-label-ink: var(--bs-color-brand-charcoal-300);
+  --services-wash: var(--bs-color-brand-orange-400);
+  --services-wash-opacity: 0.4;
+  --services-disc-bg: var(--bs-color-brand-orange-400);
+  --services-disc-ink: var(--bs-color-brand-charcoal-300);
+  --services-disc-size: calc(var(--bs-spacing-xxl) * 4);
+  --services-measure: calc(var(--bs-spacing-xxl) * 4);
+  --services-number-col: var(--bs-spacing-xxl);
+  --services-top-gap: var(--bs-spacing-xxl);
+  --services-bottom-pad: calc(var(--bs-spacing-xxl) * 2);
+  --services-label-gap: var(--bs-spacing-xxl);
+  --services-ease-duration: 200ms;
+  --services-disc-duration: 300ms;
 
   /* Figma values with no variable behind them */
   --derived-motion-duration: 383ms; /* NAVITEM smart-animate duration */
   --derived-motion-ease: cubic-bezier(0.16, 1, 0.3, 1); /* Figma "Gentle", as an exponential ease-out */
   --derived-focus-ring-width: 2px;
   --derived-z-nav: 10; /* keeps the fixed nav above every section */
+  --derived-z-wordmark: 5; /* the pinned wordmark band sits above the sections and below the nav */
+  --derived-z-section: 2; /* sections sit above the page and below the pinned wordmark band */
+  --derived-services-width: 1800px; /* widest the services list grows */
+  --derived-rule-width: 1px; /* hairline between rows */
+  --derived-wordmark-height: 14.28vw; /* wordmark 216px against the 1512px frame */
+  --derived-logo-height: 43px; /* the sticker logo as exported */
+  --derived-band-height: max(
+    var(--derived-wordmark-height),
+    calc(var(--hero-gutter) * 2 + var(--derived-logo-height))
+  ); /* the pinned wordmark band, never shorter than the nav row */
   --derived-content-width: 1042px; /* hero text column, frame 64:417 */
   --derived-content-fluid-width: 80vw; /* the column holds 80% of the viewport once it is narrower than 1042px */
   --derived-content-top: 15.27svh; /* statement top: 150px of the 982px frame */

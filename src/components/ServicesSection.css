@@ -1,0 +1,214 @@
+.services {
+  position: relative;
+  z-index: var(--derived-z-section);
+  overflow: hidden;
+  background-color: var(--services-bg);
+  color: var(--services-ink);
+  /* Starts below the pinned wordmark band so the first row is never hidden behind it */
+  padding-top: calc(var(--derived-band-height) + var(--services-top-gap));
+  padding-bottom: var(--services-bottom-pad);
+}
+
+/* A brand wash that rises behind the list while a row is hovered */
+.services__wash {
+  position: absolute;
+  inset: 0;
+  background-color: var(--services-wash);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--services-ease-duration) ease;
+}
+
+.services:has(.services__list:hover) .services__wash,
+.services:has(.services__item:focus-visible) .services__wash {
+  opacity: var(--services-wash-opacity);
+}
+
+.services__container {
+  position: relative;
+  width: 100%;
+  max-width: var(--derived-services-width);
+  margin-inline: auto;
+  padding-inline: var(--hero-gutter);
+}
+
+.services__label-row {
+  display: flex;
+  margin-bottom: var(--services-label-gap);
+}
+
+.services__label {
+  margin: 0;
+  padding: var(--bs-padding-xsm) var(--bs-spacing-sm);
+  border-radius: var(--bs-radius-xxl);
+  background-color: var(--services-label-bg);
+  color: var(--services-label-ink);
+  text-transform: uppercase;
+}
+
+.services__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: var(--derived-rule-width) solid var(--services-rule);
+}
+
+.services__row {
+  position: relative;
+  border-bottom: var(--derived-rule-width) solid var(--services-rule);
+}
+
+/* Number and title on the left, summary on the right */
+.services__item {
+  position: relative;
+  container-type: inline-size;
+  /* The disc fills the free space right of the summary, up to its full size, so it never covers text */
+  --services-disc-d: min(
+    var(--services-disc-size),
+    calc(
+      (100cqw - var(--services-number-col) - 2 * var(--bs-spacing-m)) / 2 - var(--services-measure) -
+        var(--bs-spacing-l)
+    )
+  );
+  display: grid;
+  grid-template-columns: var(--services-number-col) minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  column-gap: var(--bs-spacing-m);
+  padding-block: var(--bs-padding-m);
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--services-ease-duration) ease;
+}
+
+.services__number {
+  grid-column: 1;
+}
+
+.services__title {
+  grid-column: 2;
+  margin: 0;
+  text-wrap: balance;
+}
+
+.services__summary {
+  grid-column: 3;
+  max-width: var(--services-measure);
+  justify-self: start;
+}
+
+/* The brand asterisk turns inside a disc beside the hovered row */
+.services__disc {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: var(--services-disc-d);
+  height: var(--services-disc-d);
+  border-radius: 50%;
+  background-color: var(--services-disc-bg);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-50%);
+  transition: opacity var(--services-disc-duration) ease;
+}
+
+.services__disc svg {
+  width: 40%;
+  height: auto;
+  animation: services-spin var(--motion-glyph-period) linear infinite;
+  animation-play-state: paused;
+}
+
+.services__glyph-fill {
+  fill: var(--services-disc-ink);
+}
+
+@keyframes services-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Hover and keyboard focus share one state, on devices that can hover */
+@media (hover: hover) and (pointer: fine) {
+  .services__list:hover .services__item {
+    color: var(--services-ink-dim);
+  }
+
+  .services__list:hover .services__item:hover {
+    color: var(--services-ink-active);
+  }
+
+  .services__item:hover .services__disc {
+    opacity: 1;
+  }
+
+  .services__item:hover .services__disc svg {
+    animation-play-state: running;
+  }
+}
+
+.services__list:has(.services__item:focus-visible) .services__item:not(:focus-visible) {
+  color: var(--services-ink-dim);
+}
+
+.services__item:focus-visible {
+  color: var(--services-ink-active);
+  outline: var(--derived-focus-ring-width) solid var(--navitem-focus-ring);
+  outline-offset: calc(-1 * var(--derived-focus-ring-width));
+}
+
+.services__item:focus-visible .services__disc {
+  opacity: 1;
+}
+
+.services__item:focus-visible .services__disc svg {
+  animation-play-state: running;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .services__disc svg {
+    animation: none;
+  }
+}
+
+/* Tablet: one column, no disc */
+@media (max-width: 991px) {
+  .services__item {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: var(--bs-spacing-sm);
+  }
+
+  .services__number,
+  .services__title,
+  .services__summary {
+    grid-column: 1;
+  }
+
+  .services__disc {
+    display: none;
+  }
+}
+
+/* Mobile: tighter section and a smaller title step */
+@media (max-width: 767px) {
+  .services {
+    padding-top: calc(var(--derived-band-height) + var(--bs-spacing-l));
+    padding-bottom: var(--bs-spacing-xxl);
+  }
+
+  .services__container {
+    padding-inline: var(--bs-padding-sm);
+  }
+
+  .services__item {
+    padding-block: var(--bs-padding-sm);
+  }
+
+  .services__title {
+    font-size: var(--bs-font-size-h4);
+    line-height: var(--bs-line-height-h4);
+  }
+}

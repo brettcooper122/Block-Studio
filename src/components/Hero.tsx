@@ -5,7 +5,7 @@ import wordmarkSvg from "../assets/brand/block-wordmark.svg?raw";
 import "./Hero.css";
 
 export function Hero() {
-  const { heroRef, wordmarkSlotRef, contentRef, eyebrowRef, headlineRef, wordmarkRef } =
+  const { heroRef, wordmarkSlotRef, contentRef, eyebrowRef, headlineRef, wordmarkRef, trackRef } =
     useHeroMotion();
 
   return (
@@ -23,15 +23,15 @@ export function Hero() {
 
       <div className="hero__content" ref={contentRef}>
         <p className="hero__eyebrow text-label">
-            <span className="hero__eyebrow-mask">
-              <span className="hero__eyebrow-inner" ref={eyebrowRef}>
-                <span aria-hidden="true">©</span>
-                <span>
-                  BLOC<span className="hero__flip">K</span> STUDIO
-                </span>
+          <span className="hero__eyebrow-mask">
+            <span className="hero__eyebrow-inner" ref={eyebrowRef}>
+              <span aria-hidden="true">©</span>
+              <span>
+                BLOC<span className="hero__flip">K</span> STUDIO
               </span>
             </span>
-          </p>
+          </span>
+        </p>
         <h1 className="hero__headline text-h2" ref={headlineRef}>
           We are a Toronto-based AI-native creative consulting studio, enabling B2B/B2C startup
           founders and growth-stage agencies to{" "}
@@ -43,12 +43,13 @@ export function Hero() {
       </div>
 
       <div className="hero__wordmark-slot" ref={wordmarkSlotRef}>
-        <div
-          className="hero__wordmark"
-          ref={wordmarkRef}
-          aria-hidden="true"
-          dangerouslySetInnerHTML={{ __html: wordmarkSvg }}
-        />
+        <div className="hero__wordmark" ref={wordmarkRef} aria-hidden="true">
+          <div
+            className="hero__wordmark-track"
+            ref={trackRef}
+            dangerouslySetInnerHTML={{ __html: wordmarkSvg }}
+          />
+        </div>
       </div>
     </section>
   );

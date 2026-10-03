@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Hero } from "./components/Hero";
-import { ScrollTest } from "./components/ScrollTest";
+import { ServicesSection } from "./components/ServicesSection";
 import { GlitchGrid } from "./components/GlitchGrid";
 import { ControlsPanel } from "./components/ControlsPanel";
 
@@ -57,7 +57,7 @@ function App() {
   return (
     <>
       <Hero />
-      <ScrollTest />
+      <ServicesSection />
     </>
   );
 }

@@ -103,21 +103,29 @@
   margin-bottom: var(--hero-wordmark-inset);
 }
 
-/* Bleeds off the right edge, as in the Figma frame */
+/* The band spans the screen. Its track bleeds off the right edge, as in the Figma frame. */
 .hero__wordmark {
-  width: var(--derived-wordmark-width);
-  margin-left: var(--hero-wordmark-inset);
+  overflow: clip;
   line-height: 0;
   pointer-events: none;
   user-select: none;
 }
 
-/* Once its top reaches the viewport edge the wordmark stays there for the sections that follow */
+.hero__wordmark-track {
+  width: var(--derived-wordmark-width);
+  margin-left: var(--hero-wordmark-inset);
+}
+
+/* Once its top reaches the viewport edge the wordmark stays there as a header band, with the
+   sections that follow scrolling beneath it */
 .hero__wordmark--pinned {
   position: fixed;
   top: 0;
-  left: var(--hero-wordmark-inset);
-  margin-left: 0;
+  right: 0;
+  left: 0;
+  z-index: var(--derived-z-wordmark);
+  min-height: var(--derived-band-height);
+  background-color: var(--hero-bg-scrolled);
 }
 
 .hero__wordmark svg {

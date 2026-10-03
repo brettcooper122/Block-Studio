@@ -24,6 +24,7 @@ export function useHeroMotion() {
   const eyebrowRef = useRef<HTMLSpanElement>(null);
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const wordmarkRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
 
   useGSAP(
     () => {
@@ -33,7 +34,8 @@ export function useHeroMotion() {
       const eyebrow = eyebrowRef.current;
       const headline = headlineRef.current;
       const wordmark = wordmarkRef.current;
-      if (!hero || !wordmarkSlot || !content || !eyebrow || !headline || !wordmark) return;
+      const track = trackRef.current;
+      if (!hero || !wordmarkSlot || !content || !eyebrow || !headline || !wordmark || !track) return;
 
       const ease = CustomEase.create("hero-arrive", readBezier("--derived-motion-ease"));
       const mm = gsap.matchMedia();
@@ -122,10 +124,10 @@ export function useHeroMotion() {
 
           // The wordmark stays put when motion is reduced
           if (!reduced) {
-            gsap.to(wordmark, {
+            gsap.to(track, {
               x: () => {
                 const inset = readNumber("--hero-wordmark-inset");
-                return -(wordmark.offsetLeft + wordmark.offsetWidth - (hero.clientWidth - inset));
+                return -(track.offsetLeft + track.offsetWidth - (hero.clientWidth - inset));
               },
               ease: "none",
               scrollTrigger: {
@@ -190,7 +192,7 @@ export function useHeroMotion() {
 
           // The asterisk turns for as long as the hero is on screen
           let stopSpin: (() => void) | undefined;
-          const asterisk = wordmark.querySelector(".wordmark__asterisk");
+          const asterisk = track.querySelector(".wordmark__asterisk");
 
           // The asterisk turns white as the background darkens, on the same range
           if (asterisk) {
@@ -254,5 +256,5 @@ export function useHeroMotion() {
     { scope: heroRef },
   );
 
-  return { heroRef, wordmarkSlotRef, contentRef, eyebrowRef, headlineRef, wordmarkRef };
+  return { heroRef, wordmarkSlotRef, contentRef, eyebrowRef, headlineRef, wordmarkRef, trackRef };
 }

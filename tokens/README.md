@@ -79,3 +79,12 @@ Timing for the hero lives in `components.css` under the `--motion-*` tokens and 
 - Wordmark pin: rides the foot of the hero, then stays fixed to the top of the viewport once it reaches it, for the sections that follow.
 - Asterisk colour: turns from charcoal300 to white (`--hero-wordmark-asterisk-scrolled`) on the same range as the background.
 - Asterisk: turns clockwise on a loop (`--motion-glyph-period`) and spins faster with scroll speed in either direction (`--motion-glyph-sensitivity`, `--motion-glyph-max-boost`, `--motion-glyph-response`). It stops with reduced motion and pauses when the hero is off screen.
+
+## Services section
+
+`src/components/ServicesSection.tsx` lists the four services from `docs/Block-Studio-Service-Copy.md`, with short homepage summaries in `src/content/services.ts`. Each row links to `#/services/<slug>`. Its colours, spacing and timing are the `--services-*` and `--motion-services-*` tokens in `components.css`.
+
+- Hovering the list dims the other rows to 32% white and lights the hovered one. A brand wash rises behind the list, and a disc holding the turning asterisk appears in the free space to the right of the summary. Keyboard focus triggers the same state.
+- Rows rise into view the first time they reach the screen, staggered. With reduced motion they fade in.
+- The pinned wordmark acts as a header band (`--derived-band-height`), so the section starts below it and rows scroll beneath it.
+- Tablet and below: one column, no disc, no hover dimming.
