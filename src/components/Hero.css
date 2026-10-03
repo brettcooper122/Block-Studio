@@ -48,29 +48,15 @@
   pointer-events: auto;
 }
 
-/* The slot holds the statement's place at the Figma offset: 1042px wide, then 80% of the viewport */
-.hero__slot {
-  width: min(var(--derived-content-width), var(--derived-content-fluid-width));
-  margin-top: var(--derived-content-top);
-  margin-bottom: var(--hero-content-gap);
-  margin-inline: auto;
-}
-
+/* Sits at the Figma offset, 1042px wide, then 80% of the viewport once that is narrower */
 .hero__content {
   display: flex;
   flex-direction: column;
   gap: var(--hero-content-gap);
-}
-
-/* Once its top reaches the viewport edge the statement stays there while the page moves on */
-.hero__content--pinned {
-  position: fixed;
-  top: var(--hero-gutter);
-  right: 0;
-  left: 0;
   width: min(var(--derived-content-width), var(--derived-content-fluid-width));
+  margin-top: var(--derived-content-top);
+  margin-bottom: var(--hero-content-gap);
   margin-inline: auto;
-  transform: none !important;
 }
 
 .hero__eyebrow {
@@ -102,15 +88,27 @@
   padding-left: var(--hero-headline-indent);
 }
 
+/* Holds the wordmark's place at the foot of the hero once it leaves the flow */
+.hero__wordmark-slot {
+  margin-top: auto;
+  margin-bottom: var(--hero-wordmark-inset);
+}
+
 /* Bleeds off the right edge, as in the Figma frame */
 .hero__wordmark {
   width: var(--derived-wordmark-width);
-  margin-top: auto;
   margin-left: var(--hero-wordmark-inset);
-  margin-bottom: var(--hero-wordmark-inset);
   line-height: 0;
   pointer-events: none;
   user-select: none;
+}
+
+/* Once its top reaches the viewport edge the wordmark stays there for the sections that follow */
+.hero__wordmark--pinned {
+  position: fixed;
+  top: 0;
+  left: var(--hero-wordmark-inset);
+  margin-left: 0;
 }
 
 .hero__wordmark svg {

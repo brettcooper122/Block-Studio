@@ -9,16 +9,17 @@ import { readBezier, readColor, readNumber, readSeconds } from "../lib/tokens";
 gsap.registerPlugin(useGSAP, CustomEase, ScrollTrigger, SplitText);
 
 /**
- * Five moves for the hero, all timed from tokens:
+ * Six moves for the hero, all timed from tokens:
  *  - the headline rises into view line by line, each line clipped by its own mask
  *  - the wordmark travels left as the page scrolls, and eases back as it scrolls up
- *  - the statement scrolls at 120% of the page until it reaches the top edge, then stays fixed there
+ *  - the statement scrolls at 120% of the page, so it climbs out of view
+ *  - the wordmark stays fixed to the top of the viewport once it reaches it
  *  - the hero background fades from orange to charcoal across its scroll
  *  - the asterisk turns clockwise forever, faster the faster the page scrolls, in either direction
  */
 export function useHeroMotion() {
   const heroRef = useRef<HTMLElement>(null);
-  const slotRef = useRef<HTMLDivElement>(null);
+  const wordmarkSlotRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const wordmarkRef = useRef<HTMLDivElement>(null);
@@ -26,11 +27,11 @@ export function useHeroMotion() {
   useGSAP(
     () => {
       const hero = heroRef.current;
-      const slot = slotRef.current;
+      const wordmarkSlot = wordmarkSlotRef.current;
       const content = contentRef.current;
       const headline = headlineRef.current;
       const wordmark = wordmarkRef.current;
-      if (!hero || !slot || !content || !headline || !wordmark) return;
+      if (!hero || !wordmarkSlot || !content || !headline || !wordmark) return;
 
       const ease = CustomEase.create("hero-arrive", readBezier("--derived-motion-ease"));
       const mm = gsap.matchMedia();
@@ -107,7 +108,7 @@ export function useHeroMotion() {
           if (!reduced) {
             gsap.to(wordmark, {
               x: () => {
-                const inset = parseFloat(getComputedStyle(wordmark).marginLeft);
+                const inset = readNumber("--hero-wordmark-inset");
                 return -(wordmark.offsetLeft + wordmark.offsetWidth - (hero.clientWidth - inset));
               },
               ease: "none",
@@ -121,39 +122,37 @@ export function useHeroMotion() {
             });
           }
 
-          // The statement rises at 120% of the page until its top reaches the viewport edge, then
-          // stays fixed there for the sections that follow. With reduced motion it rises at the
-          // page's own speed and pins at the same point.
-          const speed = () => (reduced ? 1 : readNumber("--motion-statement-speed"));
-          const gutter = () => readNumber("--hero-gutter");
-          const pinPoint = () => (slot.offsetTop - gutter()) / speed();
-
-          // The slot keeps the statement's place in the hero once it leaves the flow
-          const holdSpace = new ResizeObserver(() => {
-            slot.style.minHeight = `${content.offsetHeight}px`;
-          });
-          holdSpace.observe(content);
-
+          // The statement scrolls at 120% of the page, so it climbs out of view faster than the page
           if (!reduced) {
             gsap.to(content, {
-              y: () => -(speed() - 1) * pinPoint(),
+              y: () => -(readNumber("--motion-statement-speed") - 1) * hero.offsetHeight,
               ease: "none",
               scrollTrigger: {
                 trigger: hero,
                 start: "top top",
-                end: () => `+=${pinPoint()}`,
+                end: "bottom top",
                 scrub: true,
                 invalidateOnRefresh: true,
               },
             });
           }
 
-          const pinned = "hero__content--pinned";
+          // The wordmark rides the foot of the hero, then stays fixed to the top of the viewport
+          // once it gets there, for the sections that follow
+          const holdSpace = new ResizeObserver(() => {
+            wordmarkSlot.style.minHeight = `${wordmark.offsetHeight}px`;
+          });
+          holdSpace.observe(wordmark);
+
+          const pinned = "hero__wordmark--pinned";
+          const pinPoint = () => wordmarkSlot.offsetTop;
+          const syncPin = (self: ScrollTrigger) =>
+            wordmark.classList.toggle(pinned, self.scroll() >= pinPoint());
           const pin = ScrollTrigger.create({
             start: 0,
             end: "max",
-            onUpdate: (self) => content.classList.toggle(pinned, self.scroll() >= pinPoint()),
-            onRefresh: (self) => content.classList.toggle(pinned, self.scroll() >= pinPoint()),
+            onUpdate: syncPin,
+            onRefresh: syncPin,
           });
 
           // The asterisk turns for as long as the hero is on screen
@@ -212,8 +211,8 @@ export function useHeroMotion() {
             stopSpin?.();
             pin.kill();
             holdSpace.disconnect();
-            content.classList.remove(pinned);
-            slot.style.minHeight = "";
+            wordmark.classList.remove(pinned);
+            wordmarkSlot.style.minHeight = "";
             cancelled = true;
             split?.revert();
             gsap.set(headline, { clearProps: "visibility,opacity" });
@@ -226,5 +225,5 @@ export function useHeroMotion() {
     { scope: heroRef },
   );
 
-  return { heroRef, slotRef, contentRef, headlineRef, wordmarkRef };
+  return { heroRef, wordmarkSlotRef, contentRef, headlineRef, wordmarkRef };
 }
