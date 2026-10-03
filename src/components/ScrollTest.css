@@ -1,0 +1,4 @@
+.scroll-test {
+  min-height: 100svh;
+  background-color: var(--scroll-test-bg);
+}

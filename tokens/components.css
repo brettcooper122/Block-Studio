@@ -37,6 +37,18 @@
   --hero-selection-bg: var(--bs-color-brand-charcoal-300);
   --hero-selection-ink: var(--bs-color-white);
 
+  /* Motion: read by the GSAP code at runtime, so timing lives here and nowhere else */
+  --motion-headline-delay: 200ms;
+  --motion-headline-duration: 800ms;
+  --motion-headline-line-stagger: 140ms;
+  --motion-headline-word-stagger: 45ms;
+  --motion-headline-travel: 100; /* percent of the line height: fully out of its mask */
+  --motion-reduced-duration: 300ms;
+  --motion-wordmark-smoothing: 700ms; /* how long the wordmark takes to catch up with the scroll */
+
+  /* Blank scroll-test section */
+  --scroll-test-bg: var(--bs-color-brand-charcoal-900);
+
   /* Figma values with no variable behind them */
   --derived-motion-duration: 383ms; /* NAVITEM smart-animate duration */
   --derived-motion-ease: cubic-bezier(0.16, 1, 0.3, 1); /* Figma "Gentle", as an exponential ease-out */

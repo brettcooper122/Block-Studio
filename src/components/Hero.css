@@ -61,11 +61,21 @@
 .hero__headline {
   margin: 0;
   text-indent: var(--hero-headline-indent);
-  text-wrap: pretty;
 }
 
 .hero__accent {
   color: var(--hero-ink-accent);
+}
+
+/* Once split, each line is its own block, so the indent moves onto the first one.
+   Words are inline-blocks and would inherit the heading's indent, so they reset it too. */
+.hero__headline .hero__line,
+.hero__headline .hero__word {
+  text-indent: 0;
+}
+
+.hero__headline .hero__line--indent {
+  padding-left: var(--hero-headline-indent);
 }
 
 /* Bleeds off the right edge, as in the Figma frame */
@@ -110,5 +120,9 @@
 
   .hero__headline {
     text-indent: var(--bs-spacing-l);
+  }
+
+  .hero__headline .hero__line--indent {
+    padding-left: var(--bs-spacing-l);
   }
 }

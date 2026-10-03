@@ -66,3 +66,10 @@ The file holds four component sets, not one.
 - The eyebrow uses charcoal300. White on orange400 reads 3.2:1 at 16px. One token, `--hero-ink-accent`.
 - Headline indent uses SPACING XXL (82px). Figma uses a 100px spacer that has no token.
 - NavItem has a focus-visible state that matches hover, a pressed colour (charcoal200), and hover limited to pointer devices. Figma defines only DEFAULT and HOVER.
+
+## Motion
+
+Timing for the hero lives in `components.css` under the `--motion-*` tokens and is read by `src/components/useHeroMotion.ts` at runtime, so the GSAP code holds no numbers of its own. The easing is `--derived-motion-ease`, converted to a GSAP curve.
+
+- Headline: lines rise out of their masks one after another (`--motion-headline-*`). With reduced motion it fades in.
+- Wordmark: travels left across the hero's scroll, smoothed by `--motion-wordmark-smoothing`, and returns as the page scrolls up. With reduced motion it stays put.

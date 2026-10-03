@@ -1,0 +1,118 @@
+import { useRef } from "react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { CustomEase } from "gsap/CustomEase";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { SplitText } from "gsap/SplitText";
+import { readBezier, readNumber, readSeconds } from "../lib/tokens";
+
+gsap.registerPlugin(useGSAP, CustomEase, ScrollTrigger, SplitText);
+
+/**
+ * Two moves for the hero, both timed from tokens:
+ *  - the headline rises into view line by line, each line clipped by its own mask
+ *  - the wordmark travels left as the page scrolls, and eases back as it scrolls up
+ */
+export function useHeroMotion() {
+  const heroRef = useRef<HTMLElement>(null);
+  const headlineRef = useRef<HTMLHeadingElement>(null);
+  const wordmarkRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(
+    () => {
+      const hero = heroRef.current;
+      const headline = headlineRef.current;
+      const wordmark = wordmarkRef.current;
+      if (!hero || !headline || !wordmark) return;
+
+      const ease = CustomEase.create("hero-arrive", readBezier("--derived-motion-ease"));
+      const mm = gsap.matchMedia();
+
+      mm.add(
+        {
+          motion: "(prefers-reduced-motion: no-preference)",
+          reduced: "(prefers-reduced-motion: reduce)",
+        },
+        (context) => {
+          const { reduced } = context.conditions as { reduced: boolean };
+
+          // Hidden until the fonts are in, so lines break once and never reflow mid-entrance
+          gsap.set(headline, { autoAlpha: 0 });
+          let split: SplitText | undefined;
+          let cancelled = false;
+
+          document.fonts.ready.then(() => {
+            if (cancelled) return;
+
+            if (reduced) {
+              gsap.to(headline, {
+                autoAlpha: 1,
+                duration: readSeconds("--motion-reduced-duration"),
+                ease: "none",
+              });
+              return;
+            }
+
+            split = SplitText.create(headline, {
+              type: "lines,words",
+              mask: "lines",
+              linesClass: "hero__line",
+              wordsClass: "hero__word",
+              autoSplit: true,
+              onSplit(self) {
+                // The first-line indent moves from the heading onto the first line itself
+                self.lines[0]?.classList.add("hero__line--indent");
+                gsap.set(headline, { autoAlpha: 1 });
+
+                const lineStagger = readSeconds("--motion-headline-line-stagger");
+                const tl = gsap.timeline({ delay: readSeconds("--motion-headline-delay") });
+                self.lines.forEach((line, i) => {
+                  tl.from(
+                    self.words.filter((word) => line.contains(word)),
+                    {
+                      yPercent: readNumber("--motion-headline-travel"),
+                      duration: readSeconds("--motion-headline-duration"),
+                      stagger: readSeconds("--motion-headline-word-stagger"),
+                      ease,
+                    },
+                    i * lineStagger,
+                  );
+                });
+                return tl;
+              },
+            });
+          });
+
+          // The wordmark stays put when motion is reduced
+          if (!reduced) {
+            gsap.to(wordmark, {
+              x: () => {
+                const inset = parseFloat(getComputedStyle(wordmark).marginLeft);
+                return -(wordmark.offsetLeft + wordmark.offsetWidth - (hero.clientWidth - inset));
+              },
+              ease: "none",
+              scrollTrigger: {
+                trigger: hero,
+                start: "top top",
+                end: "bottom top",
+                scrub: readSeconds("--motion-wordmark-smoothing"),
+                invalidateOnRefresh: true,
+              },
+            });
+          }
+
+          return () => {
+            cancelled = true;
+            split?.revert();
+            gsap.set(headline, { clearProps: "visibility,opacity" });
+          };
+        },
+      );
+
+      return () => mm.revert();
+    },
+    { scope: heroRef },
+  );
+
+  return { heroRef, headlineRef, wordmarkRef };
+}

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Hero } from "./components/Hero";
+import { ScrollTest } from "./components/ScrollTest";
 import { GlitchGrid } from "./components/GlitchGrid";
 import { ControlsPanel } from "./components/ControlsPanel";
 
@@ -51,7 +52,14 @@ function App() {
     return () => window.removeEventListener("hashchange", onHash);
   }, []);
 
-  return showGrid ? <GridDemo /> : <Hero />;
+  if (showGrid) return <GridDemo />;
+
+  return (
+    <>
+      <Hero />
+      <ScrollTest />
+    </>
+  );
 }
 
 export default App;
