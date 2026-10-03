@@ -23,8 +23,9 @@ export function ServicesSection() {
 
       <div className="services__container">
         <div className="services__label-row">
-          <h2 className="services__label text-subtext" id="services-label">
-            Services
+          <h2 className="services__label text-label" id="services-label">
+            <span aria-hidden="true">©</span>
+            <span>SERVICES</span>
           </h2>
         </div>
 

@@ -82,7 +82,7 @@ Timing for the hero lives in `components.css` under the `--motion-*` tokens and 
 
 ## Services section
 
-`src/components/ServicesSection.tsx` lists the four services from `docs/Block-Studio-Service-Copy.md`, with short homepage summaries in `src/content/services.ts`. Each row links to `#/services/<slug>`. Its colours, spacing and timing are the `--services-*` and `--motion-services-*` tokens in `components.css`.
+`src/components/ServicesSection.tsx` opens with a © SERVICES label in the same Label style as the hero's © BLOCK STUDIO emblem, then lists the four services from `docs/Block-Studio-Service-Copy.md`, with short homepage summaries in `src/content/services.ts`. Each row links to `#/services/<slug>`. Its colours, spacing and timing are the `--services-*` and `--motion-services-*` tokens in `components.css`.
 
 - Hovering the list dims the other rows to 32% white and lights the hovered one. Each service has its own badge (`--services-badge-N-bg` and `-ink`, all palette tokens). The badge appears as a disc holding the turning asterisk in the free space to the right of the summary, and the whole screen becomes a blurred, enlarged version of it (`--services-blur`, `--services-scrim`). The pinned wordmark band shows the same backdrop, drawn as a second copy fixed to the viewport so the two line up. The backdrop is for screens 992px and wider that can hover. Keyboard focus triggers the same state.
 - Rows rise into view the first time they reach the screen, staggered. With reduced motion they fade in.

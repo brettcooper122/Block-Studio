@@ -65,8 +65,8 @@
   --services-ink-dim: color-mix(in srgb, var(--bs-color-white) 32%, transparent);
   --services-ink-active: var(--bs-color-white);
   --services-rule: color-mix(in srgb, var(--bs-color-white) 16%, transparent);
-  --services-label-bg: var(--bs-color-brand-charcoal-900);
-  --services-label-ink: var(--bs-color-brand-charcoal-300);
+  --services-label-ink: var(--bs-color-white);
+  --services-label-gap-inline: var(--bs-spacing-xsm); /* between the © and the word, as in the hero emblem */
   /* One badge per service. The disc and the blurred backdrop both take their colours from it. */
   --services-badge-1-bg: var(--bs-color-brand-orange-400);
   --services-badge-1-ink: var(--bs-color-brand-charcoal-300);
