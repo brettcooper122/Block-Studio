@@ -27,7 +27,6 @@
   /* Hero */
   --hero-bg: var(--bs-color-brand-orange-400);
   --hero-ink: var(--bs-color-white);
-  --hero-ink-accent: var(--bs-color-brand-charcoal-300);
   --hero-gutter: var(--bs-padding-m);
   --hero-eyebrow-gap: var(--bs-spacing-xsm);
   --hero-content-gap: var(--bs-spacing-l);
@@ -45,6 +44,11 @@
   --motion-headline-travel: 100; /* percent of the line height: fully out of its mask */
   --motion-reduced-duration: 300ms;
   --motion-wordmark-smoothing: 700ms; /* how long the wordmark takes to catch up with the scroll */
+  --motion-statement-speed: 1.2; /* the statement scrolls at 120% of the page */
+  --motion-glyph-period: 14s; /* one slow clockwise turn of the asterisk */
+  --motion-glyph-sensitivity: 300; /* px/s of scroll that add one more multiple of spin speed */
+  --motion-glyph-max-boost: 14; /* ceiling on the extra spin multiples */
+  --motion-glyph-response: 350ms; /* how quickly the spin speed follows the scroll speed */
 
   /* Blank scroll-test section */
   --scroll-test-bg: var(--bs-color-brand-charcoal-900);
@@ -54,5 +58,7 @@
   --derived-motion-ease: cubic-bezier(0.16, 1, 0.3, 1); /* Figma "Gentle", as an exponential ease-out */
   --derived-focus-ring-width: 2px;
   --derived-content-width: 1042px; /* hero text column, frame 64:417 */
+  --derived-content-fluid-width: 80vw; /* the column holds 80% of the viewport once it is narrower than 1042px */
+  --derived-content-top: 15.27svh; /* statement top: 150px of the 982px frame */
   --derived-wordmark-width: 140.1vw; /* wordmark 2119px against the 1512px frame */
 }

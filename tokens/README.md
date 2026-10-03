@@ -63,7 +63,8 @@ The file holds four component sets, not one.
 ## Where the hero departs from Figma
 
 - NavItem rest label uses charcoal400. Figma binds charcoal500, which reads 3.5:1 on the light pill and fails AA. One token, `--navitem-label-rest`.
-- The eyebrow uses charcoal300. White on orange400 reads 3.2:1 at 16px. One token, `--hero-ink-accent`.
+- The eyebrow and the whole statement, serif phrase included, use Brand-white as specified. White on orange400 reads 3.2:1, which passes for the large headline and falls short for the 16px eyebrow.
+- The statement block sits 150px from the top of the 982px frame, kept as `15.27svh`, and is 1042px wide, then 80vw once the viewport is narrower.
 - Headline indent uses SPACING XXL (82px). Figma uses a 100px spacer that has no token.
 - NavItem has a focus-visible state that matches hover, a pressed colour (charcoal200), and hover limited to pointer devices. Figma defines only DEFAULT and HOVER.
 
@@ -73,3 +74,5 @@ Timing for the hero lives in `components.css` under the `--motion-*` tokens and 
 
 - Headline: lines rise out of their masks one after another (`--motion-headline-*`). With reduced motion it fades in.
 - Wordmark: travels left across the hero's scroll, smoothed by `--motion-wordmark-smoothing`, and returns as the page scrolls up. With reduced motion it stays put.
+- Statement: scrolls at `--motion-statement-speed` (120%), rising faster than the page and returning as you scroll back to the top.
+- Asterisk: turns clockwise on a loop (`--motion-glyph-period`) and spins faster with scroll speed in either direction (`--motion-glyph-sensitivity`, `--motion-glyph-max-boost`, `--motion-glyph-response`). It stops with reduced motion and pauses when the hero is off screen.

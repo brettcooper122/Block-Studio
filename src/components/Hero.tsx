@@ -5,7 +5,7 @@ import wordmarkSvg from "../assets/brand/block-wordmark.svg?raw";
 import "./Hero.css";
 
 export function Hero() {
-  const { heroRef, headlineRef, wordmarkRef } = useHeroMotion();
+  const { heroRef, contentRef, headlineRef, wordmarkRef } = useHeroMotion();
 
   return (
     <section className="hero" ref={heroRef}>
@@ -20,7 +20,7 @@ export function Hero() {
         </nav>
       </header>
 
-      <div className="hero__content">
+      <div className="hero__content" ref={contentRef}>
         <p className="hero__eyebrow text-label">
           <span aria-hidden="true">©</span> BLOCK STUDIO
         </p>

@@ -14,6 +14,11 @@
 }
 
 .hero__nav {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
@@ -39,14 +44,14 @@
   align-items: center;
 }
 
-/* Fills the space between the nav and the wordmark and centres the statement */
+/* Sits at the Figma offset, 1042px wide, then 80% of the viewport once that is narrower */
 .hero__content {
-  flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   gap: var(--hero-content-gap);
-  width: min(var(--derived-content-width), 100% - 2 * var(--hero-gutter));
+  width: min(var(--derived-content-width), var(--derived-content-fluid-width));
+  margin-top: var(--derived-content-top);
+  margin-bottom: var(--hero-content-gap);
   margin-inline: auto;
 }
 
@@ -55,16 +60,12 @@
   align-items: center;
   gap: var(--hero-eyebrow-gap);
   margin: 0;
-  color: var(--hero-ink-accent);
+  color: var(--hero-ink);
 }
 
 .hero__headline {
   margin: 0;
   text-indent: var(--hero-headline-indent);
-}
-
-.hero__accent {
-  color: var(--hero-ink-accent);
 }
 
 /* Once split, each line is its own block, so the indent moves onto the first one.
@@ -81,6 +82,7 @@
 /* Bleeds off the right edge, as in the Figma frame */
 .hero__wordmark {
   width: var(--derived-wordmark-width);
+  margin-top: auto;
   margin-left: var(--hero-wordmark-inset);
   margin-bottom: var(--hero-wordmark-inset);
   line-height: 0;

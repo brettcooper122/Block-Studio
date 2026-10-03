@@ -9,21 +9,25 @@ import { readBezier, readNumber, readSeconds } from "../lib/tokens";
 gsap.registerPlugin(useGSAP, CustomEase, ScrollTrigger, SplitText);
 
 /**
- * Two moves for the hero, both timed from tokens:
+ * Four moves for the hero, all timed from tokens:
  *  - the headline rises into view line by line, each line clipped by its own mask
  *  - the wordmark travels left as the page scrolls, and eases back as it scrolls up
+ *  - the statement scrolls at 120% of the page, so it climbs away faster and settles back at the top
+ *  - the asterisk turns clockwise forever, faster the faster the page scrolls, in either direction
  */
 export function useHeroMotion() {
   const heroRef = useRef<HTMLElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const wordmarkRef = useRef<HTMLDivElement>(null);
 
   useGSAP(
     () => {
       const hero = heroRef.current;
+      const content = contentRef.current;
       const headline = headlineRef.current;
       const wordmark = wordmarkRef.current;
-      if (!hero || !headline || !wordmark) return;
+      if (!hero || !content || !headline || !wordmark) return;
 
       const ease = CustomEase.create("hero-arrive", readBezier("--derived-motion-ease"));
       const mm = gsap.matchMedia();
@@ -101,7 +105,60 @@ export function useHeroMotion() {
             });
           }
 
+          if (!reduced) {
+            // 120% scroll speed: the extra 20% is a rise of 0.2 times the distance scrolled
+            gsap.to(content, {
+              y: () => -(readNumber("--motion-statement-speed") - 1) * hero.offsetHeight,
+              ease: "none",
+              scrollTrigger: {
+                trigger: hero,
+                start: "top top",
+                end: "bottom top",
+                scrub: true,
+                invalidateOnRefresh: true,
+              },
+            });
+          }
+
+          // The asterisk turns for as long as the hero is on screen
+          let stopSpin: (() => void) | undefined;
+          const asterisk = wordmark.querySelector(".wordmark__asterisk");
+          if (!reduced && asterisk) {
+            const spin = gsap.to(asterisk, {
+              rotation: 360,
+              transformOrigin: "50% 50%",
+              duration: readSeconds("--motion-glyph-period"),
+              ease: "none",
+              repeat: -1,
+            });
+            const sensitivity = readNumber("--motion-glyph-sensitivity");
+            const maxBoost = readNumber("--motion-glyph-max-boost");
+            const response = readSeconds("--motion-glyph-response") * 1000;
+            let lastY = window.scrollY;
+            let speed = 1;
+            const follow = (_time: number, delta: number) => {
+              const y = window.scrollY;
+              const scrollSpeed = Math.abs(y - lastY) / Math.max(delta / 1000, 0.001);
+              lastY = y;
+              const target = 1 + Math.min(scrollSpeed / sensitivity, maxBoost);
+              speed += (target - speed) * (1 - Math.exp(-delta / response));
+              spin.timeScale(speed);
+            };
+            gsap.ticker.add(follow);
+            const visibility = ScrollTrigger.create({
+              trigger: hero,
+              start: "top bottom",
+              end: "bottom top",
+              onToggle: (self) => (self.isActive ? spin.resume() : spin.pause()),
+            });
+            stopSpin = () => {
+              gsap.ticker.remove(follow);
+              visibility.kill();
+            };
+          }
+
           return () => {
+            stopSpin?.();
             cancelled = true;
             split?.revert();
             gsap.set(headline, { clearProps: "visibility,opacity" });
@@ -114,5 +171,5 @@ export function useHeroMotion() {
     { scope: heroRef },
   );
 
-  return { heroRef, headlineRef, wordmarkRef };
+  return { heroRef, contentRef, headlineRef, wordmarkRef };
 }
