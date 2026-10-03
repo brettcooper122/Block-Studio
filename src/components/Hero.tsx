@@ -22,7 +22,10 @@ export function Hero() {
 
       <div className="hero__content" ref={contentRef}>
         <p className="hero__eyebrow text-label">
-          <span aria-hidden="true">©</span> BLOCK STUDIO
+          <span aria-hidden="true">©</span>
+          <span>
+            BLOC<span className="hero__flip">K</span> STUDIO
+          </span>
         </p>
         <h1 className="hero__headline text-h2" ref={headlineRef}>
           We are a Toronto-based AI-native creative consulting studio, enabling B2B/B2C startup
