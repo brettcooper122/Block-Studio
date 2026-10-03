@@ -60,11 +60,20 @@
 }
 
 .hero__eyebrow {
+  margin: 0;
+  color: var(--hero-ink);
+}
+
+/* The mask clips the label while it rises into place */
+.hero__eyebrow-mask {
+  display: block;
+  overflow: clip;
+}
+
+.hero__eyebrow-inner {
   display: flex;
   align-items: center;
   gap: var(--hero-eyebrow-gap);
-  margin: 0;
-  color: var(--hero-ink);
 }
 
 .hero__flip {

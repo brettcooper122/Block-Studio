@@ -47,6 +47,7 @@
   --motion-reduced-duration: 300ms;
   --motion-wordmark-smoothing: 700ms; /* how long the wordmark takes to catch up with the scroll */
   --motion-background-complete: 0.8; /* the background is fully charcoal after this share of a screen's height is scrolled */
+  --motion-statement-fade-to: 0; /* opacity the statement reaches as it leaves the top of the screen */
   --motion-statement-speed: 1.2; /* the statement scrolls at 120% of the page */
   --motion-glyph-period: 14s; /* one slow clockwise turn of the asterisk */
   --motion-glyph-sensitivity: 300; /* px/s of scroll that add one more multiple of spin speed */

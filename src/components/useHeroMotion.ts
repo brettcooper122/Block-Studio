@@ -10,9 +10,9 @@ gsap.registerPlugin(useGSAP, CustomEase, ScrollTrigger, SplitText);
 
 /**
  * Six moves for the hero, all timed from tokens:
- *  - the headline rises into view line by line, each line clipped by its own mask
+ *  - the emblem and then the headline rise into view line by line, each line clipped by its own mask
  *  - the wordmark travels left as the page scrolls, and eases back as it scrolls up
- *  - the statement scrolls at 120% of the page, so it climbs out of view
+ *  - the statement scrolls at 120% of the page and fades as it climbs out of view
  *  - the wordmark stays fixed to the top of the viewport once it reaches it
  *  - the hero background fades from orange to charcoal across its scroll
  *  - the asterisk turns clockwise forever, faster the faster the page scrolls, in either direction
@@ -21,6 +21,7 @@ export function useHeroMotion() {
   const heroRef = useRef<HTMLElement>(null);
   const wordmarkSlotRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
+  const eyebrowRef = useRef<HTMLSpanElement>(null);
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const wordmarkRef = useRef<HTMLDivElement>(null);
 
@@ -29,9 +30,10 @@ export function useHeroMotion() {
       const hero = heroRef.current;
       const wordmarkSlot = wordmarkSlotRef.current;
       const content = contentRef.current;
+      const eyebrow = eyebrowRef.current;
       const headline = headlineRef.current;
       const wordmark = wordmarkRef.current;
-      if (!hero || !wordmarkSlot || !content || !headline || !wordmark) return;
+      if (!hero || !wordmarkSlot || !content || !eyebrow || !headline || !wordmark) return;
 
       const ease = CustomEase.create("hero-arrive", readBezier("--derived-motion-ease"));
       const mm = gsap.matchMedia();
@@ -46,6 +48,7 @@ export function useHeroMotion() {
 
           // Hidden until the fonts are in, so lines break once and never reflow mid-entrance
           gsap.set(headline, { autoAlpha: 0 });
+          gsap.set(eyebrow, reduced ? { autoAlpha: 0 } : { yPercent: readNumber("--motion-headline-travel") });
           let split: SplitText | undefined;
           let cancelled = false;
 
@@ -53,13 +56,23 @@ export function useHeroMotion() {
             if (cancelled) return;
 
             if (reduced) {
-              gsap.to(headline, {
+              gsap.to([eyebrow, headline], {
                 autoAlpha: 1,
                 duration: readSeconds("--motion-reduced-duration"),
                 ease: "none",
               });
               return;
             }
+
+            // The emblem is the first line of the entrance, and the headline lines follow it
+            const entranceDelay = readSeconds("--motion-headline-delay");
+            const lineStagger = readSeconds("--motion-headline-line-stagger");
+            gsap.to(eyebrow, {
+              yPercent: 0,
+              duration: readSeconds("--motion-headline-duration"),
+              delay: entranceDelay,
+              ease,
+            });
 
             split = SplitText.create(headline, {
               type: "lines,words",
@@ -72,8 +85,7 @@ export function useHeroMotion() {
                 self.lines[0]?.classList.add("hero__line--indent");
                 gsap.set(headline, { autoAlpha: 1 });
 
-                const lineStagger = readSeconds("--motion-headline-line-stagger");
-                const tl = gsap.timeline({ delay: readSeconds("--motion-headline-delay") });
+                const tl = gsap.timeline({ delay: entranceDelay + lineStagger });
                 self.lines.forEach((line, i) => {
                   tl.from(
                     self.words.filter((word) => line.contains(word)),
@@ -140,6 +152,23 @@ export function useHeroMotion() {
               },
             });
           }
+
+          // The statement fades as it climbs, and is gone as it leaves the top of the screen.
+          // A fade carries no movement, so it stays on with reduced motion too.
+          gsap.to(content, {
+            opacity: readNumber("--motion-statement-fade-to"),
+            ease: "none",
+            scrollTrigger: {
+              trigger: hero,
+              start: "top top",
+              end: () => {
+                const rate = reduced ? 1 : readNumber("--motion-statement-speed");
+                return `+=${(content.offsetTop + content.offsetHeight) / rate}`;
+              },
+              scrub: true,
+              invalidateOnRefresh: true,
+            },
+          });
 
           // The wordmark rides the foot of the hero, then stays fixed to the top of the viewport
           // once it gets there, for the sections that follow
@@ -214,7 +243,8 @@ export function useHeroMotion() {
             wordmarkSlot.style.minHeight = "";
             cancelled = true;
             split?.revert();
-            gsap.set(headline, { clearProps: "visibility,opacity" });
+            gsap.set([eyebrow, headline], { clearProps: "visibility,opacity,transform" });
+            gsap.set(content, { clearProps: "opacity" });
           };
         },
       );
@@ -224,5 +254,5 @@ export function useHeroMotion() {
     { scope: heroRef },
   );
 
-  return { heroRef, wordmarkSlotRef, contentRef, headlineRef, wordmarkRef };
+  return { heroRef, wordmarkSlotRef, contentRef, eyebrowRef, headlineRef, wordmarkRef };
 }

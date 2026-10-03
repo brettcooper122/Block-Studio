@@ -5,7 +5,8 @@ import wordmarkSvg from "../assets/brand/block-wordmark.svg?raw";
 import "./Hero.css";
 
 export function Hero() {
-  const { heroRef, wordmarkSlotRef, contentRef, headlineRef, wordmarkRef } = useHeroMotion();
+  const { heroRef, wordmarkSlotRef, contentRef, eyebrowRef, headlineRef, wordmarkRef } =
+    useHeroMotion();
 
   return (
     <section className="hero" ref={heroRef}>
@@ -22,11 +23,15 @@ export function Hero() {
 
       <div className="hero__content" ref={contentRef}>
         <p className="hero__eyebrow text-label">
-          <span aria-hidden="true">©</span>
-          <span>
-            BLOC<span className="hero__flip">K</span> STUDIO
-          </span>
-        </p>
+            <span className="hero__eyebrow-mask">
+              <span className="hero__eyebrow-inner" ref={eyebrowRef}>
+                <span aria-hidden="true">©</span>
+                <span>
+                  BLOC<span className="hero__flip">K</span> STUDIO
+                </span>
+              </span>
+            </span>
+          </p>
         <h1 className="hero__headline text-h2" ref={headlineRef}>
           We are a Toronto-based AI-native creative consulting studio, enabling B2B/B2C startup
           founders and growth-stage agencies to{" "}
