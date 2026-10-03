@@ -45,7 +45,8 @@
   --motion-headline-word-stagger: 45ms;
   --motion-headline-travel: 100; /* percent of the line height: fully out of its mask */
   --motion-reduced-duration: 300ms;
-  --motion-wordmark-smoothing: 700ms; /* how long the wordmark takes to catch up with the scroll */
+  --motion-wordmark-smoothing: 1000ms; /* how long the wordmark takes to catch up with the scroll */
+  --motion-wordmark-ease: cubic-bezier(0.37, 0, 0.63, 1); /* eases in from rest and out to rest across its travel */
   --motion-background-complete: 0.8; /* the background is fully charcoal after this share of a screen's height is scrolled */
   --motion-statement-fade-to: 0; /* opacity the statement reaches as it leaves the top of the screen */
   --motion-statement-speed: 1.2; /* the statement scrolls at 120% of the page */

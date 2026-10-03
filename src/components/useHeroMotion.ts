@@ -38,6 +38,7 @@ export function useHeroMotion() {
       if (!hero || !wordmarkSlot || !content || !eyebrow || !headline || !wordmark || !track) return;
 
       const ease = CustomEase.create("hero-arrive", readBezier("--derived-motion-ease"));
+      const travelEase = CustomEase.create("hero-travel", readBezier("--motion-wordmark-ease"));
       const mm = gsap.matchMedia();
 
       mm.add(
@@ -129,7 +130,7 @@ export function useHeroMotion() {
                 const inset = readNumber("--hero-wordmark-inset");
                 return -(track.offsetLeft + track.offsetWidth - (hero.clientWidth - inset));
               },
-              ease: "none",
+              ease: travelEase,
               scrollTrigger: {
                 trigger: hero,
                 start: "top top",
