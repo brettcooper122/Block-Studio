@@ -48,15 +48,29 @@
   pointer-events: auto;
 }
 
-/* Sits at the Figma offset, 1042px wide, then 80% of the viewport once that is narrower */
-.hero__content {
-  display: flex;
-  flex-direction: column;
-  gap: var(--hero-content-gap);
+/* The slot holds the statement's place at the Figma offset: 1042px wide, then 80% of the viewport */
+.hero__slot {
   width: min(var(--derived-content-width), var(--derived-content-fluid-width));
   margin-top: var(--derived-content-top);
   margin-bottom: var(--hero-content-gap);
   margin-inline: auto;
+}
+
+.hero__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--hero-content-gap);
+}
+
+/* Once its top reaches the viewport edge the statement stays there while the page moves on */
+.hero__content--pinned {
+  position: fixed;
+  top: var(--hero-gutter);
+  right: 0;
+  left: 0;
+  width: min(var(--derived-content-width), var(--derived-content-fluid-width));
+  margin-inline: auto;
+  transform: none !important;
 }
 
 .hero__eyebrow {

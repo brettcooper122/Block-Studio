@@ -12,12 +12,13 @@ gsap.registerPlugin(useGSAP, CustomEase, ScrollTrigger, SplitText);
  * Five moves for the hero, all timed from tokens:
  *  - the headline rises into view line by line, each line clipped by its own mask
  *  - the wordmark travels left as the page scrolls, and eases back as it scrolls up
- *  - the statement scrolls at 120% of the page, so it climbs away faster and settles back at the top
+ *  - the statement scrolls at 120% of the page until it reaches the top edge, then stays fixed there
  *  - the hero background fades from orange to charcoal across its scroll
  *  - the asterisk turns clockwise forever, faster the faster the page scrolls, in either direction
  */
 export function useHeroMotion() {
   const heroRef = useRef<HTMLElement>(null);
+  const slotRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const wordmarkRef = useRef<HTMLDivElement>(null);
@@ -25,10 +26,11 @@ export function useHeroMotion() {
   useGSAP(
     () => {
       const hero = heroRef.current;
+      const slot = slotRef.current;
       const content = contentRef.current;
       const headline = headlineRef.current;
       const wordmark = wordmarkRef.current;
-      if (!hero || !content || !headline || !wordmark) return;
+      if (!hero || !slot || !content || !headline || !wordmark) return;
 
       const ease = CustomEase.create("hero-arrive", readBezier("--derived-motion-ease"));
       const mm = gsap.matchMedia();
@@ -119,24 +121,59 @@ export function useHeroMotion() {
             });
           }
 
+          // The statement rises at 120% of the page until its top reaches the viewport edge, then
+          // stays fixed there for the sections that follow. With reduced motion it rises at the
+          // page's own speed and pins at the same point.
+          const speed = () => (reduced ? 1 : readNumber("--motion-statement-speed"));
+          const gutter = () => readNumber("--hero-gutter");
+          const pinPoint = () => (slot.offsetTop - gutter()) / speed();
+
+          // The slot keeps the statement's place in the hero once it leaves the flow
+          const holdSpace = new ResizeObserver(() => {
+            slot.style.minHeight = `${content.offsetHeight}px`;
+          });
+          holdSpace.observe(content);
+
           if (!reduced) {
-            // 120% scroll speed: the extra 20% is a rise of 0.2 times the distance scrolled
             gsap.to(content, {
-              y: () => -(readNumber("--motion-statement-speed") - 1) * hero.offsetHeight,
+              y: () => -(speed() - 1) * pinPoint(),
               ease: "none",
               scrollTrigger: {
                 trigger: hero,
                 start: "top top",
-                end: "bottom top",
+                end: () => `+=${pinPoint()}`,
                 scrub: true,
                 invalidateOnRefresh: true,
               },
             });
           }
 
+          const pinned = "hero__content--pinned";
+          const pin = ScrollTrigger.create({
+            start: 0,
+            end: "max",
+            onUpdate: (self) => content.classList.toggle(pinned, self.scroll() >= pinPoint()),
+            onRefresh: (self) => content.classList.toggle(pinned, self.scroll() >= pinPoint()),
+          });
+
           // The asterisk turns for as long as the hero is on screen
           let stopSpin: (() => void) | undefined;
           const asterisk = wordmark.querySelector(".wordmark__asterisk");
+
+          // The asterisk turns white as the background darkens, on the same scroll range
+          if (asterisk) {
+            gsap.to(asterisk, {
+              fill: readColor("--hero-wordmark-asterisk-scrolled"),
+              ease: "none",
+              scrollTrigger: {
+                trigger: hero,
+                start: "top top",
+                end: "bottom top",
+                scrub: true,
+              },
+            });
+          }
+
           if (!reduced && asterisk) {
             const spin = gsap.to(asterisk, {
               rotation: 360,
@@ -173,6 +210,10 @@ export function useHeroMotion() {
 
           return () => {
             stopSpin?.();
+            pin.kill();
+            holdSpace.disconnect();
+            content.classList.remove(pinned);
+            slot.style.minHeight = "";
             cancelled = true;
             split?.revert();
             gsap.set(headline, { clearProps: "visibility,opacity" });
@@ -185,5 +226,5 @@ export function useHeroMotion() {
     { scope: heroRef },
   );
 
-  return { heroRef, contentRef, headlineRef, wordmarkRef };
+  return { heroRef, slotRef, contentRef, headlineRef, wordmarkRef };
 }

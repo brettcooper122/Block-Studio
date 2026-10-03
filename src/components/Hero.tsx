@@ -5,7 +5,7 @@ import wordmarkSvg from "../assets/brand/block-wordmark.svg?raw";
 import "./Hero.css";
 
 export function Hero() {
-  const { heroRef, contentRef, headlineRef, wordmarkRef } = useHeroMotion();
+  const { heroRef, slotRef, contentRef, headlineRef, wordmarkRef } = useHeroMotion();
 
   return (
     <section className="hero" ref={heroRef}>
@@ -20,21 +20,23 @@ export function Hero() {
         </nav>
       </header>
 
-      <div className="hero__content" ref={contentRef}>
-        <p className="hero__eyebrow text-label">
-          <span aria-hidden="true">©</span>
-          <span>
-            BLOC<span className="hero__flip">K</span> STUDIO
-          </span>
-        </p>
-        <h1 className="hero__headline text-h2" ref={headlineRef}>
-          We are a Toronto-based AI-native creative consulting studio, enabling B2B/B2C startup
-          founders and growth-stage agencies to{" "}
-          <span className="hero__accent text-h2-serif">
-            identify the right problems before investing build cycles in the wrong solutions,
-          </span>{" "}
-          pairing velocity with analytics to ship at warp-speed.
-        </h1>
+      <div className="hero__slot" ref={slotRef}>
+        <div className="hero__content" ref={contentRef}>
+          <p className="hero__eyebrow text-label">
+            <span aria-hidden="true">©</span>
+            <span>
+              BLOC<span className="hero__flip">K</span> STUDIO
+            </span>
+          </p>
+          <h1 className="hero__headline text-h2" ref={headlineRef}>
+            We are a Toronto-based AI-native creative consulting studio, enabling B2B/B2C startup
+            founders and growth-stage agencies to{" "}
+            <span className="hero__accent text-h2-serif">
+              identify the right problems before investing build cycles in the wrong solutions,
+            </span>{" "}
+            pairing velocity with analytics to ship at warp-speed.
+          </h1>
+        </div>
       </div>
 
       <div
