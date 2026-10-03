@@ -82,7 +82,7 @@
   --services-backdrop-duration: 500ms;
   --services-disc-size: calc(var(--bs-spacing-xxl) * 4);
   --services-measure: calc(var(--bs-spacing-xxl) * 4); /* summary column, flush to the right edge */
-  --services-title-max: calc(var(--bs-spacing-xxl) * 6 + var(--bs-spacing-xl)); /* titles wrap here, which keeps each to two lines and leaves room for the disc */
+  --services-title-max: calc(var(--bs-spacing-xxl) * 6 + var(--bs-spacing-xl)); /* titles wrap here, which keeps each to two lines */
   --services-number-col: var(--bs-spacing-xxl);
   --services-top-gap: var(--bs-spacing-xxl);
   --services-bottom-pad: calc(var(--bs-spacing-xxl) * 2);
