@@ -65,10 +65,19 @@
   --services-rule: color-mix(in srgb, var(--bs-color-white) 16%, transparent);
   --services-label-bg: var(--bs-color-brand-charcoal-900);
   --services-label-ink: var(--bs-color-brand-charcoal-300);
-  --services-wash: var(--bs-color-brand-orange-400);
-  --services-wash-opacity: 0.4;
-  --services-disc-bg: var(--bs-color-brand-orange-400);
-  --services-disc-ink: var(--bs-color-brand-charcoal-300);
+  /* One badge per service. The disc and the blurred backdrop both take their colours from it. */
+  --services-badge-1-bg: var(--bs-color-brand-orange-400);
+  --services-badge-1-ink: var(--bs-color-brand-charcoal-300);
+  --services-badge-2-bg: var(--bs-color-brand-orange-200);
+  --services-badge-2-ink: var(--bs-color-brand-orange-600);
+  --services-badge-3-bg: var(--bs-color-brand-charcoal-400);
+  --services-badge-3-ink: var(--bs-color-brand-orange-400);
+  --services-badge-4-bg: var(--bs-color-brand-orange-300);
+  --services-badge-4-ink: var(--bs-color-white);
+  --services-blur: 48px;
+  --services-scrim: color-mix(in srgb, var(--bs-color-brand-charcoal-200) 48%, transparent);
+  --services-backdrop-glyph: 90vmin;
+  --services-backdrop-duration: 500ms;
   --services-disc-size: calc(var(--bs-spacing-xxl) * 4);
   --services-measure: calc(var(--bs-spacing-xxl) * 4);
   --services-number-col: var(--bs-spacing-xxl);

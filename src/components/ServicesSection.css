@@ -9,21 +9,6 @@
   padding-bottom: var(--services-bottom-pad);
 }
 
-/* A brand wash that rises behind the list while a row is hovered */
-.services__wash {
-  position: absolute;
-  inset: 0;
-  background-color: var(--services-wash);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity var(--services-ease-duration) ease;
-}
-
-.services:has(.services__list:hover) .services__wash,
-.services:has(.services__item:focus-visible) .services__wash {
-  opacity: var(--services-wash-opacity);
-}
-
 .services__container {
   position: relative;
   width: 100%;
@@ -107,7 +92,7 @@
   width: var(--services-disc-d);
   height: var(--services-disc-d);
   border-radius: 50%;
-  background-color: var(--services-disc-bg);
+  background-color: var(--badge-bg);
   opacity: 0;
   pointer-events: none;
   transform: translateY(-50%);
@@ -119,10 +104,6 @@
   height: auto;
   animation: services-spin var(--motion-glyph-period) linear infinite;
   animation-play-state: paused;
-}
-
-.services__glyph-fill {
-  fill: var(--services-disc-ink);
 }
 
 @keyframes services-spin {

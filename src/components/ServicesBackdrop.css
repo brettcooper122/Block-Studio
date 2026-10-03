@@ -1,0 +1,92 @@
+/* Badge colours per service, shared by the disc and the backdrop */
+[data-badge="1"] {
+  --badge-bg: var(--services-badge-1-bg);
+  --badge-ink: var(--services-badge-1-ink);
+}
+
+[data-badge="2"] {
+  --badge-bg: var(--services-badge-2-bg);
+  --badge-ink: var(--services-badge-2-ink);
+}
+
+[data-badge="3"] {
+  --badge-bg: var(--services-badge-3-bg);
+  --badge-ink: var(--services-badge-3-ink);
+}
+
+[data-badge="4"] {
+  --badge-bg: var(--services-badge-4-bg);
+  --badge-ink: var(--services-badge-4-ink);
+}
+
+.badge__glyph-fill {
+  fill: var(--badge-ink);
+}
+
+/* Hidden until a service is hovered, and only where a pointer can hover on a wide screen */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  display: none;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+@media (min-width: 992px) and (hover: hover) and (pointer: fine) {
+  .backdrop {
+    display: block;
+  }
+}
+
+.backdrop__layer {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity var(--services-backdrop-duration) ease,
+    visibility 0s linear var(--services-backdrop-duration);
+}
+
+html[data-service="1"] .backdrop__layer[data-badge="1"],
+html[data-service="2"] .backdrop__layer[data-badge="2"],
+html[data-service="3"] .backdrop__layer[data-badge="3"],
+html[data-service="4"] .backdrop__layer[data-badge="4"] {
+  opacity: 1;
+  visibility: visible;
+  transition-delay: 0s;
+}
+
+/* The badge, blown up and blurred. It overscans so the blur never shows a hard edge. */
+.backdrop__art {
+  position: absolute;
+  inset: calc(-2 * var(--services-blur));
+  display: grid;
+  place-items: center;
+  background-color: var(--badge-bg);
+  filter: blur(var(--services-blur));
+}
+
+.backdrop__glyph {
+  display: block;
+  width: var(--services-backdrop-glyph);
+  line-height: 0;
+}
+
+.backdrop__glyph svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.backdrop__scrim {
+  position: absolute;
+  inset: 0;
+  background-color: var(--services-scrim);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .backdrop__layer {
+    transition-duration: 0s;
+  }
+}
