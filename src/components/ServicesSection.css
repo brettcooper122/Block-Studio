@@ -12,7 +12,7 @@
 .services__container {
   position: relative;
   width: 100%;
-  max-width: var(--derived-services-width);
+  max-width: calc(var(--derived-services-width) + 2 * var(--hero-gutter));
   margin-inline: auto;
   padding-inline: var(--hero-gutter);
 }
@@ -51,12 +51,12 @@
   --services-disc-d: min(
     var(--services-disc-size),
     calc(
-      (100cqw - var(--services-number-col) - 2 * var(--bs-spacing-m)) / 2 - var(--services-measure) -
-        var(--bs-spacing-l)
+      100cqw - var(--services-number-col) - 2 * var(--bs-spacing-m) - var(--services-measure) -
+        var(--services-title-max) - var(--bs-spacing-l)
     )
   );
   display: grid;
-  grid-template-columns: var(--services-number-col) minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-columns: var(--services-number-col) minmax(0, 1fr) var(--services-measure);
   align-items: center;
   column-gap: var(--bs-spacing-m);
   padding-block: var(--bs-padding-m);
@@ -71,21 +71,21 @@
 
 .services__title {
   grid-column: 2;
+  max-width: var(--services-title-max);
   margin: 0;
   text-wrap: balance;
 }
 
 .services__summary {
   grid-column: 3;
-  max-width: var(--services-measure);
-  justify-self: start;
+  width: 100%;
 }
 
 /* The brand asterisk turns inside a disc beside the hovered row */
 .services__disc {
   position: absolute;
   top: 50%;
-  right: 0;
+  right: calc(var(--services-measure) + var(--bs-spacing-l));
   z-index: 1;
   display: grid;
   place-items: center;

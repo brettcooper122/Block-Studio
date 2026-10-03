@@ -81,7 +81,8 @@
   --services-backdrop-glyph: 90vmin;
   --services-backdrop-duration: 500ms;
   --services-disc-size: calc(var(--bs-spacing-xxl) * 4);
-  --services-measure: calc(var(--bs-spacing-xxl) * 4);
+  --services-measure: calc(var(--bs-spacing-xxl) * 4); /* summary column, flush to the right edge */
+  --services-title-max: calc(var(--bs-spacing-xxl) * 6 + var(--bs-spacing-xl)); /* titles wrap here, which keeps each to two lines and leaves room for the disc */
   --services-number-col: var(--bs-spacing-xxl);
   --services-top-gap: var(--bs-spacing-xxl);
   --services-bottom-pad: calc(var(--bs-spacing-xxl) * 2);
@@ -96,7 +97,7 @@
   --derived-z-nav: 10; /* keeps the fixed nav above every section */
   --derived-z-wordmark: 5; /* the pinned wordmark band sits above the sections and below the nav */
   --derived-z-section: 2; /* sections sit above the page and below the pinned wordmark band */
-  --derived-services-width: 1800px; /* widest the services list grows */
+  --derived-services-width: 1152px; /* widest the services rows grow */
   --derived-rule-width: 1px; /* hairline between rows */
   --derived-wordmark-height: 14.28vw; /* wordmark 216px against the 1512px frame */
   --derived-logo-height: 43px; /* the sticker logo as exported */
