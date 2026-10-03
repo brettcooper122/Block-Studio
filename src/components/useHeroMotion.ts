@@ -10,7 +10,7 @@ gsap.registerPlugin(useGSAP, CustomEase, ScrollTrigger, SplitText);
 
 /**
  * Six moves for the hero, all timed from tokens:
- *  - the emblem and then the headline rise into view line by line, each line clipped by its own mask
+ *  - the emblem and then the headline rise into view line by line, and the wordmark letter by letter, each line clipped by its own mask
  *  - the wordmark travels left as the page scrolls, and eases back as it scrolls up
  *  - the statement scrolls at 120% of the page and fades as it climbs out of view
  *  - the wordmark stays fixed to the top of the viewport once it reaches it
@@ -104,6 +104,22 @@ export function useHeroMotion() {
                 return tl;
               },
             });
+          });
+
+          // The wordmark letters arrive one at a time, each rising from below the graphic's edge,
+          // which clips them. The asterisk counts as a letter.
+          const letters = gsap.utils.toArray<SVGPathElement>("path", track);
+          const wordmarkSvg = track.querySelector("svg");
+          const letterTravel = wordmarkSvg ? wordmarkSvg.viewBox.baseVal.height : 0;
+          gsap.set(letters, reduced ? { autoAlpha: 0 } : { y: letterTravel });
+          gsap.to(letters, {
+            ...(reduced ? { autoAlpha: 1 } : { y: 0 }),
+            duration: reduced
+              ? readSeconds("--motion-reduced-duration")
+              : readSeconds("--motion-headline-duration"),
+            delay: readSeconds("--motion-headline-delay"),
+            stagger: reduced ? 0 : readSeconds("--motion-wordmark-letter-stagger"),
+            ease: reduced ? "none" : ease,
           });
 
           // Colour changes finish after a set share of a screen's height has been scrolled
@@ -246,6 +262,7 @@ export function useHeroMotion() {
             wordmarkSlot.style.minHeight = "";
             cancelled = true;
             split?.revert();
+            gsap.set(letters, { clearProps: "visibility,opacity" });
             gsap.set([eyebrow, headline], { clearProps: "visibility,opacity,transform" });
             gsap.set(content, { clearProps: "opacity" });
           };

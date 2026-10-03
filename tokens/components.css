@@ -43,6 +43,7 @@
   --motion-headline-duration: 800ms;
   --motion-headline-line-stagger: 140ms;
   --motion-headline-word-stagger: 45ms;
+  --motion-wordmark-letter-stagger: 70ms; /* gap between one wordmark letter and the next as they arrive */
   --motion-headline-travel: 100; /* percent of the line height: fully out of its mask */
   --motion-reduced-duration: 300ms;
   --motion-wordmark-smoothing: 1000ms; /* how long the wordmark takes to catch up with the scroll */

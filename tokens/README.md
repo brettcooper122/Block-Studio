@@ -72,7 +72,7 @@ The file holds four component sets, not one.
 
 Timing for the hero lives in `components.css` under the `--motion-*` tokens and is read by `src/components/useHeroMotion.ts` at runtime, so the GSAP code holds no numbers of its own. The easing is `--derived-motion-ease`, converted to a GSAP curve.
 
-- Entrance: the © BLOCK STUDIO emblem rises first, then the headline lines follow one after another (`--motion-headline-*`). With reduced motion they fade in.
+- Entrance: the © BLOCK STUDIO emblem rises first, then the headline lines follow one after another (`--motion-headline-*`). The big wordmark's letters rise in one at a time from below the graphic's edge, left to right, with the asterisk as one of them (`--motion-wordmark-letter-stagger`). With reduced motion everything fades in.
 - Wordmark: travels left across the hero's scroll with an ease-in-out (`--motion-wordmark-ease`), so it starts and settles softly, and glides to catch up with the scroll (`--motion-wordmark-smoothing`). It returns the same way as the page scrolls up. With reduced motion it stays put.
 - Background: fades from orange400 to charcoal200 (`--hero-bg-scrolled`) in step with the scroll and lands once 80% of a screen's height has been scrolled (`--motion-background-complete`). It stays on with reduced motion, since colour carries no movement.
 - Statement: scrolls at `--motion-statement-speed` (120%), so it climbs out of view faster than the page and settles back as you scroll to the top. It also fades (`--motion-statement-fade-to`), reaching that opacity as it leaves the top of the screen. The fade stays on with reduced motion.
