@@ -17,7 +17,7 @@ const {
   spring, stepS, disposer, mk, pointer, put, register, solid,
 } = HL;
 
-const L = 176, W = 36, ZT = 24, ZB = 16, N = 6, V0 = 22, BS = 12, BH = 12;
+const L = 176, W = 36, ZT = 24, ZB = 16, N = 6, V0 = 34, BS = 12, BH = 12;
 const HX = 22, F0 = 44, F1 = 104, WIDE = 17, NARROW = 7.8, BIN0 = L + 3, BIN1 = L + 31, SPAN = L + 17;
 const hash = (n) => { const x = Math.sin(n * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); };
 const ease = (t) => t * t * (3 - 2 * t);
