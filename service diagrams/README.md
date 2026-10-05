@@ -27,6 +27,10 @@ node ~/.agents/skills/hairline-create/look.mjs marble-run.js --answer 75,5,70 --
 
 The first command rebuilds the frame version. The second rebuilds the review page and runs the skill's checks.
 
+## On the site
+
+The services section shows each diagram in its hover badge (`public/diagrams/frame-<name>.html`, set per service in `src/content/services.ts`) and blows up a still of it, `public/diagrams/backdrop-<name>.png`, as the blurred backdrop behind the section. The stills are 1200px pictures of each frame answering its row's hover, on the badge's tile colour (`--services-diagram-bg`). After changing a diagram, rebuild its frame into `public/diagrams` and take a new still.
+
 ## Matching the site's colours
 
 The drawings use one stroke palette, and their solid parts are filled with the background colour so nearer parts hide farther ones. To sit on a background other than white, set the `--hairline-plate`, `--hairline-hi`, `--hairline-edge`, `--hairline-mid` and `--hairline-lo` CSS variables in `frame.html`, and match the page background to `--hairline-plate`.
