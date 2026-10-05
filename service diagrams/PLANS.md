@@ -52,26 +52,29 @@ Order of work: 01 Marble run → 02 Sieve → 03 Pyramid → 04 Guide rails.
 **Prompt:**
 
 ```
-/hairline-create a round sieve over a catch tray for a research service that finds the right problem before a build: beads of mixed sizes on the mesh; where the pointer shakes it, the small beads drop through and the big ones stay on top
+/hairline-create an archaeologist's sifting screen on a stand over a catch tray, for a research service that finds the right problem before a build: soil and a few finds on the mesh; where the pointer shakes it, the soil drops through and the finds stay on top
 ```
 
-**The metaphor:** research shakes out the noise, and what stays on the mesh is the problem worth solving.
+**The metaphor:** research shakes out the noise, and what stays on the mesh is the find worth building on.
 
 **The object and what gives it away:**
 
-- A round sieve: a short drum with a rolled rim and a visible mesh floor (a grid of fine lines inside the circle).
-- It rests on a shallow catch tray below, with a gap between them so falling beads can be seen.
-- Beads in two or three clear sizes. The big ones are few, the small ones are many.
+- A rectangular wooden box frame with a wire mesh floor and a handle at each end.
+- A sawhorse stand: legs splayed across the short side so each end stands as an A, with a rail between the near legs.
+- A catch tray on the ground underneath, where fallen soil collects.
+- Soil pebbles, and four finds with their own shapes: a coin, a pottery shard, a cut diamond and a bead.
 
-**What the pointer does:** this is the "field" pattern. The pointer is projected onto the mesh. Small beads within reach sink through the mesh into the tray, staggered outwards from the pointer, so the drop spreads out from where you shake. Big beads stay and lift slightly. The big bead nearest the pointer takes the bright stroke. Leaving springs everything back to the rest pose.
+**What the pointer does:** this is the "field" pattern. The pointer is projected onto the mesh. Pebbles within reach drop through into the tray, staggered outwards from the pointer. Under the mesh they dim, as they are seen through it. The finds stay, and the one nearest the pointer takes the bright stroke. Leaving brings everything back to the rest pose.
 
-**Rest:** most beads on the mesh, a few small ones already sitting in the tray (sifting has started). One big bead is bright.
+**Rest:** soil across the mesh, some already in the tray, and the diamond bright.
 
-**Read-out:** the big bead nearest the pointer, `01` to `04`, and `rest`.
+**Read-out:** the find nearest the pointer, `coin`, `shard`, `diamond` or `bead`, and `rest`.
 
 **Slider:** how wide the shake reaches, in world units: `24 / 38 / 56`.
 
-**Rules it leans on:** 01 hit, 02 order, 03 reach, 06 honesty (beads seen through the mesh, hidden by the drum wall).
+**Rules it leans on:** 01 hit, 02 order, 03 reach, 06 honesty (soil seen through the mesh, hidden by the boards and the tray walls).
+
+First built as a round kitchen sieve on a bowl; reworked into the archaeological sieve on Brett's call, as a more distinctive object.
 
 ---
 
