@@ -67,6 +67,18 @@ html[data-service="4"] .backdrop__layer[data-badge="4"] {
   filter: blur(var(--services-blur));
 }
 
+/* A diagram's backdrop takes its tile's colour, so the blur reads as the badge grown to fill the screen */
+.backdrop__art--diagram {
+  background-color: var(--services-diagram-bg);
+  filter: blur(var(--services-diagram-blur)); /* lighter than a glyph's: a line drawing vanishes under a heavy blur */
+}
+
+.backdrop__diagram {
+  display: block;
+  width: var(--services-backdrop-glyph);
+  height: auto;
+}
+
 .backdrop__glyph {
   display: block;
   width: var(--services-backdrop-glyph);
