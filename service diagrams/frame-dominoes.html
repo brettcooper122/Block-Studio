@@ -637,133 +637,156 @@ var HL = (() => {
 })();
 </script>
 <script type="module">/**
- * Lens: a magnifying glass over a research page, a sheet with a bar chart, a
- * table and lines of notes. At rest the glass hangs too high to focus: what it
- * shows is three faint copies of the page, offset, and its rim carries the
- * bright stroke. Brought over the page by the pointer, it glides there and
- * lowers to its focal height, the copies close into one, and the magnified
- * content takes the bright stroke, crisp. A dashed circle on the page marks the
- * spot under the glass. The slider is the magnification.
+ * Dominoes: ten dominoes stand in a gentle S across a board, each a size up on
+ * the last, so the run builds toward a tall final tile. At rest the first leans,
+ * poised. The pointer pushes the tile under it, and the fall travels forward to
+ * the finish, each tile tipping onto the next and coming to rest against it, the
+ * last lying flat. Leaving stands them back up, from the finish backward. The
+ * tile pushed takes the bright stroke. The slider is the stagger, in ms.
  *
- * The pattern: a field, through a lens. The pointer is put on the plane at the
- * glass's focal height, its target pose, which never moves; the glass follows
- * on springs, one per axis and one for focus. The magnified content is the
- * page's own lines, scaled about the lens centre and clipped to the glass.
+ * The pattern: one of many. A tween per tile for the discrete change (standing
+ * or fallen), delayed by its distance down the run from the tile pushed; a hit
+ * test on rest positions, on the board's plane, which never moves; and resting
+ * angles worked out once, from the finish back, so fallen tiles never cross.
  */
 const {
-  Cam, circ, clamp, facing, fit, lerp, poly, prism, proj, rings, ringAt, seg, unproj,
-  spring, stepS, disposer, mk, pointer, put, register, solid,
+  Cam, fillet, fit, hull, lerp, poly, prism, proj, rad, rings, seg, unproj,
+  tdone, tset, tval, tween, disposer, mk, place, pointer, put, register, solid, facing,
 } = HL;
 
-const PW = 120, PH = 90, PT = 1.2, R = 21, RIM = 2.6, HF = 13, HH = 27, BLUR = 3.2, HLEN = 30;
-const REST = [86, 30];
-// the page's content, as segments on the sheet: [x1, y1, x2, y2], and the zone each belongs to
-const LINES = [];
-const add = (zone, x1, y1, x2, y2) => LINES.push([x1, y1, x2, y2, zone]);
-[[0, 0, PW, 0], [PW, 0, PW, PH], [PW, PH, 0, PH], [0, PH, 0, 0]].forEach((s) => add("page", ...s));
-add("chart", 10, 34, 110, 34);
-[12, 19, 9, 23, 16, 21, 13, 25, 18].forEach((h, k) => {
-  const x = 13 + k * 10.6;
-  add("chart", x, 34, x, 34 - h); add("chart", x, 34 - h, x + 6, 34 - h); add("chart", x + 6, 34 - h, x + 6, 34);
-});
-for (let r = 0; r <= 6; r++) add("table", 10, 40 + r * 4, 110, 40 + r * 4);
-for (const x of [10, 34, 56, 78, 110]) add("table", x, 40, x, 64);
-[98, 84, 92, 70, 88, 52].forEach((w, k) => add("notes", 10, 69 + k * 3.6, 10 + w, 69 + k * 3.6));
-const ZONE = (y) => (y < 4 || y > PH - 4 ? "page" : y < 38 ? "chart" : y < 67 ? "table" : "notes");
+const N = 10, H0 = 12, GROW = 1.11, LEAN = rad(9);
+const PIPS = [[1, 2], [3, 0], [2, 2], [0, 1], [3, 3], [1, 1], [2, 0], [3, 2], [1, 3], [2, 3]];
+// the run's path: along a line that crosses the frame left to right, with a gentle S across it
+const PHI = Math.atan2(-0.42, 1), DX = Math.cos(PHI), DY = Math.sin(PHI), RUN = 170, OX = 0, OY = 70;
+const toWorld = (u, v) => [OX + u * DX - v * DY, OY + u * DY + v * DX];
+const PATH = [];
+for (let k = 0; k <= 200; k++) { const u = (k / 200) * RUN; PATH.push(toWorld(u, -9 * Math.sin((2 * Math.PI * u) / RUN))); }
+const LEN = [0];
+for (let k = 1; k < PATH.length; k++) LEN.push(LEN[k - 1] + Math.hypot(PATH[k][0] - PATH[k - 1][0], PATH[k][1] - PATH[k - 1][1]));
+/** The point on the path at length s, and its unit direction. */
+function along(s) {
+  let k = 1;
+  while (k < LEN.length - 1 && LEN[k] < s) k++;
+  const u = (s - LEN[k - 1]) / (LEN[k] - LEN[k - 1]), a = PATH[k - 1], b = PATH[k], l = Math.hypot(b[0] - a[0], b[1] - a[1]);
+  return [lerp(a[0], b[0], u), lerp(a[1], b[1], u), (b[0] - a[0]) / l, (b[1] - a[1]) / l];
+}
 
-/** A segment clipped to the circle of radius r about c, or null if none of it is inside. */
-function clip(ax, ay, bx, by, c, r) {
-  const dx = bx - ax, dy = by - ay, fx = ax - c[0], fy = ay - c[1];
-  const A = dx * dx + dy * dy, Bq = 2 * (fx * dx + fy * dy), Cq = fx * fx + fy * fy - r * r, disc = Bq * Bq - 4 * A * Cq;
-  if (A === 0 || disc <= 0) return null;
-  const s = Math.sqrt(disc), t0 = clamp((-Bq - s) / (2 * A), 0, 1), t1 = clamp((-Bq + s) / (2 * A), 0, 1);
-  return t1 - t0 < 1e-3 ? null : [ax + dx * t0, ay + dy * t0, ax + dx * t1, ay + dy * t1];
+// the tiles: height, width, thickness and where each stands along the path
+const TILES = [];
+let s = 6;
+for (let i = 0; i < N; i++) {
+  const h = H0 * GROW ** i, t = { h, w: h * 0.5, th: h * 0.2, s };
+  TILES.push(t);
+  s += h * 0.72;
+}
+/** A point of tile i tipped by theta about its front bottom edge: [distance along the run, height]; a is across its thickness, c up it. */
+const tip = (t, th, a, c) => {
+  const p = t.s + t.th / 2, x = a - t.th / 2;
+  return [p + x * Math.cos(th) + c * Math.sin(th), -x * Math.sin(th) + c * Math.cos(th)];
+};
+// resting angles, from the finish back: the last lies flat, each other leans until its top meets the back of the next
+TILES[N - 1].rest = Math.PI / 2;
+for (let i = N - 2; i >= 0; i--) {
+  const t = TILES[i], n = TILES[i + 1], b0 = tip(n, n.rest, -n.th / 2, 0), b1 = tip(n, n.rest, -n.th / 2, n.h);
+  const side = (th) => { const q = tip(t, th, t.th / 2, t.h); return (b1[0] - b0[0]) * (q[1] - b0[1]) - (b1[1] - b0[1]) * (q[0] - b0[0]); };
+  let lo = 0, hi = Math.PI / 2;
+  if (Math.sign(side(lo)) === Math.sign(side(hi))) t.rest = hi;
+  else { for (let k = 0; k < 30; k++) { const m = (lo + hi) / 2; if (Math.sign(side(m)) === Math.sign(side(lo))) lo = m; else hi = m; } t.rest = lo; }
 }
 
 function mount({ stage, svg, read }, value) {
   const bag = disposer();
-  let mag = value, hovering = false;
-  const C = Cam(45, 0.5, 2.05);
-  fit(C, [[-4, -4, 0], [PW + 4, PH + 4, 0], [PW + 4, -4, 0], [-4, PH + 4, 0], [REST[0] - R, REST[1] - R, HH + 3], [PW, PH - 20, HF], [PW + 12, 34, HH]], 200, 166);
+  let stag = value, from = -1;
+  const C = Cam(45, 0.5, 2.0);
+  const U1 = TILES[N - 1].s + TILES[N - 1].h + 8, corners = [[-8, -20], [U1, -20], [U1, 20], [-8, 20]].map(([u, v]) => toWorld(u, v));
+  fit(C, corners.map(([x, y]) => [x, y, -4]).concat([[...toWorld(TILES[N - 1].s, 0), TILES[N - 1].h + 2], [...toWorld(0, 0), H0 + 4]]), 200, 166);
   const P = proj(C), front = facing(C);
   const g = mk("g", {}, svg);
 
-  // the sheet, and its printed content, which never moves
-  const [pr, pi] = rings(0, 0, PW, PH, 2.5, 1.2);
-  put(solid(g), prism(P, front, pr, pi, 0, PT));
-  const printed = (zone, cls) => mk("path", { d: LINES.filter((l) => l[4] === zone).map(([x1, y1, x2, y2]) => seg(P(x1, y1, PT), P(x2, y2, PT))).join(""), class: cls }, g);
-  printed("chart", "nf"); printed("table", "nf lo"); printed("notes", "nf lo");
+  // the board
+  const turn = (ring) => ring.map((q) => { const [x, y] = toWorld(q.u, q.v); return { u: x, v: y, nu: q.nu * DX - q.nv * DY, nv: q.nu * DY + q.nv * DX }; });
+  const [br, bi] = rings(-8, -20, U1, 20, 8, 2);
+  put(solid(g), prism(P, front, turn(br), turn(bi), -4, 0));
 
-  // the glass: the spot under it, then its rim, the glass itself, what it shows, and the handle
-  const spot = mk("path", { class: "nf dash" }, g);
-  const rim = solid(g), glass = mk("path", {}, g);
-  const copies = [mk("path", { class: "nf lo" }, g), mk("path", { class: "nf lo" }, g), mk("path", { class: "nf lo" }, g)];
-  const handle = solid(g);
-  const sx = spring(REST[0]), sy = spring(REST[1]), focus = spring(0);
-  const ring = (r, n, c) => circ(r, n).map((q) => ({ ...q, u: q.u + c[0], v: q.v + c[1] }));
-  let drawn = "";
+  const tiles = TILES.map((t, i) => {
+    const [x, y, fx, fy] = along(t.s), grp = mk("g", {}, g);
+    const el = { sil: mk("path", { class: "sil" }, grp), face: mk("path", { class: "nf lo" }, grp) };
+    const pips = Array.from({ length: PIPS[i][0] + PIPS[i][1] }, () => mk("circle", { r: 0.9, class: "dot off" }, grp));
+    return { ...t, i, x, y, fx, fy, el, pips, tw: tween(i === 0 ? LEAN : 0), drawn: NaN };
+  });
 
-  function draw() {
-    const c = [sx.x, sy.x], f = clamp(focus.x, 0, 1), h = lerp(HH, HF, f), z = h + 2, b = BLUR * (1 - f);
-    const key = [c[0], c[1], f, mag].map((v) => v.toFixed(3)).join();
-    if (key === drawn) return;
-    drawn = key;
-    spot.setAttribute("d", poly(ringAt(P, ring(R + RIM, 40, c), PT)));
-    put(rim, prism(P, front, ring(R + RIM, 56, c), ring(R + 0.8, 56, c), h, z));
-    glass.setAttribute("d", poly(ringAt(P, ring(R, 56, c), z)));
-    // the page under the glass, scaled about its centre and clipped to it; out of focus, three offset copies
-    const offs = b < 0.15 ? [[0, 0]] : [[b, 0], [-b / 2, b * 0.87], [-b / 2, -b * 0.87]];
-    copies.forEach((el, k) => {
-      const o = offs[k];
-      if (!o) { el.setAttribute("d", ""); return; }
-      let d = "";
-      for (const [x1, y1, x2, y2] of LINES) {
-        const q = clip(c[0] + (x1 - c[0]) * mag + o[0], c[1] + (y1 - c[1]) * mag + o[1], c[0] + (x2 - c[0]) * mag + o[0], c[1] + (y2 - c[1]) * mag + o[1], c, R - 0.6);
-        if (q) d += seg(P(q[0], q[1], z), P(q[2], q[3], z));
-      }
-      el.setAttribute("d", d);
+  /** A tile at angle theta: its silhouette, its front face with the line across it, and its pips, while that face shows. */
+  function draw(t, now) {
+    const th = tval(t.tw, now);
+    if (th === t.drawn) return;
+    t.drawn = th;
+    const W = (a, b, c) => { const [f, z] = tip(t, th, a, c); return P(t.x + t.fx * (f - t.s) - t.fy * b, t.y + t.fy * (f - t.s) + t.fx * b, z); };
+    const corners = [];
+    for (const a of [-t.th / 2, t.th / 2]) for (const b of [-t.w / 2, t.w / 2]) for (const c of [0, t.h]) corners.push(W(a, b, c));
+    const hp = hull(corners);
+    t.el.sil.setAttribute("d", poly(fillet(hp, hp.map(() => 1.2), 3)));
+    const fa = t.th / 2, m = 0.9, F = [W(fa, -t.w / 2 + m, m), W(fa, t.w / 2 - m, m), W(fa, t.w / 2 - m, t.h - m), W(fa, -t.w / 2 + m, t.h - m)];
+    const area = F.reduce((acc, p, k) => acc + p[0] * F[(k + 1) % 4][1] - F[(k + 1) % 4][0] * p[1], 0), shows = area > 0;
+    t.el.face.setAttribute("d", shows ? poly(F) + seg(W(fa, -t.w / 2 + 2, t.h / 2), W(fa, t.w / 2 - 2, t.h / 2)) : "");
+    const [lo, up] = PIPS[t.i];
+    const spots = (n, c0) => [[0, 0], [-1, 1], [1, -1]].slice(0, n).map(([u, v]) => [u * t.w * 0.22, c0 + v * t.h * 0.12]);
+    spots(lo, t.h * 0.25).concat(spots(up, t.h * 0.75)).forEach(([b, c], k) => {
+      place(t.pips[k], W(fa, b, c));
+      t.pips[k].setAttribute("r", shows ? 0.9 : 0);
     });
-    const sharp = f > 0.9;
-    copies[0].setAttribute("class", sharp ? "nf hi" : "nf lo");
-    rim.sil.classList.toggle("hi", !sharp);
-    // the handle runs out from the rim toward the viewer's right
-    const [hr, hi] = rings(c[0] + R + RIM - 1, c[1] - 2.6, c[0] + R + RIM + HLEN, c[1] + 2.6, 2.6, 0.9);
-    put(handle, prism(P, front, hr, hi, h + 0.4, z - 0.2));
   }
 
-  const B = register(stage, (dt) => {
-    let m = false;
-    for (const s of [sx, sy, focus]) if (stepS(s, dt)) m = true;
-    draw();
-    return m;
+  const B = register(stage, (_dt, now) => {
+    let moving = false;
+    for (const t of tiles) { draw(t, now); if (!tdone(t.tw, now)) moving = true; }
+    return moving;
   });
   bag.add(B.unregister);
 
+  const light = (j) => tiles.forEach((t) => t.el.sil.classList.toggle("hi", t.i === j));
+  light(0);
+
+  /** Pushes tile a: it and every tile after it fall, each after the one before. Never stands a tile up while the pointer is on the board. */
+  function push(a) {
+    if (from >= 0 && a >= from) return;
+    from = a;
+    const now = performance.now();
+    tiles.forEach((t) => { if (t.i >= a) tset(t.tw, t.rest, now, (t.i - a) * stag); });
+    light(a);
+    read.textContent = "tile " + String(a + 1).padStart(2, "0");
+    B.wake();
+  }
+  function reset() {
+    if (from < 0) return;
+    from = -1;
+    const now = performance.now();
+    tiles.forEach((t) => tset(t.tw, t.i === 0 ? LEAN : 0, now, (N - 1 - t.i) * stag));
+    light(0);
+    read.textContent = "rest";
+    B.wake();
+  }
+
   bag.add(pointer(stage, {
     move: (p) => {
-      const q = unproj(C, p[0], p[1], HF + 2);
-      hovering = q[0] > -10 && q[0] < PW + 10 && q[1] > -10 && q[1] < PH + 10;
-      if (hovering) {
-        sx.t = clamp(q[0], 8, PW - 8); sy.t = clamp(q[1], 8, PH - 8); focus.t = 1;
-        read.textContent = ZONE(sy.t);
-      } else { sx.t = REST[0]; sy.t = REST[1]; focus.t = 0; read.textContent = "rest"; }
-      B.wake();
+      const q = unproj(C, p[0], p[1], 0), u = (q[0] - OX) * DX + (q[1] - OY) * DY, v = -(q[0] - OX) * DY + (q[1] - OY) * DX;
+      if (u < -12 || u > U1 + 4 || Math.abs(v) > 26) { reset(); return; }
+      push(tiles.reduce((a, t) => (Math.hypot(t.x - q[0], t.y - q[1]) < Math.hypot(a.x - q[0], a.y - q[1]) ? t : a)).i);
     },
-    leave: () => { hovering = false; sx.t = REST[0]; sy.t = REST[1]; focus.t = 0; read.textContent = "rest"; B.wake(); },
+    leave: reset,
   }));
   bag.add(() => svg.replaceChildren());
 
   return {
-    set: (v) => { mag = v; drawn = ""; B.wake(); },
+    set: (v) => { stag = v; },
     destroy: bag.dispose,
   };
 }
 
 hairline({
-  name: "lens",
-  means: "A magnifying glass over a research page: blurred at rest, it comes into focus wherever the pointer brings it.",
-  rules: [1, 3, 5, 8],
-  range: [1.3, 1.6, 2.1],
+  name: "dominoes",
+  means: "A run of dominoes, each bigger than the last: push one and the fall carries forward, tile by tile, to the finish.",
+  rules: [1, 2, 5, 8],
+  range: [40, 70, 110],
   mount,
 });
 </script>

@@ -3,18 +3,71 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Hairline frame</title>
+<title>Hairline figure</title>
 <link rel="icon" href="data:,">
 <style>
-  :root { --ground: #ffffff; }
-  :root[data-theme="dark"] { --ground: #08090a; }
-  html, body { margin: 0; height: 100%; background: var(--ground); overflow: hidden; }
-  #stage { position: absolute; left: 50%; top: 50%; width: 400px; transform: translate(-50%, -50%); }
+  :root { color-scheme: light; --ground: #ffffff; --ink: #232327; --muted: #6f6f78; --line: #e0e0e4; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) { color-scheme: dark; --ground: #08090a; --ink: #d0d6e0; --muted: #8a8c95; --line: #29292d; }
+  }
+  :root[data-theme="dark"] { color-scheme: dark; --ground: #08090a; --ink: #d0d6e0; --muted: #8a8c95; --line: #29292d; }
+  :root[data-theme="light"] { color-scheme: light; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; min-height: 100vh; display: grid; place-items: center; padding: 24px 16px;
+    background: var(--ground); color: var(--ink);
+    font: 13px/1.5 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; -webkit-font-smoothing: antialiased;
+  }
+  main { width: 100%; max-width: 640px; }
+  .plate { position: relative; border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+  .tag, .label, output, button { font: 11px/1 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; letter-spacing: 0.02em; }
+  .tag { position: absolute; top: 12px; z-index: 1; color: var(--muted); pointer-events: none; }
+  #name { left: 14px; }
+  #read { right: 14px; color: var(--ink); font-variant-numeric: tabular-nums; }
+  .controls { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px; margin-top: 14px; }
+  .label { color: var(--muted); }
+  input[type="range"] {
+    flex: 1 1 96px; min-width: 0; height: 32px; margin: 0; background: transparent; cursor: pointer;
+    -webkit-appearance: none; appearance: none;
+  }
+  input[type="range"]::-webkit-slider-runnable-track { height: 1px; background: var(--muted); }
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none; width: 13px; height: 13px; margin-top: -6px; border-radius: 50%;
+    border: 1px solid var(--ink); background: var(--ground);
+  }
+  input[type="range"]::-moz-range-track { height: 1px; background: var(--muted); }
+  input[type="range"]::-moz-range-thumb { width: 11px; height: 11px; border-radius: 50%; border: 1px solid var(--ink); background: var(--ground); }
+  input[type="range"]:focus-visible, button:focus-visible { outline: 1.5px solid var(--ink); outline-offset: 2px; }
+  output { min-width: 4ch; text-align: right; font-variant-numeric: tabular-nums; }
+  button {
+    height: 32px; padding: 0 12px; border: 1px solid var(--line); border-radius: 8px;
+    background: transparent; color: var(--ink); cursor: pointer;
+  }
+  #means { margin: 14px 0 0; text-wrap: pretty; }
+  #rules { margin: 6px 0 0; line-height: 1.6; }
+  #error { margin: 12px 0 0; padding-left: 10px; border-left: 1px solid var(--ink); }
 </style>
 </head>
 <body>
-<div id="stage"></div>
-<script id="hl-kernel">/* hairline kernel sha256:8e2abcbdf63c7755195ee942c39e9c8ea6a539d1147e986dd1c153559121f075 */
+<main>
+  <div class="plate">
+    <span class="tag" id="name"></span>
+    <span class="tag" id="read"></span>
+    <div id="stage"></div>
+  </div>
+  <div class="controls">
+    <label class="label" for="intensity">intensity</label>
+    <input id="intensity" type="range" min="0" max="1" step="0.01" value="0.5">
+    <output id="value" for="intensity"></output>
+    <span class="label">theme</span>
+    <button id="theme" type="button" aria-label="Switch between the light and the dark theme"></button>
+  </div>
+  <p id="means"></p>
+  <p id="rules" class="label"></p>
+  <p id="error" role="alert" hidden></p>
+</main>
+<script id="hl-kernel">
+/* hairline kernel sha256:8e2abcbdf63c7755195ee942c39e9c8ea6a539d1147e986dd1c153559121f075 */
 /*
  * HL: everything a figure may call. Read this index; the code under it is the
  * package's src/core, unchanged, and a figure should not need to read it.
@@ -585,185 +638,237 @@ var HL = (() => {
 })();
 /* /hairline kernel */
 </script>
-<script>
+<script id="hl-bench">
 /*
- * The frame: only the drawing, for a hover frame on the site. No read-out, slider
- * or caption, and the figure mounts at the middle of its range. The drawing is
- * scaled to fit whatever box the page is given, square or not, and centred in it.
- *   ?theme=dark   the dark palette
- *   ?pad=0.88     the share of the box the drawing may fill, on its tighter side
- *   ?bg=none      a see-through page, so the drawing sits on whatever is behind the frame
- * A page that embeds the frame can drive it with postMessage, for a frame that cannot be hovered:
- *   { hairline: "enter", at: [x, y] }   holds the pointer at a point of the 400 × 320 viewBox
- *   { hairline: "leave" }               lets it go
+ * The bench: the page a figure is shown on. It makes the host and the svg the
+ * way the package's mount does, hands them to the figure, and owns everything
+ * around it: the read-out, the slider, the theme, the line under the stage.
  */
 (() => {
-  const params = new URLSearchParams(location.search);
-  if (params.get("theme") === "dark") document.documentElement.dataset.theme = "dark";
-  if (params.get("bg") === "none") document.documentElement.style.setProperty("--ground", "transparent");
-  const pad = Math.min(1, Math.max(0.3, Number(params.get("pad")) || 0.88));
+  const RULES = ["hit", "order", "reach", "accent", "rest", "honesty", "cost", "clock", "radius", "quiet"];
+  const $ = (id) => document.getElementById(id);
+  const root = document.documentElement, params = new URLSearchParams(location.search);
 
+  /* the theme: the system's until the switch is pressed, then the switch's */
+  const dark = () => (root.dataset.theme ? root.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches);
+  const label = () => { $("theme").textContent = dark() ? "dark" : "light"; };
+  $("theme").addEventListener("click", () => { root.dataset.theme = dark() ? "light" : "dark"; label(); });
+  /* ?theme=light or ?theme=dark wins over the system's, as pressing the switch does */
+  if (["light", "dark"].includes(params.get("theme"))) root.dataset.theme = params.get("theme");
+  label();
+
+  /* ?intensity=0 sets the slider before the figure mounts, for a look at either end */
+  const i = (params.get("intensity") || "").trim();
+  if (i && Number.isFinite(Number(i))) $("intensity").value = String(Math.min(1, Math.max(0, Number(i))));
+
+  /* ?w=240 narrows the page, for a look at the size of a thumbnail */
+  const w = Number(params.get("w"));
+  if (w > 0) document.querySelector("main").style.maxWidth = w + "px";
+
+  /* a figure that fails says so under the stage, instead of leaving an empty plate */
+  addEventListener("error", (e) => {
+    $("error").hidden = false;
+    $("error").textContent = String((e.error && e.error.message) || e.message);
+  });
+
+  let mounted = false;
   window.hairline = (figure) => {
-    const stage = document.getElementById("stage");
+    if (mounted) throw new Error("hairline: one figure per page.");
+    mounted = true;
+    const stage = $("stage"), slider = $("intensity");
+
+    /* intensity to the figure's own number: two straight lines that meet at 0.5, as in the package */
+    const [lo, mid, hi] = figure.range;
+    const at = (i) => Math.round((i <= 0.5 ? lo + (i / 0.5) * (mid - lo) : mid + ((i - 0.5) / 0.5) * (hi - mid)) * 1000) / 1000;
+
     HL.inject(document);
     stage.setAttribute("data-hairline", figure.name);
     stage.setAttribute("role", "img");
     stage.setAttribute("aria-label", figure.means);
     const svg = HL.mk("svg", { viewBox: "0 0 400 320", "aria-hidden": "true" }, stage);
-    figure.mount({ stage, svg, read: { textContent: "" } }, figure.range[1]);
 
-    // The drawing's box, in viewBox units, read once at rest: the stage is sized so that box fits the page.
-    const box = svg.getBBox();
-    const fit = () => {
-      const u = Math.min((pad * innerWidth) / box.width, (pad * innerHeight) / box.height);
-      const dx = (200 - (box.x + box.width / 2)) * u, dy = (160 - (box.y + box.height / 2)) * u;
-      stage.style.width = 400 * u + "px";
-      stage.style.transform = `translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px))`;
+    let text = null;
+    const read = {
+      get textContent() { return text; },
+      set textContent(value) { text = value == null ? "" : String(value); $("read").textContent = text; },
     };
-    fit();
-    addEventListener("resize", fit);
 
-    // the embedding page's hover, passed in as pointer events on the stage
-    addEventListener("message", (e) => {
-      if (e.origin !== location.origin || !e.data || !e.data.hairline) return;
-      const r = stage.getBoundingClientRect(), at = e.data.at || [200, 160];
-      const type = e.data.hairline === "enter" ? "pointermove" : "pointerleave";
-      stage.dispatchEvent(new PointerEvent(type, {
+    document.title = "Hairline · " + figure.name;
+    $("name").textContent = figure.name;
+    $("means").textContent = figure.means;
+    $("rules").textContent = figure.rules.map((n) => String(n).padStart(2, "0") + " " + RULES[n - 1]).join(" · ");
+    const show = () => { $("value").textContent = String(at(Number(slider.value))); };
+    show();
+
+    const handle = figure.mount({ stage, svg, read }, at(Number(slider.value)));
+    if (text === null) read.textContent = "rest";
+    slider.addEventListener("input", () => { show(); handle.set(at(Number(slider.value))); });
+    window.hairline.figure = handle;
+
+    /* ?at=200,160 holds the pointer at a viewBox point, for a picture of the answer without a mouse */
+    const p = (params.get("at") || "").split(",").map(Number);
+    if (p.length === 2 && p.every(Number.isFinite)) {
+      const r = stage.getBoundingClientRect();
+      stage.dispatchEvent(new PointerEvent("pointermove", {
         pointerType: "mouse", pointerId: 1, bubbles: true,
-        clientX: r.left + (at[0] / 400) * r.width, clientY: r.top + (at[1] / 320) * r.height,
+        clientX: r.left + (p[0] / 400) * r.width, clientY: r.top + (p[1] / 320) * r.height,
       }));
-    });
+    }
   };
 })();
 </script>
-<script type="module">/**
- * Lens: a magnifying glass over a research page, a sheet with a bar chart, a
- * table and lines of notes. At rest the glass hangs too high to focus: what it
- * shows is three faint copies of the page, offset, and its rim carries the
- * bright stroke. Brought over the page by the pointer, it glides there and
- * lowers to its focal height, the copies close into one, and the magnified
- * content takes the bright stroke, crisp. A dashed circle on the page marks the
- * spot under the glass. The slider is the magnification.
+<script type="module" id="hl-figure">
+/**
+ * Dominoes: ten dominoes stand in a gentle S across a board, each a size up on
+ * the last, so the run builds toward a tall final tile. At rest the first leans,
+ * poised. The pointer pushes the tile under it, and the fall travels forward to
+ * the finish, each tile tipping onto the next and coming to rest against it, the
+ * last lying flat. Leaving stands them back up, from the finish backward. The
+ * tile pushed takes the bright stroke. The slider is the stagger, in ms.
  *
- * The pattern: a field, through a lens. The pointer is put on the plane at the
- * glass's focal height, its target pose, which never moves; the glass follows
- * on springs, one per axis and one for focus. The magnified content is the
- * page's own lines, scaled about the lens centre and clipped to the glass.
+ * The pattern: one of many. A tween per tile for the discrete change (standing
+ * or fallen), delayed by its distance down the run from the tile pushed; a hit
+ * test on rest positions, on the board's plane, which never moves; and resting
+ * angles worked out once, from the finish back, so fallen tiles never cross.
  */
 const {
-  Cam, circ, clamp, facing, fit, lerp, poly, prism, proj, rings, ringAt, seg, unproj,
-  spring, stepS, disposer, mk, pointer, put, register, solid,
+  Cam, fillet, fit, hull, lerp, poly, prism, proj, rad, rings, seg, unproj,
+  tdone, tset, tval, tween, disposer, mk, place, pointer, put, register, solid, facing,
 } = HL;
 
-const PW = 120, PH = 90, PT = 1.2, R = 21, RIM = 2.6, HF = 13, HH = 27, BLUR = 3.2, HLEN = 30;
-const REST = [86, 30];
-// the page's content, as segments on the sheet: [x1, y1, x2, y2], and the zone each belongs to
-const LINES = [];
-const add = (zone, x1, y1, x2, y2) => LINES.push([x1, y1, x2, y2, zone]);
-[[0, 0, PW, 0], [PW, 0, PW, PH], [PW, PH, 0, PH], [0, PH, 0, 0]].forEach((s) => add("page", ...s));
-add("chart", 10, 34, 110, 34);
-[12, 19, 9, 23, 16, 21, 13, 25, 18].forEach((h, k) => {
-  const x = 13 + k * 10.6;
-  add("chart", x, 34, x, 34 - h); add("chart", x, 34 - h, x + 6, 34 - h); add("chart", x + 6, 34 - h, x + 6, 34);
-});
-for (let r = 0; r <= 6; r++) add("table", 10, 40 + r * 4, 110, 40 + r * 4);
-for (const x of [10, 34, 56, 78, 110]) add("table", x, 40, x, 64);
-[98, 84, 92, 70, 88, 52].forEach((w, k) => add("notes", 10, 69 + k * 3.6, 10 + w, 69 + k * 3.6));
-const ZONE = (y) => (y < 4 || y > PH - 4 ? "page" : y < 38 ? "chart" : y < 67 ? "table" : "notes");
+const N = 10, H0 = 12, GROW = 1.11, LEAN = rad(9);
+const PIPS = [[1, 2], [3, 0], [2, 2], [0, 1], [3, 3], [1, 1], [2, 0], [3, 2], [1, 3], [2, 3]];
+// the run's path: along a line that crosses the frame left to right, with a gentle S across it
+const PHI = Math.atan2(-0.42, 1), DX = Math.cos(PHI), DY = Math.sin(PHI), RUN = 170, OX = 0, OY = 70;
+const toWorld = (u, v) => [OX + u * DX - v * DY, OY + u * DY + v * DX];
+const PATH = [];
+for (let k = 0; k <= 200; k++) { const u = (k / 200) * RUN; PATH.push(toWorld(u, -9 * Math.sin((2 * Math.PI * u) / RUN))); }
+const LEN = [0];
+for (let k = 1; k < PATH.length; k++) LEN.push(LEN[k - 1] + Math.hypot(PATH[k][0] - PATH[k - 1][0], PATH[k][1] - PATH[k - 1][1]));
+/** The point on the path at length s, and its unit direction. */
+function along(s) {
+  let k = 1;
+  while (k < LEN.length - 1 && LEN[k] < s) k++;
+  const u = (s - LEN[k - 1]) / (LEN[k] - LEN[k - 1]), a = PATH[k - 1], b = PATH[k], l = Math.hypot(b[0] - a[0], b[1] - a[1]);
+  return [lerp(a[0], b[0], u), lerp(a[1], b[1], u), (b[0] - a[0]) / l, (b[1] - a[1]) / l];
+}
 
-/** A segment clipped to the circle of radius r about c, or null if none of it is inside. */
-function clip(ax, ay, bx, by, c, r) {
-  const dx = bx - ax, dy = by - ay, fx = ax - c[0], fy = ay - c[1];
-  const A = dx * dx + dy * dy, Bq = 2 * (fx * dx + fy * dy), Cq = fx * fx + fy * fy - r * r, disc = Bq * Bq - 4 * A * Cq;
-  if (A === 0 || disc <= 0) return null;
-  const s = Math.sqrt(disc), t0 = clamp((-Bq - s) / (2 * A), 0, 1), t1 = clamp((-Bq + s) / (2 * A), 0, 1);
-  return t1 - t0 < 1e-3 ? null : [ax + dx * t0, ay + dy * t0, ax + dx * t1, ay + dy * t1];
+// the tiles: height, width, thickness and where each stands along the path
+const TILES = [];
+let s = 6;
+for (let i = 0; i < N; i++) {
+  const h = H0 * GROW ** i, t = { h, w: h * 0.5, th: h * 0.2, s };
+  TILES.push(t);
+  s += h * 0.72;
+}
+/** A point of tile i tipped by theta about its front bottom edge: [distance along the run, height]; a is across its thickness, c up it. */
+const tip = (t, th, a, c) => {
+  const p = t.s + t.th / 2, x = a - t.th / 2;
+  return [p + x * Math.cos(th) + c * Math.sin(th), -x * Math.sin(th) + c * Math.cos(th)];
+};
+// resting angles, from the finish back: the last lies flat, each other leans until its top meets the back of the next
+TILES[N - 1].rest = Math.PI / 2;
+for (let i = N - 2; i >= 0; i--) {
+  const t = TILES[i], n = TILES[i + 1], b0 = tip(n, n.rest, -n.th / 2, 0), b1 = tip(n, n.rest, -n.th / 2, n.h);
+  const side = (th) => { const q = tip(t, th, t.th / 2, t.h); return (b1[0] - b0[0]) * (q[1] - b0[1]) - (b1[1] - b0[1]) * (q[0] - b0[0]); };
+  let lo = 0, hi = Math.PI / 2;
+  if (Math.sign(side(lo)) === Math.sign(side(hi))) t.rest = hi;
+  else { for (let k = 0; k < 30; k++) { const m = (lo + hi) / 2; if (Math.sign(side(m)) === Math.sign(side(lo))) lo = m; else hi = m; } t.rest = lo; }
 }
 
 function mount({ stage, svg, read }, value) {
   const bag = disposer();
-  let mag = value, hovering = false;
-  const C = Cam(45, 0.5, 2.05);
-  fit(C, [[-4, -4, 0], [PW + 4, PH + 4, 0], [PW + 4, -4, 0], [-4, PH + 4, 0], [REST[0] - R, REST[1] - R, HH + 3], [PW, PH - 20, HF], [PW + 12, 34, HH]], 200, 166);
+  let stag = value, from = -1;
+  const C = Cam(45, 0.5, 2.0);
+  const U1 = TILES[N - 1].s + TILES[N - 1].h + 8, corners = [[-8, -20], [U1, -20], [U1, 20], [-8, 20]].map(([u, v]) => toWorld(u, v));
+  fit(C, corners.map(([x, y]) => [x, y, -4]).concat([[...toWorld(TILES[N - 1].s, 0), TILES[N - 1].h + 2], [...toWorld(0, 0), H0 + 4]]), 200, 166);
   const P = proj(C), front = facing(C);
   const g = mk("g", {}, svg);
 
-  // the sheet, and its printed content, which never moves
-  const [pr, pi] = rings(0, 0, PW, PH, 2.5, 1.2);
-  put(solid(g), prism(P, front, pr, pi, 0, PT));
-  const printed = (zone, cls) => mk("path", { d: LINES.filter((l) => l[4] === zone).map(([x1, y1, x2, y2]) => seg(P(x1, y1, PT), P(x2, y2, PT))).join(""), class: cls }, g);
-  printed("chart", "nf"); printed("table", "nf lo"); printed("notes", "nf lo");
+  // the board
+  const turn = (ring) => ring.map((q) => { const [x, y] = toWorld(q.u, q.v); return { u: x, v: y, nu: q.nu * DX - q.nv * DY, nv: q.nu * DY + q.nv * DX }; });
+  const [br, bi] = rings(-8, -20, U1, 20, 8, 2);
+  put(solid(g), prism(P, front, turn(br), turn(bi), -4, 0));
 
-  // the glass: the spot under it, then its rim, the glass itself, what it shows, and the handle
-  const spot = mk("path", { class: "nf dash" }, g);
-  const rim = solid(g), glass = mk("path", {}, g);
-  const copies = [mk("path", { class: "nf lo" }, g), mk("path", { class: "nf lo" }, g), mk("path", { class: "nf lo" }, g)];
-  const handle = solid(g);
-  const sx = spring(REST[0]), sy = spring(REST[1]), focus = spring(0);
-  const ring = (r, n, c) => circ(r, n).map((q) => ({ ...q, u: q.u + c[0], v: q.v + c[1] }));
-  let drawn = "";
+  const tiles = TILES.map((t, i) => {
+    const [x, y, fx, fy] = along(t.s), grp = mk("g", {}, g);
+    const el = { sil: mk("path", { class: "sil" }, grp), face: mk("path", { class: "nf lo" }, grp) };
+    const pips = Array.from({ length: PIPS[i][0] + PIPS[i][1] }, () => mk("circle", { r: 0.9, class: "dot off" }, grp));
+    return { ...t, i, x, y, fx, fy, el, pips, tw: tween(i === 0 ? LEAN : 0), drawn: NaN };
+  });
 
-  function draw() {
-    const c = [sx.x, sy.x], f = clamp(focus.x, 0, 1), h = lerp(HH, HF, f), z = h + 2, b = BLUR * (1 - f);
-    const key = [c[0], c[1], f, mag].map((v) => v.toFixed(3)).join();
-    if (key === drawn) return;
-    drawn = key;
-    spot.setAttribute("d", poly(ringAt(P, ring(R + RIM, 40, c), PT)));
-    put(rim, prism(P, front, ring(R + RIM, 56, c), ring(R + 0.8, 56, c), h, z));
-    glass.setAttribute("d", poly(ringAt(P, ring(R, 56, c), z)));
-    // the page under the glass, scaled about its centre and clipped to it; out of focus, three offset copies
-    const offs = b < 0.15 ? [[0, 0]] : [[b, 0], [-b / 2, b * 0.87], [-b / 2, -b * 0.87]];
-    copies.forEach((el, k) => {
-      const o = offs[k];
-      if (!o) { el.setAttribute("d", ""); return; }
-      let d = "";
-      for (const [x1, y1, x2, y2] of LINES) {
-        const q = clip(c[0] + (x1 - c[0]) * mag + o[0], c[1] + (y1 - c[1]) * mag + o[1], c[0] + (x2 - c[0]) * mag + o[0], c[1] + (y2 - c[1]) * mag + o[1], c, R - 0.6);
-        if (q) d += seg(P(q[0], q[1], z), P(q[2], q[3], z));
-      }
-      el.setAttribute("d", d);
+  /** A tile at angle theta: its silhouette, its front face with the line across it, and its pips, while that face shows. */
+  function draw(t, now) {
+    const th = tval(t.tw, now);
+    if (th === t.drawn) return;
+    t.drawn = th;
+    const W = (a, b, c) => { const [f, z] = tip(t, th, a, c); return P(t.x + t.fx * (f - t.s) - t.fy * b, t.y + t.fy * (f - t.s) + t.fx * b, z); };
+    const corners = [];
+    for (const a of [-t.th / 2, t.th / 2]) for (const b of [-t.w / 2, t.w / 2]) for (const c of [0, t.h]) corners.push(W(a, b, c));
+    const hp = hull(corners);
+    t.el.sil.setAttribute("d", poly(fillet(hp, hp.map(() => 1.2), 3)));
+    const fa = t.th / 2, m = 0.9, F = [W(fa, -t.w / 2 + m, m), W(fa, t.w / 2 - m, m), W(fa, t.w / 2 - m, t.h - m), W(fa, -t.w / 2 + m, t.h - m)];
+    const area = F.reduce((acc, p, k) => acc + p[0] * F[(k + 1) % 4][1] - F[(k + 1) % 4][0] * p[1], 0), shows = area > 0;
+    t.el.face.setAttribute("d", shows ? poly(F) + seg(W(fa, -t.w / 2 + 2, t.h / 2), W(fa, t.w / 2 - 2, t.h / 2)) : "");
+    const [lo, up] = PIPS[t.i];
+    const spots = (n, c0) => [[0, 0], [-1, 1], [1, -1]].slice(0, n).map(([u, v]) => [u * t.w * 0.22, c0 + v * t.h * 0.12]);
+    spots(lo, t.h * 0.25).concat(spots(up, t.h * 0.75)).forEach(([b, c], k) => {
+      place(t.pips[k], W(fa, b, c));
+      t.pips[k].setAttribute("r", shows ? 0.9 : 0);
     });
-    const sharp = f > 0.9;
-    copies[0].setAttribute("class", sharp ? "nf hi" : "nf lo");
-    rim.sil.classList.toggle("hi", !sharp);
-    // the handle runs out from the rim toward the viewer's right
-    const [hr, hi] = rings(c[0] + R + RIM - 1, c[1] - 2.6, c[0] + R + RIM + HLEN, c[1] + 2.6, 2.6, 0.9);
-    put(handle, prism(P, front, hr, hi, h + 0.4, z - 0.2));
   }
 
-  const B = register(stage, (dt) => {
-    let m = false;
-    for (const s of [sx, sy, focus]) if (stepS(s, dt)) m = true;
-    draw();
-    return m;
+  const B = register(stage, (_dt, now) => {
+    let moving = false;
+    for (const t of tiles) { draw(t, now); if (!tdone(t.tw, now)) moving = true; }
+    return moving;
   });
   bag.add(B.unregister);
 
+  const light = (j) => tiles.forEach((t) => t.el.sil.classList.toggle("hi", t.i === j));
+  light(0);
+
+  /** Pushes tile a: it and every tile after it fall, each after the one before. Never stands a tile up while the pointer is on the board. */
+  function push(a) {
+    if (from >= 0 && a >= from) return;
+    from = a;
+    const now = performance.now();
+    tiles.forEach((t) => { if (t.i >= a) tset(t.tw, t.rest, now, (t.i - a) * stag); });
+    light(a);
+    read.textContent = "tile " + String(a + 1).padStart(2, "0");
+    B.wake();
+  }
+  function reset() {
+    if (from < 0) return;
+    from = -1;
+    const now = performance.now();
+    tiles.forEach((t) => tset(t.tw, t.i === 0 ? LEAN : 0, now, (N - 1 - t.i) * stag));
+    light(0);
+    read.textContent = "rest";
+    B.wake();
+  }
+
   bag.add(pointer(stage, {
     move: (p) => {
-      const q = unproj(C, p[0], p[1], HF + 2);
-      hovering = q[0] > -10 && q[0] < PW + 10 && q[1] > -10 && q[1] < PH + 10;
-      if (hovering) {
-        sx.t = clamp(q[0], 8, PW - 8); sy.t = clamp(q[1], 8, PH - 8); focus.t = 1;
-        read.textContent = ZONE(sy.t);
-      } else { sx.t = REST[0]; sy.t = REST[1]; focus.t = 0; read.textContent = "rest"; }
-      B.wake();
+      const q = unproj(C, p[0], p[1], 0), u = (q[0] - OX) * DX + (q[1] - OY) * DY, v = -(q[0] - OX) * DY + (q[1] - OY) * DX;
+      if (u < -12 || u > U1 + 4 || Math.abs(v) > 26) { reset(); return; }
+      push(tiles.reduce((a, t) => (Math.hypot(t.x - q[0], t.y - q[1]) < Math.hypot(a.x - q[0], a.y - q[1]) ? t : a)).i);
     },
-    leave: () => { hovering = false; sx.t = REST[0]; sy.t = REST[1]; focus.t = 0; read.textContent = "rest"; B.wake(); },
+    leave: reset,
   }));
   bag.add(() => svg.replaceChildren());
 
   return {
-    set: (v) => { mag = v; drawn = ""; B.wake(); },
+    set: (v) => { stag = v; },
     destroy: bag.dispose,
   };
 }
 
 hairline({
-  name: "lens",
-  means: "A magnifying glass over a research page: blurred at rest, it comes into focus wherever the pointer brings it.",
-  rules: [1, 3, 5, 8],
-  range: [1.3, 1.6, 2.1],
+  name: "dominoes",
+  means: "A run of dominoes, each bigger than the last: push one and the fall carries forward, tile by tile, to the finish.",
+  rules: [1, 2, 5, 8],
+  range: [40, 70, 110],
   mount,
 });
 </script>

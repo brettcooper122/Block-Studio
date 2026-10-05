@@ -10,11 +10,43 @@ House rules that apply to all four (from the skill's ten rules):
 - The figure has to be recognisable at 240px wide.
 - One idea per figure. The slider changes one number.
 
-Order of work: 01 Marble run → 02 Sieve → 03 Pyramid → 04 Guide rails, then 02 Lens, which became the main figure for Creative Strategy (the sieve stays as its alternate).
+Order of work: 01 Marble run → 02 Sieve → 03 Pyramid → 04 Guide rails, then 02 Lens, which became the main figure for Creative Strategy (the sieve stays as its alternate), and 01 Dominoes, which became the main figure for Agentic End-to-End (the marble run stays as its alternate).
 
 ---
 
-## 01 · Marble run
+## 01 · Dominoes (main)
+
+**Service:** Agentic End-to-End UX Design & Development
+
+**Prompt:**
+
+```
+/hairline-create a domino run for a design-and-build service that takes work from first sketch to shipped code in one pass: dominoes in a line, each a size up on the last; the pointer pushes one and the fall carries forward, tile by tile, to the finish
+```
+
+**The metaphor:** one push carries all the way from start to finish, with momentum building and nothing stopping it. Process, linearity and moving forward, in one gesture.
+
+**The object and what gives it away:**
+
+- A long board, set to cross the frame left to right so the run reads like a sentence.
+- Ten dominoes in a gentle S, each about 11% bigger than the last, with a line across the face and pips.
+- Fallen, they come to rest against each other like real dominoes, the last lying flat.
+
+**What the pointer does:** the "one of many" pattern. The tile under the pointer is pushed, and it and every tile after it fall, each after the one before, on 700ms tweens. Resting angles are worked out once, from the finish back, so fallen tiles never cross. Leaving stands them back up from the finish backward.
+
+**Rest:** all standing, the first tile leaning forward, poised, with the bright stroke.
+
+**Read-out:** the tile pushed, `tile 04`, and `rest`.
+
+**Slider:** the stagger between tiles, in ms: `40 / 70 / 110`.
+
+**Rules it leans on:** 01 hit, 02 order, 05 rest, 08 clock.
+
+Replaced the marble run as the main figure on Brett's call, for a stronger read of momentum and start to finish. The marble run stays as the alternate.
+
+---
+
+## 01 · Marble run (alternate)
 
 **Service:** Agentic End-to-End UX Design & Development
 

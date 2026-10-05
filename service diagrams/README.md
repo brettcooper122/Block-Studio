@@ -4,7 +4,7 @@ One interactive line drawing per service, made with the [Hairline](https://hairl
 
 | Service | Diagram | Status |
 | --- | --- | --- |
-| (01) Agentic End-to-End UX Design & Development | Marble run | Built |
+| (01) Agentic End-to-End UX Design & Development | Dominoes (main) · Marble run (alternate) | Built |
 | (02) Creative Strategy | Lens (main) · Sieve (alternate) | Built |
 | (03) Rapid Pattern Generation & System Scaling | Pyramid | Built |
 | (04) Self-Serve System Enablement & Brand Continuity | Guide rails | Built |
@@ -14,9 +14,9 @@ Prompts and plans for all four are in `PLANS.md`.
 ## Files
 
 - `<name>.js` is the drawing itself, and the only file to edit.
-- `frame-<name>.html` is the version for the site: the drawing alone, scaled to fit whatever box it sits in. Put it in an iframe at 100% width and height of the hover frame. Add `?theme=dark` for the dark palette, and `?pad=0.8` to change how much of the box it fills (0.88 by default).
+- `frame-<name>.html` is the version for the site: the drawing alone, scaled to fit whatever box it sits in. Put it in an iframe at 100% width and height of the hover frame. Add `?theme=dark` for the dark palette, `?pad=0.8` to change how much of the box it fills (0.88 by default), and `?bg=none` for a see-through page that sits on whatever is behind the frame. A page that embeds it can drive it with `postMessage({ hairline: "enter", at: [x, y] })` and `postMessage({ hairline: "leave" })`, so a frame that cannot be hovered still answers its row's hover.
 - `hairline-<name>.html` is the review page from the skill, with the read-out, the intensity slider and the theme switch.
-- `frame.html` and `build-frame.mjs` make the frame versions. `kernel.js` is the Hairline engine, unchanged, under the MIT licence in `LICENSE-hairline`.
+- `frame.html` and `build-frame.mjs` make the frame versions. `node build-frame.mjs <name>.js ../public/diagrams` writes one into the site's `public/diagrams/` folder, which is what the services section uses. `kernel.js` is the Hairline engine, unchanged, under the MIT licence in `LICENSE-hairline`.
 
 ## Rebuilding after a change
 
