@@ -5,7 +5,7 @@ One interactive line drawing per service, made with the [Hairline](https://hairl
 | Service | Diagram | Status |
 | --- | --- | --- |
 | (01) Agentic End-to-End UX Design & Development | Marble run | Built |
-| (02) Creative Strategy | Sieve | Planned |
+| (02) Creative Strategy | Sieve | Built |
 | (03) Rapid Pattern Generation & System Scaling | Snap tray | Planned |
 | (04) Self-Serve System Enablement & Brand Continuity | Guide rails | Planned |
 
