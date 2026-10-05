@@ -10,7 +10,7 @@ House rules that apply to all four (from the skill's ten rules):
 - The figure has to be recognisable at 240px wide.
 - One idea per figure. The slider changes one number.
 
-Order of work: 01 Marble run → 02 Sieve → 03 Pyramid → 04 Guide rails.
+Order of work: 01 Marble run → 02 Sieve → 03 Pyramid → 04 Guide rails, then 02 Lens, which became the main figure for Creative Strategy (the sieve stays as its alternate).
 
 ---
 
@@ -45,7 +45,39 @@ Order of work: 01 Marble run → 02 Sieve → 03 Pyramid → 04 Guide rails.
 
 ---
 
-## 02 · Sieve
+## 02 · Lens (main)
+
+**Service:** Creative Strategy
+
+**Prompt:**
+
+```
+/hairline-create a magnifying glass over a research page, for a research service that brings clarity before a build: at rest the glass hangs too high and what it shows is blurred; brought over the page by the pointer, it lowers to its focal height and the magnified content turns crisp
+```
+
+**The metaphor:** research turns a blurry picture into a clear one, wherever you look closely.
+
+**The object and what gives it away:**
+
+- A research sheet on the desk with a bar chart, a table and lines of notes (plain lines, no words).
+- A magnifying glass: a round rim around the glass, and a handle running out to the right.
+- A dashed circle on the page, marking the spot under the glass, so its height reads.
+
+**What the pointer does:** the "field" pattern, through a lens. The pointer is put on the plane at the glass's focal height, its target pose, which never moves. The glass follows on springs, one per axis and one for focus. What the glass shows is the page's own lines, scaled about the lens centre and clipped to the glass. Out of focus, they are drawn as three faint offset copies, since Hairline has no blur filter; in focus, the copies close into one line, which takes the bright stroke.
+
+**Rest:** the glass hangs high over the chart, out of focus, its rim bright.
+
+**Read-out:** what is under the glass, `chart`, `table` or `notes`, and `rest`.
+
+**Slider:** the magnification: `1.3 / 1.6 / 2.1`.
+
+**Rules it leans on:** 01 hit, 03 reach, 05 rest, 08 clock (springs for where, and for focus).
+
+Added after the four were built, at Brett's request, as an alternate; Brett then made it the main figure for the service.
+
+---
+
+## 02 · Sieve (alternate)
 
 **Service:** Creative Strategy
 
