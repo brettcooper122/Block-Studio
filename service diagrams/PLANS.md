@@ -10,7 +10,7 @@ House rules that apply to all four (from the skill's ten rules):
 - The figure has to be recognisable at 240px wide.
 - One idea per figure. The slider changes one number.
 
-Order of work: 01 Marble run → 02 Sieve → 03 Snap tray → 04 Guide rails.
+Order of work: 01 Marble run → 02 Sieve → 03 Pyramid → 04 Guide rails.
 
 ---
 
@@ -75,33 +75,33 @@ Order of work: 01 Marble run → 02 Sieve → 03 Snap tray → 04 Guide rails.
 
 ---
 
-## 03 · Snap tray
+## 03 · Pyramid
 
 **Service:** Rapid Pattern Generation & System Scaling
 
 **Prompt:**
 
 ```
-/hairline-create a gridded organiser tray with loose pieces scattered across it, for a design-system service that audits, tidies and then scales: near the pointer the loose pieces slide and drop into their slots in neat rows, fading with distance
+/hairline-create LEGO-style studded bricks scattered across a flat tray, for a design-system service that turns loose parts into a system that scales: when the pointer comes onto the tray, the bricks hop up and click together into a stepped pyramid, layer by layer
 ```
 
-**The metaphor:** one-off, hard-coded parts get folded back into an orderly system. Once they're in, the system can grow. The audit, the tidy-up and the scaling happen in one gesture.
+**The metaphor:** the same few standard parts, combined by a clear system, become one solid structure that can keep growing. Replaced the first concept (Snap tray, an organiser tray with slots) on Brett's call, because building reads closer to pattern generation than tidying does.
 
 **The object and what gives it away:**
 
-- A shallow tray with a raised rim, a grid of low walls dividing it into compartments, and a finger notch on the front.
-- Pieces in three kinds, like tokens: a square tile, a long bar and a round puck. Each kind has its own compartment shape.
-- Loose pieces sit rotated and offset from their slots, some resting on the walls.
+- The same flat tray as the first concept, with its rounded rim and finger notch, and no slots.
+- Fourteen 2×2 bricks, each with four studs on top, so they read as LEGO at a glance.
+- Built, they form a stepped pyramid: 3×3, then 2×2, then a capstone, each layer offset by one stud.
 
-**What the pointer does:** this is the "field" pattern. The pointer is projected onto the tray floor. Each piece blends from its loose pose to its home slot by how close its slot is to the pointer, on its own spring: near pieces drop in flush and square, farther ones only turn part way, and beyond the reach they stay loose. The piece in the slot under the pointer takes the bright stroke.
+**What the pointer does:** this is the "one of many" pattern. Coming onto the tray builds the pyramid. Each brick hops, turns square and clicks into place on its own 700ms tween. The bottom layer goes first, then the next, so nothing is placed on air. Within each layer the bricks start from the one nearest the pointer. Leaving takes the pyramid apart from the top.
 
-**Rest:** half sorted. The back-left of the tray is tidy, and the pieces get looser toward the front-right. One bright piece marks the edge where order stops.
+**Rest:** the bricks lie scattered and turned across the tray, with the centre clear where the pyramid will stand. The capstone carries the bright stroke: loose at the front at rest, on top when built.
 
-**Read-out:** the slot under the pointer, `slot 4·2`, and `rest`.
+**Read-out:** `built`, and `rest`.
 
-**Slider:** how far the tidy-up reaches, in slots: `1.5 / 2.5 / 4`.
+**Slider:** the stagger between bricks, in ms: `0 / 40 / 90`.
 
-**Rules it leans on:** 01 hit, 03 reach, 05 rest, 09 radius.
+**Rules it leans on:** 01 hit, 02 order, 05 rest, 06 honesty (paint order kept by layer, then depth, as bricks move).
 
 ---
 
