@@ -593,6 +593,7 @@ var HL = (() => {
  *   ?theme=dark   the dark palette
  *   ?pad=0.88     the share of the box the drawing may fill, on its tighter side
  *   ?bg=none      a see-through page, so the drawing sits on whatever is behind the frame
+ *   ?intensity=0  the slider's place, 0 to 1, as on the review page (0.5 by default)
  * A page that embeds the frame can drive it with postMessage, for a frame that cannot be hovered:
  *   { hairline: "enter", at: [x, y] }   holds the pointer at a point of the 400 × 320 viewBox
  *   { hairline: "leave" }               lets it go
@@ -610,7 +611,9 @@ var HL = (() => {
     stage.setAttribute("role", "img");
     stage.setAttribute("aria-label", figure.means);
     const svg = HL.mk("svg", { viewBox: "0 0 400 320", "aria-hidden": "true" }, stage);
-    figure.mount({ stage, svg, read: { textContent: "" } }, figure.range[1]);
+    // the slider's place to the figure's own number: two straight lines that meet at 0.5, as on the review page
+    const [lo, mid, hi] = figure.range, i = Math.min(1, Math.max(0, Number(params.get("intensity") ?? 0.5) || 0));
+    figure.mount({ stage, svg, read: { textContent: "" } }, i <= 0.5 ? lo + (i / 0.5) * (mid - lo) : mid + ((i - 0.5) / 0.5) * (hi - mid));
 
     // The drawing's box, in viewBox units, read once at rest: the stage is sized so that box fits the page.
     const box = svg.getBBox();
