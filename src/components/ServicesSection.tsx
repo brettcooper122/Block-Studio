@@ -63,7 +63,7 @@ export function ServicesSection() {
                     ref={(el) => {
                       frames.current[i] = el;
                     }}
-                    src={`${service.diagram.src}?bg=none&pad=0.84`}
+                    src={`${service.diagram.src}?bg=none&pad=0.84&intensity=${service.diagram.intensity ?? 0.5}`}
                     title={`${service.title} diagram`}
                     tabIndex={-1}
                     loading="lazy"

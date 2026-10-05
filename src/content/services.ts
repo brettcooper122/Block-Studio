@@ -7,7 +7,8 @@ import lastPieceGlyph from "../assets/glyphs/glyph-01-last-piece.svg?raw";
  * it has no diagram). Services without one yet fall back to the studio asterisk.
  * `diagram` is the service's Hairline line drawing, shown in its hover badge: `src` is its frame
  * page in public/diagrams (built from "service diagrams/"), and `at` is the viewBox point the
- * row's hover holds the drawing's pointer at.
+ * row's hover holds the drawing's pointer at. `intensity` (0 to 1, 0.5 by default) sets how far the
+ * drawing answers; the always-moving ones take 0, so the row's hover slows them less.
  */
 export type Service = {
   number: string;
@@ -15,7 +16,7 @@ export type Service = {
   summary: string;
   href: string;
   glyph?: string;
-  diagram?: { src: string; at: [number, number] };
+  diagram?: { src: string; at: [number, number]; intensity?: number };
 };
 
 export const services: Service[] = [
@@ -26,7 +27,7 @@ export const services: Service[] = [
       "We design and ship your product in the same hands, from first sketch to production-ready code, so nothing waits on an engineering handoff.",
     href: "#/services/ux-design-and-development",
     glyph: lastPieceGlyph,
-    diagram: { src: "/diagrams/frame-dominoes.html", at: [64, 124] },
+    diagram: { src: "/diagrams/frame-marble-run.html", at: [212, 160], intensity: 0 },
   },
   {
     number: "(02)",
@@ -50,6 +51,6 @@ export const services: Service[] = [
     summary:
       "We hand your team a machine-readable version of your system, with lint agents and prompt templates, so every new surface stays on brand without us.",
     href: "#/services/system-enablement",
-    diagram: { src: "/diagrams/frame-guide-rails.html", at: [221, 173] },
+    diagram: { src: "/diagrams/frame-guide-rails.html", at: [221, 173], intensity: 0 },
   },
 ];

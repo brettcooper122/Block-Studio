@@ -593,6 +593,7 @@ var HL = (() => {
  *   ?theme=dark   the dark palette
  *   ?pad=0.88     the share of the box the drawing may fill, on its tighter side
  *   ?bg=none      a see-through page, so the drawing sits on whatever is behind the frame
+ *   ?intensity=0  the slider's place, 0 to 1, as on the review page (0.5 by default)
  * A page that embeds the frame can drive it with postMessage, for a frame that cannot be hovered:
  *   { hairline: "enter", at: [x, y] }   holds the pointer at a point of the 400 × 320 viewBox
  *   { hairline: "leave" }               lets it go
@@ -610,7 +611,9 @@ var HL = (() => {
     stage.setAttribute("role", "img");
     stage.setAttribute("aria-label", figure.means);
     const svg = HL.mk("svg", { viewBox: "0 0 400 320", "aria-hidden": "true" }, stage);
-    figure.mount({ stage, svg, read: { textContent: "" } }, figure.range[1]);
+    // the slider's place to the figure's own number: two straight lines that meet at 0.5, as on the review page
+    const [lo, mid, hi] = figure.range, i = Math.min(1, Math.max(0, Number(params.get("intensity") ?? 0.5) || 0));
+    figure.mount({ stage, svg, read: { textContent: "" } }, i <= 0.5 ? lo + (i / 0.5) * (mid - lo) : mid + ((i - 0.5) / 0.5) * (hi - mid));
 
     // The drawing's box, in viewBox units, read once at rest: the stage is sized so that box fits the page.
     const box = svg.getBBox();
@@ -637,156 +640,170 @@ var HL = (() => {
 })();
 </script>
 <script type="module">/**
- * Dominoes: ten dominoes stand in a gentle S across a board, each a size up on
- * the last, so the run builds toward a tall final tile. At rest the first leans,
- * poised. The pointer pushes the tile under it, and the fall travels forward to
- * the finish, each tile tipping onto the next and coming to rest against it, the
- * last lying flat. Leaving stands them back up, from the finish backward. The
- * tile pushed takes the bright stroke. The slider is the stagger, in ms.
+ * Marble run: a hand-cranked run on an upright board. Seven marbles roll down
+ * three ramps in a zigzag, back along a groove in the base and up a clear lift,
+ * always moving: one unbroken track, nothing waits at a gap. Hovering springs
+ * the run down so a marble can be followed. The pointer picks the nearest part
+ * of the track, tested on fixed centrelines, and the marble on it nearest the
+ * pointer takes the bright stroke and keeps it round the loop. The slider is
+ * how slow the run gets while hovered, as a share of full speed.
  *
- * The pattern: one of many. A tween per tile for the discrete change (standing
- * or fallen), delayed by its distance down the run from the tile pushed; a hit
- * test on rest positions, on the board's plane, which never moves; and resting
- * angles worked out once, from the finish back, so fallen tiles never cross.
+ * The pattern: dilate time. A spring on the rate, a hit test on geometry that
+ * never moves, and one marble latched when the choice changes, never re-picked
+ * from moving positions.
  */
 const {
-  Cam, fillet, fit, hull, lerp, poly, prism, proj, rad, rings, seg, unproj,
-  tdone, tset, tval, tween, disposer, mk, place, pointer, put, register, solid, facing,
+  Cam, circ, clamp, facing, fillet, fit, hull, lerp, poly, prism, proj, reducedMotion, rings, ringAt, rrect, seg,
+  spring, stepS, disposer, mk, place, pointer, put, register, solid,
 } = HL;
 
-const N = 10, H0 = 12, GROW = 1.11, LEAN = rad(9);
-const PIPS = [[1, 2], [3, 0], [2, 2], [0, 1], [3, 3], [1, 1], [2, 0], [3, 2], [1, 3], [2, 3]];
-// the run's path: along a line that crosses the frame left to right, with a gentle S across it
-const PHI = Math.atan2(-0.42, 1), DX = Math.cos(PHI), DY = Math.sin(PHI), RUN = 170, OX = 0, OY = 70;
-const toWorld = (u, v) => [OX + u * DX - v * DY, OY + u * DY + v * DX];
-const PATH = [];
-for (let k = 0; k <= 200; k++) { const u = (k / 200) * RUN; PATH.push(toWorld(u, -9 * Math.sin((2 * Math.PI * u) / RUN))); }
-const LEN = [0];
-for (let k = 1; k < PATH.length; k++) LEN.push(LEN[k - 1] + Math.hypot(PATH[k][0] - PATH[k - 1][0], PATH[k][1] - PATH[k - 1][1]));
-/** The point on the path at length s, and its unit direction. */
-function along(s) {
-  let k = 1;
-  while (k < LEN.length - 1 && LEN[k] < s) k++;
-  const u = (s - LEN[k - 1]) / (LEN[k] - LEN[k - 1]), a = PATH[k - 1], b = PATH[k], l = Math.hypot(b[0] - a[0], b[1] - a[1]);
-  return [lerp(a[0], b[0], u), lerp(a[1], b[1], u), (b[0] - a[0]) / l, (b[1] - a[1]) / l];
-}
+const R = 4.5, TH = 3, D = 10, MY = D / 2, N = 7, V0 = 34, LX = 10, BW = 124, BH = 132;
+// the ramps, top to bottom: [x at the left end, z there, x at the right end, z there]
+const RAMPS = [[22, 117, 110, 95], [30, 52, 120, 82], [20, 38, 110, 16]];
+const zOn = (k, x) => { const [a, za, b, zb] = RAMPS[k]; return za + ((x - a) / (b - a)) * (zb - za); };
+const NAMES = ["ramp 1", "ramp 2", "ramp 3", "lift", "base"];
+// the loop a marble's centre follows: [x, z, pace, part]; each point closes a segment run at that pace, in that part
+const LOOP = [
+  [LX, R],
+  [LX, 125, 0.8, 3],
+  [24, zOn(0, 24) + R, 1, 0], [110, 95 + R, 1, 0], [115, 94 + R, 2.5, 0], [115, zOn(1, 115) + R, 2.5, 0],
+  [30, 52 + R, 1, 1], [25, 51 + R, 2.5, 1], [25, zOn(2, 25) + R, 2.5, 1],
+  [110, 16 + R, 1, 2], [115, 15 + R, 2.5, 2], [115, R, 2.5, 2],
+  [LX, R, 1.4, 4],
+];
 
-// the tiles: height, width, thickness and where each stands along the path
-const TILES = [];
-let s = 6;
-for (let i = 0; i < N; i++) {
-  const h = H0 * GROW ** i, t = { h, w: h * 0.5, th: h * 0.2, s };
-  TILES.push(t);
-  s += h * 0.72;
+const segs = [];
+let T = 0;
+for (let i = 1; i < LOOP.length; i++) {
+  const [x0, z0] = LOOP[i - 1], [x1, z1, pace, part] = LOOP[i];
+  const dur = Math.hypot(x1 - x0, z1 - z0) / (V0 * pace);
+  segs.push({ x0, z0, x1, z1, t0: T, dur, part });
+  T += dur;
 }
-/** A point of tile i tipped by theta about its front bottom edge: [distance along the run, height]; a is across its thickness, c up it. */
-const tip = (t, th, a, c) => {
-  const p = t.s + t.th / 2, x = a - t.th / 2;
-  return [p + x * Math.cos(th) + c * Math.sin(th), -x * Math.sin(th) + c * Math.cos(th)];
+/** Where a marble's centre is at loop time t, as [x, z]. */
+const at = (t) => {
+  const s = segs.find((q) => t < q.t0 + q.dur) || segs[segs.length - 1], u = clamp((t - s.t0) / s.dur, 0, 1);
+  return [lerp(s.x0, s.x1, u), lerp(s.z0, s.z1, u)];
 };
-// resting angles, from the finish back: the last lies flat, each other leans until its top meets the back of the next
-TILES[N - 1].rest = Math.PI / 2;
-for (let i = N - 2; i >= 0; i--) {
-  const t = TILES[i], n = TILES[i + 1], b0 = tip(n, n.rest, -n.th / 2, 0), b1 = tip(n, n.rest, -n.th / 2, n.h);
-  const side = (th) => { const q = tip(t, th, t.th / 2, t.h); return (b1[0] - b0[0]) * (q[1] - b0[1]) - (b1[1] - b0[1]) * (q[0] - b0[0]); };
-  let lo = 0, hi = Math.PI / 2;
-  if (Math.sign(side(lo)) === Math.sign(side(hi))) t.rest = hi;
-  else { for (let k = 0; k < 30; k++) { const m = (lo + hi) / 2; if (Math.sign(side(m)) === Math.sign(side(lo))) lo = m; else hi = m; } t.rest = lo; }
+/** The longest segment of each part: its fixed centreline is what the pointer is tested against. */
+const LONG = NAMES.map((_, k) => segs.filter((s) => s.part === k).reduce((a, b) => (b.dur > a.dur ? b : a)));
+const cdist = (a, b) => { const d = Math.abs(a - b) % T; return Math.min(d, T - d); };
+
+/** A ramp: a sloped plank against the board, as a filleted silhouette, its front edge and the groove along its top. */
+function plank(P, [a, za, b, zb]) {
+  const top = [[a, 0, za], [b, 0, zb], [b, D, zb], [a, D, za]];
+  const pts = hull(top.concat(top.map(([x, y, z]) => [x, y, z - TH])).map((q) => P(...q)));
+  return {
+    sil: poly(fillet(pts, pts.map(() => 2))),
+    crease: seg(P(a, D, za), P(b, D, zb)),
+    groove: seg(P(a + 3, MY, za + ((zb - za) * 3) / (b - a)), P(b - 3, MY, zb - ((zb - za) * 3) / (b - a))),
+  };
 }
 
 function mount({ stage, svg, read }, value) {
   const bag = disposer();
-  let stag = value, from = -1;
-  const C = Cam(45, 0.5, 2.0);
-  const U1 = TILES[N - 1].s + TILES[N - 1].h + 8, corners = [[-8, -20], [U1, -20], [U1, 20], [-8, 20]].map(([u, v]) => toWorld(u, v));
-  fit(C, corners.map(([x, y]) => [x, y, -4]).concat([[...toWorld(TILES[N - 1].s, 0), TILES[N - 1].h + 2], [...toWorld(0, 0), H0 + 4]]), 200, 166);
+  let slow = value, clock = LONG[0].t0, part = -1, pick = 0;
+  const rate = spring(reducedMotion() ? 0 : 1);
+
+  const C = Cam(45, 0.5, 1.6);
+  fit(C, [[-8, -14, -6], [132, 20, -6], [132, -14, -6], [-8, 20, -6], [0, -5, BH], [BW, -5, BH]], 200, 166);
   const P = proj(C), front = facing(C);
   const g = mk("g", {}, svg);
 
+  // base, and the groove the marbles roll home along
+  const [br, bi] = rings(-8, -14, 132, 20, 6, 2);
+  put(solid(g), prism(P, front, br, bi, -6, 0));
+  mk("path", { d: poly(ringAt(P, rrect(LX - 6, MY - 4, 121, MY + 4, 4, 4), 0)), class: "nf lo" }, g);
+
   // the board
-  const turn = (ring) => ring.map((q) => { const [x, y] = toWorld(q.u, q.v); return { u: x, v: y, nu: q.nu * DX - q.nv * DY, nv: q.nu * DY + q.nv * DX }; });
-  const [br, bi] = rings(-8, -20, U1, 20, 8, 2);
-  put(solid(g), prism(P, front, turn(br), turn(bi), -4, 0));
+  const [wr, wi] = rings(0, -5, BW, 0, 2.5, 1);
+  put(solid(g), prism(P, front, wr, wi, 0, BH));
 
-  const tiles = TILES.map((t, i) => {
-    const [x, y, fx, fy] = along(t.s), grp = mk("g", {}, g);
-    const el = { sil: mk("path", { class: "sil" }, grp), face: mk("path", { class: "nf lo" }, grp) };
-    const pips = Array.from({ length: PIPS[i][0] + PIPS[i][1] }, () => mk("circle", { r: 0.9, class: "dot off" }, grp));
-    return { ...t, i, x, y, fx, fy, el, pips, tw: tween(i === 0 ? LEAN : 0), drawn: NaN };
-  });
+  // the crank beside the lift's foot: a wheel on the board's face, its arm and handle turning with the run
+  const CX = 29, CZ = 14, CW = 6.5, Y1 = 2.5;
+  const wheel = (y) => Array.from({ length: 28 }, (_, k) => P(CX + CW * Math.cos((k / 28) * 2 * Math.PI), y, CZ + CW * Math.sin((k / 28) * 2 * Math.PI)));
+  mk("path", { d: poly(hull(wheel(0.4).concat(wheel(Y1)))), class: "sil" }, g);
+  mk("path", { d: poly(wheel(Y1)), class: "nf lo" }, g);
+  const arm = mk("path", { class: "nf" }, g), knob = mk("circle", { r: 1.8, class: "dot m" }, g);
 
-  /** A tile at angle theta: its silhouette, its front face with the line across it, and its pips, while that face shows. */
-  function draw(t, now) {
-    const th = tval(t.tw, now);
-    if (th === t.drawn) return;
-    t.drawn = th;
-    const W = (a, b, c) => { const [f, z] = tip(t, th, a, c); return P(t.x + t.fx * (f - t.s) - t.fy * b, t.y + t.fy * (f - t.s) + t.fx * b, z); };
-    const corners = [];
-    for (const a of [-t.th / 2, t.th / 2]) for (const b of [-t.w / 2, t.w / 2]) for (const c of [0, t.h]) corners.push(W(a, b, c));
-    const hp = hull(corners);
-    t.el.sil.setAttribute("d", poly(fillet(hp, hp.map(() => 1.2), 3)));
-    const fa = t.th / 2, m = 0.9, F = [W(fa, -t.w / 2 + m, m), W(fa, t.w / 2 - m, m), W(fa, t.w / 2 - m, t.h - m), W(fa, -t.w / 2 + m, t.h - m)];
-    const area = F.reduce((acc, p, k) => acc + p[0] * F[(k + 1) % 4][1] - F[(k + 1) % 4][0] * p[1], 0), shows = area > 0;
-    t.el.face.setAttribute("d", shows ? poly(F) + seg(W(fa, -t.w / 2 + 2, t.h / 2), W(fa, t.w / 2 - 2, t.h / 2)) : "");
-    const [lo, up] = PIPS[t.i];
-    const spots = (n, c0) => [[0, 0], [-1, 1], [1, -1]].slice(0, n).map(([u, v]) => [u * t.w * 0.22, c0 + v * t.h * 0.12]);
-    spots(lo, t.h * 0.25).concat(spots(up, t.h * 0.75)).forEach(([b, c], k) => {
-      place(t.pips[k], W(fa, b, c));
-      t.pips[k].setAttribute("r", shows ? 0.9 : 0);
-    });
+  for (const r of RAMPS) {
+    const q = plank(P, r);
+    put(solid(g), q);
+    mk("path", { d: q.groove, class: "nf lo" }, g);
   }
 
-  const B = register(stage, (_dt, now) => {
-    let moving = false;
-    for (const t of tiles) { draw(t, now); if (!tdone(t.tw, now)) moving = true; }
-    return moving;
+  const marbles = [];
+  for (let i = 0; i < N; i++) {
+    const el = mk("ellipse", { rx: R * C.S, ry: R * C.S, class: "sil" + (i === 0 ? " hi" : "") }, g);
+    marbles.push({ el, glint: mk("circle", { r: 1.1, class: "dot off" }, g) });
+  }
+
+  // the lift: a clear tube, drawn over the marbles it carries
+  const ring = (rr) => circ(rr, 24).map((q) => ({ ...q, u: q.u + LX, v: q.v + MY }));
+  const tube = prism(P, front, ring(5.3), ring(4.6), 0, BH - 3);
+  mk("path", { d: tube.sil, class: "nf" }, g);
+  mk("path", { d: tube.crease, class: "nf lo" }, g);
+
+  function draw() {
+    marbles.forEach((m, i) => {
+      const [x, z] = at((clock + (i * T) / N) % T), c = P(x, MY, z);
+      place(m.el, c);
+      place(m.glint, [c[0] - R * C.S * 0.4, c[1] - R * C.S * 0.4]);
+    });
+    const phi = (clock / T) * 12 * Math.PI, kx = CX + 4 * Math.cos(phi), kz = CZ + 4 * Math.sin(phi);
+    arm.setAttribute("d", seg(P(CX, Y1, CZ), P(kx, Y1, kz)) + seg(P(kx, Y1, kz), P(kx, Y1 + 2.5, kz)));
+    place(knob, P(kx, Y1 + 2.5, kz));
+  }
+
+  const B = register(stage, (dt) => {
+    rate.t = reducedMotion() ? 0 : part >= 0 ? slow : 1;
+    const moving = stepS(rate, dt);
+    clock = (clock + dt * rate.x) % T;
+    draw();
+    return moving || rate.x > 0;
   });
   bag.add(B.unregister);
 
-  const light = (j) => tiles.forEach((t) => t.el.sil.classList.toggle("hi", t.i === j));
-  light(0);
+  const light = (j) => marbles.forEach((m, i) => m.el.classList.toggle("hi", i === j));
+  const lines = LONG.map((s) => [P(s.x0, MY, s.z0), P(s.x1, MY, s.z1)]);
+  /** The pointer's distance to a fixed centreline, and how far along it, 0 to 1. */
+  const near = (p, a, b) => {
+    const dx = b[0] - a[0], dy = b[1] - a[1], f = clamp(((p[0] - a[0]) * dx + (p[1] - a[1]) * dy) / (dx * dx + dy * dy), 0, 1);
+    return [Math.hypot(p[0] - a[0] - f * dx, p[1] - a[1] - f * dy), f];
+  };
 
-  /** Pushes tile a: it and every tile after it fall, each after the one before. Never stands a tile up while the pointer is on the board. */
-  function push(a) {
-    if (from >= 0 && a >= from) return;
-    from = a;
-    const now = performance.now();
-    tiles.forEach((t) => { if (t.i >= a) tset(t.tw, t.rest, now, (t.i - a) * stag); });
-    light(a);
-    read.textContent = "tile " + String(a + 1).padStart(2, "0");
-    B.wake();
-  }
-  function reset() {
-    if (from < 0) return;
-    from = -1;
-    const now = performance.now();
-    tiles.forEach((t) => tset(t.tw, t.i === 0 ? LEAN : 0, now, (N - 1 - t.i) * stag));
-    light(0);
-    read.textContent = "rest";
+  function choose(p) {
+    let best = 0, bd = Infinity, bf = 0;
+    lines.forEach(([a, b], k) => { const [d, f] = near(p, a, b); if (d < bd) { bd = d; best = k; bf = f; } });
+    if (best !== part) {
+      // latch the marble nearest that point of the track; it keeps the bright stroke until the part changes
+      part = best;
+      const want = LONG[best].t0 + bf * LONG[best].dur;
+      let bt = Infinity;
+      for (let i = 0; i < N; i++) { const d = cdist((clock + (i * T) / N) % T, want); if (d < bt) { bt = d; pick = i; } }
+      light(pick);
+      read.textContent = NAMES[best];
+    }
     B.wake();
   }
 
   bag.add(pointer(stage, {
-    move: (p) => {
-      const q = unproj(C, p[0], p[1], 0), u = (q[0] - OX) * DX + (q[1] - OY) * DY, v = -(q[0] - OX) * DY + (q[1] - OY) * DX;
-      if (u < -12 || u > U1 + 4 || Math.abs(v) > 26) { reset(); return; }
-      push(tiles.reduce((a, t) => (Math.hypot(t.x - q[0], t.y - q[1]) < Math.hypot(a.x - q[0], a.y - q[1]) ? t : a)).i);
-    },
-    leave: reset,
+    move: choose,
+    leave: () => { part = -1; pick = 0; light(0); read.textContent = "rest"; B.wake(); },
   }));
   bag.add(() => svg.replaceChildren());
 
   return {
-    set: (v) => { stag = v; },
+    set: (v) => { slow = v; B.wake(); },
     destroy: bag.dispose,
   };
 }
 
 hairline({
-  name: "dominoes",
-  means: "A run of dominoes, each bigger than the last: push one and the fall carries forward, tile by tile, to the finish.",
-  rules: [1, 2, 5, 8],
-  range: [40, 70, 110],
+  name: "marble-run",
+  means: "A hand-cranked marble run that never stops: hover to slow it, and follow one marble down the track.",
+  rules: [1, 4, 5, 8],
+  range: [0.6, 0.3, 0.1],
   mount,
 });
 </script>
