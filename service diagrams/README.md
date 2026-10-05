@@ -29,7 +29,7 @@ The first command rebuilds the frame version. The second rebuilds the review pag
 
 ## On the site
 
-The services section shows each diagram in its hover badge (`public/diagrams/frame-<name>.html`, set per service in `src/content/services.ts`) and blows up a still of it, `public/diagrams/backdrop-<name>.png`, as the blurred backdrop behind the section. The stills are 1200px pictures of each frame answering its row's hover, on the badge's tile colour (`--services-diagram-bg`). After changing a diagram, rebuild its frame into `public/diagrams` and take a new still.
+The services section shows each diagram in its hover badge (`public/diagrams/frame-<name>.html`, set per service in `src/content/services.ts`) and blows up a still of it, `public/diagrams/backdrop-<name>.png`, as the blurred backdrop behind the section. The stills are 1200px pictures of each frame answering its row's hover, on the badge's tile colour (`--services-diagram-bg`). After changing a diagram, rebuild its frame into `public/diagrams` and retake the stills with `node "service diagrams/build-stills.mjs"` from the repo root, with `npm run dev` running.
 
 ## Matching the site's colours
 
