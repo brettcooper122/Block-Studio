@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hairline frame</title>
+<link rel="icon" href="data:,">
+<style>
+  :root { --ground: #ffffff; }
+  :root[data-theme="dark"] { --ground: #08090a; }
+  html, body { margin: 0; height: 100%; background: var(--ground); overflow: hidden; }
+  #stage { position: absolute; left: 50%; top: 50%; width: 400px; transform: translate(-50%, -50%); }
+</style>
+</head>
+<body>
+<div id="stage"></div>
+<script id="hl-kernel">/*KERNEL*/</script>
+<script>
+/*
+ * The frame: only the drawing, for a hover frame on the site. No read-out, slider
+ * or caption, and the figure mounts at the middle of its range. The drawing is
+ * scaled to fit whatever box the page is given, square or not, and centred in it.
+ *   ?theme=dark   the dark palette
+ *   ?pad=0.88     the share of the box the drawing may fill, on its tighter side
+ */
+(() => {
+  const params = new URLSearchParams(location.search);
+  if (params.get("theme") === "dark") document.documentElement.dataset.theme = "dark";
+  const pad = Math.min(1, Math.max(0.3, Number(params.get("pad")) || 0.88));
+
+  window.hairline = (figure) => {
+    const stage = document.getElementById("stage");
+    HL.inject(document);
+    stage.setAttribute("data-hairline", figure.name);
+    stage.setAttribute("role", "img");
+    stage.setAttribute("aria-label", figure.means);
+    const svg = HL.mk("svg", { viewBox: "0 0 400 320", "aria-hidden": "true" }, stage);
+    figure.mount({ stage, svg, read: { textContent: "" } }, figure.range[1]);
+
+    // The drawing's box, in viewBox units, read once at rest: the stage is sized so that box fits the page.
+    const box = svg.getBBox();
+    const fit = () => {
+      const u = Math.min((pad * innerWidth) / box.width, (pad * innerHeight) / box.height);
+      const dx = (200 - (box.x + box.width / 2)) * u, dy = (160 - (box.y + box.height / 2)) * u;
+      stage.style.width = 400 * u + "px";
+      stage.style.transform = `translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px))`;
+    };
+    fit();
+    addEventListener("resize", fit);
+  };
+})();
+</script>
+<script type="module">/*FIGURE*/</script>
+</body>
+</html>
