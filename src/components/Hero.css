@@ -1,0 +1,170 @@
+.hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+  overflow: hidden;
+  background-color: var(--hero-bg);
+  color: var(--hero-ink);
+}
+
+.hero ::selection {
+  background-color: var(--hero-selection-bg);
+  color: var(--hero-selection-ink);
+}
+
+/* Fixed to the top of the viewport at all times. Only the logo and links take clicks. */
+.hero__nav {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: var(--derived-z-nav);
+  pointer-events: none;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: var(--hero-gutter);
+}
+
+.hero__logo {
+  display: block;
+  line-height: 0;
+  pointer-events: auto;
+}
+
+.hero__logo:focus-visible {
+  outline: var(--derived-focus-ring-width) solid var(--navitem-focus-ring);
+  outline-offset: var(--derived-focus-ring-width);
+}
+
+.hero__logo-img {
+  display: block;
+}
+
+.hero__links {
+  display: flex;
+  align-items: center;
+  pointer-events: auto;
+}
+
+/* Sits at the Figma offset, 1042px wide, then 80% of the viewport once that is narrower */
+.hero__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--hero-content-gap);
+  width: min(var(--derived-content-width), var(--derived-content-fluid-width));
+  margin-top: var(--derived-content-top);
+  margin-bottom: var(--hero-content-gap);
+  margin-inline: auto;
+}
+
+.hero__eyebrow {
+  margin: 0;
+  color: var(--hero-ink);
+}
+
+/* The mask clips the label while it rises into place */
+.hero__eyebrow-mask {
+  display: block;
+  overflow: clip;
+}
+
+.hero__eyebrow-inner {
+  display: flex;
+  align-items: center;
+  gap: var(--hero-eyebrow-gap);
+}
+
+.hero__flip {
+  display: inline-block;
+  transform: scaleX(-1);
+}
+
+.hero__headline {
+  margin: 0;
+  text-indent: var(--hero-headline-indent);
+}
+
+/* Once split, each line is its own block, so the indent moves onto the first one.
+   Words are inline-blocks and would inherit the heading's indent, so they reset it too. */
+.hero__headline .hero__line,
+.hero__headline .hero__word {
+  text-indent: 0;
+}
+
+.hero__headline .hero__line--indent {
+  padding-left: var(--hero-headline-indent);
+}
+
+/* Holds the wordmark's place at the foot of the hero once it leaves the flow */
+.hero__wordmark-slot {
+  margin-top: auto;
+  margin-bottom: var(--hero-wordmark-inset);
+}
+
+/* The band spans the screen. Its track bleeds off the right edge, as in the Figma frame. */
+.hero__wordmark {
+  overflow: clip;
+  clip-path: inset(0); /* keeps the fixed backdrop copy inside the band */
+  line-height: 0;
+  pointer-events: none;
+  user-select: none;
+}
+
+.hero__wordmark-track {
+  position: relative;
+  width: var(--derived-wordmark-width);
+  margin-left: var(--hero-wordmark-inset);
+}
+
+/* Once its top reaches the viewport edge the wordmark stays there as a header band, with the
+   sections that follow scrolling beneath it */
+.hero__wordmark--pinned {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: var(--derived-z-wordmark);
+  min-height: var(--derived-band-height);
+  background-color: var(--hero-bg-scrolled);
+}
+
+.hero__wordmark svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.hero__wordmark .wordmark__letter {
+  fill: var(--hero-ink);
+}
+
+.hero__wordmark .wordmark__asterisk {
+  fill: var(--hero-wordmark-asterisk);
+}
+
+/* The type scale has one desktop mode, so smaller screens step down the same scale */
+@media (max-width: 900px) {
+  .hero__headline,
+  .hero__accent {
+    font-size: var(--bs-font-size-h3);
+    line-height: var(--bs-line-height-h3);
+  }
+}
+
+@media (max-width: 600px) {
+  .hero__headline,
+  .hero__accent {
+    font-size: var(--bs-font-size-h4);
+    line-height: var(--bs-line-height-h4);
+  }
+
+  .hero__headline {
+    text-indent: var(--bs-spacing-l);
+  }
+
+  .hero__headline .hero__line--indent {
+    padding-left: var(--bs-spacing-l);
+  }
+}

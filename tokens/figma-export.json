@@ -1,0 +1,295 @@
+{
+  "source": {
+    "fileKey": "qGd6RUrsyBMqIDE2322C4R",
+    "fileName": "Block Studio",
+    "heroNode": "64:416",
+    "extractedAt": "2026-10-03"
+  },
+  "variables": {
+    "Primitives": {
+      "modes": [
+        "Mode 1"
+      ],
+      "colour": {
+        "Brand-orange100": "#832c0a",
+        "Brand-orange200": "#ae3b0e",
+        "Brand-orange300": "#da4a11",
+        "Brand-orange400": "#e16e41",
+        "Brand-orange500": "#e99270",
+        "Brand-orange600": "#f0b7a0",
+        "Brand-orange700": "#f4c9b8",
+        "Brand-orange800": "#f8dbcf",
+        "Brand-orange900": "#fbede7",
+        "Brand-charcoal100": "#141414",
+        "Brand-charcoal200": "#1b1b1b",
+        "Brand-charcoal300": "#222222",
+        "Brand-charcoal400": "#4e4e4e",
+        "Brand-charcoal500": "#7a7a7a",
+        "Brand-charcoal600": "#a7a7a7",
+        "Brand-charcoal700": "#bdbdbd",
+        "Brand-charcoal800": "#d3d3d3",
+        "Brand-charcoal900": "#e9e9e9",
+        "Brand-white": "#ffffff"
+      },
+      "radius": {
+        "RADIUS XSM": 4,
+        "RADIUS SM": 8,
+        "RAIDUS M": 12,
+        "RADIUS L": 16,
+        "RADIUS XL": 24,
+        "RADIUS XXL": 32
+      },
+      "spacing": {
+        "SPACING XSM": 8,
+        "SPACING SM": 12,
+        "SPACING M": 16,
+        "SPACING L": 24,
+        "SPACING XL": 48,
+        "SPACING XXL": 82
+      },
+      "padding": {
+        "PADDING XSM": 8,
+        "PADDING SM": 16,
+        "PADDING M": 24,
+        "PADDING L": 48,
+        "PADDING XL": 82
+      }
+    },
+    "Typography": {
+      "modes": [
+        "Desktop"
+      ],
+      "fontSize": {
+        "H1": 61.04,
+        "H2": 48.83,
+        "H3": 39.06,
+        "H4": 31.25,
+        "H5": 25,
+        "Body Large": 20,
+        "Body Small": 16,
+        "Subtext": 12.8,
+        "CTA Text": 16
+      },
+      "lineHeight": {
+        "H1": 64,
+        "H2": 54,
+        "H3": 46,
+        "H4": 38,
+        "H5": 32,
+        "Body Large": 30,
+        "Body Small": 24,
+        "Subtext": 18,
+        "CTA Text": 20
+      }
+    }
+  },
+  "textStyles": [
+    {
+      "name": "Typography/H1",
+      "family": "PP Neue Montreal TT",
+      "style": "Bold",
+      "fontSizeVariable": "Font Size/H1",
+      "lineHeightVariable": "Line Height/H1",
+      "letterSpacingPercent": -2,
+      "textCase": "ORIGINAL"
+    },
+    {
+      "name": "Typography/H2",
+      "family": "PP Neue Montreal TT",
+      "style": "Medium",
+      "fontSizeVariable": "Font Size/H2",
+      "lineHeightVariable": "Line Height/H2",
+      "letterSpacingPercent": -2,
+      "textCase": "ORIGINAL"
+    },
+    {
+      "name": "Typography/H3",
+      "family": "PP Neue Montreal TT",
+      "style": "Medium",
+      "fontSizeVariable": "Font Size/H3",
+      "lineHeightVariable": "Line Height/H3",
+      "letterSpacingPercent": -1.5,
+      "textCase": "ORIGINAL"
+    },
+    {
+      "name": "Typography/H4",
+      "family": "PP Neue Montreal TT",
+      "style": "Medium",
+      "fontSizeVariable": "Font Size/H4",
+      "lineHeightVariable": "Line Height/H4",
+      "letterSpacingPercent": -1,
+      "textCase": "ORIGINAL"
+    },
+    {
+      "name": "Typography/H5",
+      "family": "PP Neue Montreal TT",
+      "style": "Medium",
+      "fontSizeVariable": "Font Size/H5",
+      "lineHeightVariable": "Line Height/H5",
+      "letterSpacingPercent": -1,
+      "textCase": "ORIGINAL"
+    },
+    {
+      "name": "Typography/Body Large",
+      "family": "PP Neue Montreal TT",
+      "style": "Book",
+      "fontSizeVariable": "Font Size/Body Large",
+      "lineHeightVariable": "Line Height/Body Large",
+      "letterSpacingPercent": 0,
+      "textCase": "ORIGINAL"
+    },
+    {
+      "name": "Typography/Body Small",
+      "family": "PP Neue Montreal TT",
+      "style": "Book",
+      "fontSizeVariable": "Font Size/Body Small",
+      "lineHeightVariable": "Line Height/Body Small",
+      "letterSpacingPercent": 0,
+      "textCase": "ORIGINAL"
+    },
+    {
+      "name": "Typography/Subtext",
+      "family": "PP Neue Montreal TT",
+      "style": "Regular",
+      "fontSizeVariable": "Font Size/Subtext",
+      "lineHeightVariable": "Line Height/Subtext",
+      "letterSpacingPercent": 1,
+      "textCase": "ORIGINAL"
+    },
+    {
+      "name": "Typography/CTA Text",
+      "family": "PP Neue Montreal TT",
+      "style": "Medium",
+      "fontSizeVariable": "Font Size/CTA Text",
+      "lineHeightVariable": "Line Height/CTA Text",
+      "letterSpacingPercent": 2,
+      "textCase": "UPPER"
+    },
+    {
+      "name": "Typography/Label",
+      "family": "PP Neue Montreal TT",
+      "style": "Medium",
+      "fontSizeVariable": null,
+      "lineHeightVariable": null,
+      "letterSpacingPercent": 0,
+      "textCase": "ORIGINAL"
+    },
+    {
+      "name": "Typography/H1-serif",
+      "family": "PP Editorial New",
+      "style": "Bold",
+      "fontSizeVariable": "Font Size/H1",
+      "lineHeightVariable": "Line Height/H1",
+      "letterSpacingPercent": -2,
+      "textCase": "ORIGINAL"
+    },
+    {
+      "name": "Typography/H2-serif",
+      "family": "PP Editorial New",
+      "style": "Regular",
+      "fontSizeVariable": "Font Size/H2",
+      "lineHeightVariable": "Line Height/H2",
+      "letterSpacingPercent": -2,
+      "textCase": "ORIGINAL"
+    },
+    {
+      "name": "Typography/H3-serif",
+      "family": "PP Editorial New",
+      "style": "Regular",
+      "fontSizeVariable": "Font Size/H3",
+      "lineHeightVariable": "Line Height/H3",
+      "letterSpacingPercent": -1.5,
+      "textCase": "ORIGINAL"
+    }
+  ],
+  "components": [
+    {
+      "id": "64:348",
+      "name": "NAVITEM",
+      "page": "NavItem",
+      "variants": [
+        "DEFAULT",
+        "HOVER"
+      ],
+      "boundTo": {
+        "fill": "Brand-charcoal900 (default) / Brand-charcoal300 (hover)",
+        "radius": "RADIUS SM (default) / RADIUS XL (hover)",
+        "labelColour": "Brand-charcoal500 (start) / Brand-charcoal900 (end)",
+        "textStyle": "Typography/CTA Text (size + line-height bound)"
+      },
+      "unbound": [
+        "padding 8/12 (matches PADDING XSM / SPACING SM)",
+        "item gap 10 (no token)",
+        "label stack gap 10 (no token)"
+      ],
+      "interaction": {
+        "trigger": "ON_HOVER / MOUSE_LEAVE",
+        "transition": "SMART_ANIMATE",
+        "easing": "GENTLE",
+        "durationMs": 383,
+        "change": "fill charcoal900 to charcoal300, radius SM to XL, label stack rolls from START to END"
+      }
+    },
+    {
+      "id": "61:27",
+      "name": "Button",
+      "page": "buttons",
+      "variants": [
+        "Primary",
+        "Secondary",
+        "Ghost",
+        "Inline Link"
+      ],
+      "properties": {
+        "Show Icon": "boolean",
+        "Show Label": "boolean",
+        "Label": "text"
+      },
+      "boundTo": {
+        "padding": "SPACING L (horizontal) / PADDING SM (vertical)",
+        "radius": "RAIDUS M",
+        "stroke": "Brand-charcoal800",
+        "textStyle": "Typography/CTA Text",
+        "iconStroke": "Brand-charcoal400"
+      },
+      "unbound": [
+        "Primary fill gradient",
+        "drop and inner shadows",
+        "label fill #222222 (should be Brand-charcoal300)",
+        "Inline Link gap 6",
+        "item gap 8 (matches SPACING XSM)"
+      ]
+    },
+    {
+      "id": "59:142",
+      "name": "#Navigation",
+      "page": "Components",
+      "variants": [
+        "NavBar-Closed",
+        "NavBar-Open"
+      ],
+      "boundTo": {
+        "fill": "Brand-white (closed) / Brand-orange300 (open)",
+        "padding": "PADDING M, PADDING XL (open bottom)",
+        "gap": "SPACING XXL, SPACING SM, SPACING L, SPACING XSM",
+        "textStyle": "Typography/H1"
+      },
+      "unbound": [
+        "menu button gradient and shadows",
+        "sticker artwork"
+      ]
+    },
+    {
+      "id": "53:42",
+      "name": "Icons / Tabler / 20",
+      "page": "Icons",
+      "variants": [
+        "40 icons: Home, Search, Menu, Close, Check, Plus, Minus, Chevrons, Arrows, User, Users, Settings, Bell, Heart, Star, Bookmark, Calendar, Clock, Mail, Phone, Camera, Photo, Upload, Download, Edit, Trash, Copy, Share, Link, External Link, Eye, Eye Off, Lock, Filter"
+      ],
+      "boundTo": {
+        "stroke": "Brand-charcoal400"
+      },
+      "unbound": []
+    }
+  ]
+}

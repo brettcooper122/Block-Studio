@@ -2,7 +2,7 @@
 
 A creative consulting studio based in Toronto, Canada — a team of one, positioned like a senior studio, not a hobbyist.
 
-**Picking this up in a new session?** Read [`docs/Block-Studio-Session-Context.md`](./docs/Block-Studio-Session-Context.md) first — it has the current status, what's locked, and what's next.
+**Picking this up in a new session?** Read [`docs/Block-Studio-Session-Context.md`](./docs/Block-Studio-Session-Context.md) first — it has the current status, what's locked, and what's next. For the website build (stack, repo map, branches, what is next), read [`docs/Block-Studio-Homepage-Build.md`](./docs/Block-Studio-Homepage-Build.md).
 
 ## Goals & objectives
 

@@ -1,0 +1,77 @@
+.navitem {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--navitem-padding-block) var(--navitem-padding-inline);
+  background-color: var(--navitem-bg-rest);
+  border-radius: var(--navitem-radius-rest);
+  text-decoration: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    background-color var(--derived-motion-duration) var(--derived-motion-ease),
+    border-radius var(--derived-motion-duration) var(--derived-motion-ease);
+}
+
+/* Clipped to one line of the CTA Text style */
+.navitem__window {
+  display: block;
+  height: var(--bs-line-height-cta-text);
+  overflow: hidden;
+}
+
+.navitem__stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--navitem-label-gap);
+  transition: transform var(--derived-motion-duration) var(--derived-motion-ease);
+}
+
+.navitem__label {
+  display: block;
+  white-space: nowrap;
+}
+
+.navitem__label--rest {
+  color: var(--navitem-label-rest);
+}
+
+.navitem__label--hover {
+  color: var(--navitem-label-hover);
+}
+
+/* Hover and keyboard focus share one state */
+.navitem:focus-visible {
+  background-color: var(--navitem-bg-hover);
+  border-radius: var(--navitem-radius-hover);
+  outline: var(--derived-focus-ring-width) solid var(--navitem-focus-ring);
+  outline-offset: var(--derived-focus-ring-width);
+}
+
+.navitem:focus-visible .navitem__stack {
+  transform: translateY(calc(-1 * (var(--bs-line-height-cta-text) + var(--navitem-label-gap))));
+}
+
+/* Hover only where a pointer can hover, so touch screens never stick on it */
+@media (hover: hover) and (pointer: fine) {
+  .navitem:hover {
+    background-color: var(--navitem-bg-hover);
+    border-radius: var(--navitem-radius-hover);
+  }
+
+  .navitem:hover .navitem__stack {
+    transform: translateY(calc(-1 * (var(--bs-line-height-cta-text) + var(--navitem-label-gap))));
+  }
+}
+
+.navitem:active {
+  background-color: var(--navitem-bg-press);
+}
+
+/* Reduced motion keeps the state change and drops the travel */
+@media (prefers-reduced-motion: reduce) {
+  .navitem,
+  .navitem__stack {
+    transition-duration: 0s;
+  }
+}

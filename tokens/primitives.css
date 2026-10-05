@@ -1,0 +1,93 @@
+/**
+ * Block Studio primitive tokens.
+ * Source: Figma file "Block Studio" (qGd6RUrsyBMqIDE2322C4R), collections
+ * "Primitives" and "Typography". Names mirror the Figma variable paths.
+ * Regenerate from tokens/figma-export.json when the Figma variables change.
+ * The prefix keeps these clear of the Tailwind theme in src/styles/tokens.css.
+ */
+:root {
+  /* Colour: Primitives/Colours */
+  --bs-color-brand-orange-100: #832c0a;
+  --bs-color-brand-orange-200: #ae3b0e;
+  --bs-color-brand-orange-300: #da4a11;
+  --bs-color-brand-orange-400: #e16e41;
+  --bs-color-brand-orange-500: #e99270;
+  --bs-color-brand-orange-600: #f0b7a0;
+  --bs-color-brand-orange-700: #f4c9b8;
+  --bs-color-brand-orange-800: #f8dbcf;
+  --bs-color-brand-orange-900: #fbede7;
+  --bs-color-brand-charcoal-100: #141414;
+  --bs-color-brand-charcoal-200: #1b1b1b;
+  --bs-color-brand-charcoal-300: #222222;
+  --bs-color-brand-charcoal-400: #4e4e4e;
+  --bs-color-brand-charcoal-500: #7a7a7a;
+  --bs-color-brand-charcoal-600: #a7a7a7;
+  --bs-color-brand-charcoal-700: #bdbdbd;
+  --bs-color-brand-charcoal-800: #d3d3d3;
+  --bs-color-brand-charcoal-900: #e9e9e9;
+  --bs-color-white: #ffffff;
+
+  /* Radius: Primitives/RADIUS (Figma's RAIDUS M is spelled radius-m here) */
+  --bs-radius-xsm: 4px;
+  --bs-radius-sm: 8px;
+  --bs-radius-m: 12px;
+  --bs-radius-l: 16px;
+  --bs-radius-xl: 24px;
+  --bs-radius-xxl: 32px;
+
+  /* Spacing: Primitives/SPACING (gaps between elements) */
+  --bs-spacing-xsm: 8px;
+  --bs-spacing-sm: 12px;
+  --bs-spacing-m: 16px;
+  --bs-spacing-l: 24px;
+  --bs-spacing-xl: 48px;
+  --bs-spacing-xxl: 82px;
+
+  /* Padding: Primitives/PADDING (space inside containers) */
+  --bs-padding-xsm: 8px;
+  --bs-padding-sm: 16px;
+  --bs-padding-m: 24px;
+  --bs-padding-l: 48px;
+  --bs-padding-xl: 82px;
+
+  /* Type scale: Typography collection, Desktop mode (1.25 major third) */
+  --bs-font-size-h1: 61.04px;
+  --bs-line-height-h1: 64px;
+  --bs-font-size-h2: 48.83px;
+  --bs-line-height-h2: 54px;
+  --bs-font-size-h3: 39.06px;
+  --bs-line-height-h3: 46px;
+  --bs-font-size-h4: 31.25px;
+  --bs-line-height-h4: 38px;
+  --bs-font-size-h5: 25px;
+  --bs-line-height-h5: 32px;
+  --bs-font-size-body-large: 20px;
+  --bs-line-height-body-large: 30px;
+  --bs-font-size-body-small: 16px;
+  --bs-line-height-body-small: 24px;
+  --bs-font-size-subtext: 12.8px;
+  --bs-line-height-subtext: 18px;
+  --bs-font-size-cta-text: 16px;
+  --bs-line-height-cta-text: 20px;
+
+  /* Type style properties that live inside the Figma text styles, not in variables */
+  --bs-font-family-sans: "PP Neue Montreal TT", "PP Neue Montreal", "Helvetica Neue", Arial, sans-serif;
+  --bs-font-family-serif: "PP Editorial New", "Times New Roman", serif;
+  --bs-font-weight-book: 400;
+  --bs-font-weight-regular: 450;
+  --bs-font-weight-medium: 500;
+  --bs-font-weight-bold: 700;
+  --bs-letter-spacing-h1: -0.02em;
+  --bs-letter-spacing-h2: -0.02em;
+  --bs-letter-spacing-h3: -0.015em;
+  --bs-letter-spacing-h4: -0.01em;
+  --bs-letter-spacing-h5: -0.01em;
+  --bs-letter-spacing-body-large: 0em;
+  --bs-letter-spacing-body-small: 0em;
+  --bs-letter-spacing-subtext: 0.01em;
+  --bs-letter-spacing-cta-text: 0.02em;
+  --bs-letter-spacing-label: 0em;
+  --bs-letter-spacing-h1-serif: -0.02em;
+  --bs-letter-spacing-h2-serif: -0.02em;
+  --bs-letter-spacing-h3-serif: -0.015em;
+}

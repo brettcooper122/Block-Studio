@@ -1,0 +1,118 @@
+/**
+ * Component and layout tokens for the hero and NavItem.
+ * Every colour, radius, space and type value is an alias to a primitive in
+ * primitives.css, taken from the variable bindings on the Figma components
+ * (NAVITEM 64:348) and the hero frame (64:416).
+ *
+ * The last block holds the few values Figma stores as raw numbers with no
+ * variable behind them. They are named here once so no component file carries
+ * a literal. Each one is a candidate for a real Figma variable.
+ */
+:root {
+  /* NavItem: colour and shape per state */
+  --navitem-bg-rest: var(--bs-color-brand-charcoal-900);
+  --navitem-bg-hover: var(--bs-color-brand-charcoal-300);
+  --navitem-bg-press: var(--bs-color-brand-charcoal-200);
+  /* Figma binds the rest label to charcoal-500, which reads 3.5:1 on charcoal-900.
+     charcoal-400 reads 6.9:1. Swap back to charcoal-500 to match Figma exactly. */
+  --navitem-label-rest: var(--bs-color-brand-charcoal-400);
+  --navitem-label-hover: var(--bs-color-brand-charcoal-900);
+  --navitem-radius-rest: var(--bs-radius-sm);
+  --navitem-radius-hover: var(--bs-radius-xl);
+  --navitem-padding-block: var(--bs-padding-xsm);
+  --navitem-padding-inline: var(--bs-spacing-sm);
+  --navitem-label-gap: var(--bs-spacing-xsm);
+  --navitem-focus-ring: var(--bs-color-white);
+
+  /* Hero */
+  --hero-bg: var(--bs-color-brand-orange-400);
+  --hero-bg-scrolled: var(--bs-color-brand-charcoal-200); /* reached once the hero has scrolled fully out */
+  --hero-ink: var(--bs-color-white);
+  --hero-gutter: var(--bs-padding-m);
+  --hero-eyebrow-gap: var(--bs-spacing-xsm);
+  --hero-content-gap: var(--bs-spacing-l);
+  --hero-headline-indent: var(--bs-spacing-xxl);
+  --hero-wordmark-inset: var(--bs-spacing-m);
+  --hero-wordmark-asterisk: var(--bs-color-brand-charcoal-300);
+  --hero-wordmark-asterisk-scrolled: var(--bs-color-white);
+  --hero-selection-bg: var(--bs-color-brand-charcoal-300);
+  --hero-selection-ink: var(--bs-color-white);
+
+  /* Motion: read by the GSAP code at runtime, so timing lives here and nowhere else */
+  --motion-headline-delay: 200ms;
+  --motion-headline-duration: 800ms;
+  --motion-headline-line-stagger: 140ms;
+  --motion-headline-word-stagger: 45ms;
+  --motion-wordmark-letter-stagger: 70ms; /* gap between one wordmark letter and the next as they arrive */
+  --motion-headline-travel: 100; /* percent of the line height: fully out of its mask */
+  --motion-reduced-duration: 300ms;
+  --motion-wordmark-smoothing: 1000ms; /* how long the wordmark takes to catch up with the scroll */
+  --motion-wordmark-ease: cubic-bezier(0.37, 0, 0.63, 1); /* eases in from rest and out to rest across its travel */
+  --motion-background-complete: 0.8; /* the background is fully charcoal after this share of a screen's height is scrolled */
+  --motion-statement-fade-to: 0; /* opacity the statement reaches as it leaves the top of the screen */
+  --motion-statement-speed: 1.2; /* the statement scrolls at 120% of the page */
+  --motion-services-duration: 700ms;
+  --motion-services-stagger: 80ms;
+  --motion-services-rise: var(--bs-spacing-l); /* rows rise this far as they arrive */
+  --motion-glyph-drop-duration: 600ms;
+  --motion-glyph-drop-delay: 120ms; /* lets the disc appear before the cell falls */
+  --motion-glyph-period: 14s; /* one slow clockwise turn of the asterisk */
+  --motion-glyph-sensitivity: 300; /* px/s of scroll that add one more multiple of spin speed */
+  --motion-glyph-max-boost: 14; /* ceiling on the extra spin multiples */
+  --motion-glyph-response: 350ms; /* how quickly the spin speed follows the scroll speed */
+
+  /* Services section */
+  --services-bg: var(--bs-color-brand-charcoal-200);
+  --services-ink: color-mix(in srgb, var(--bs-color-white) 88%, transparent);
+  --services-ink-dim: color-mix(in srgb, var(--bs-color-white) 32%, transparent);
+  --services-ink-active: var(--bs-color-white);
+  --services-rule: color-mix(in srgb, var(--bs-color-white) 16%, transparent);
+  --services-label-ink: var(--bs-color-white);
+  --services-label-gap-inline: var(--bs-spacing-xsm); /* between the © and the word, as in the hero emblem */
+  /* One badge per service. The disc and the blurred backdrop both take their colours from it. */
+  --services-badge-1-bg: var(--bs-color-brand-orange-400);
+  --services-badge-1-ink: var(--bs-color-brand-charcoal-400);
+  --services-badge-2-bg: var(--bs-color-brand-orange-200);
+  --services-badge-2-ink: var(--bs-color-brand-orange-600);
+  --services-badge-3-bg: var(--bs-color-brand-charcoal-400);
+  --services-badge-3-ink: var(--bs-color-brand-orange-400);
+  --services-badge-4-bg: var(--bs-color-brand-orange-300);
+  --services-badge-4-ink: var(--bs-color-white);
+  --services-glyph-drop: 32px; /* two cells of the 96-unit glyph grid: the loose cell's fall into its slot */
+  --services-blur: 48px;
+  --services-diagram-blur: 10px; /* a diagram backdrop's blur: soft, with the line work still showing */
+  --services-scrim: color-mix(in srgb, var(--bs-color-brand-charcoal-200) 48%, transparent);
+  --services-backdrop-glyph: 90vmin;
+  --services-backdrop-duration: 500ms;
+  --services-disc-size: calc(var(--bs-spacing-xxl) * 4 * 0.8); /* 20% smaller than the earlier 328px */
+  --services-disc-radius: var(--bs-radius-xl); /* the badge is a rounded square */
+  --services-diagram-bg: var(--bs-color-brand-charcoal-900); /* the tile behind each service's diagram, in its light palette */
+  --services-measure: calc(var(--bs-spacing-xxl) * 4); /* summary column, flush to the right edge */
+  --services-title-max: calc(var(--bs-spacing-xxl) * 6 + var(--bs-spacing-xl)); /* titles wrap here, which keeps each to two lines */
+  --services-number-col: var(--bs-spacing-xxl);
+  --services-top-gap: var(--bs-spacing-xxl);
+  --services-bottom-pad: calc(var(--bs-spacing-xxl) * 2);
+  --services-label-gap: var(--bs-spacing-xxl);
+  --services-ease-duration: 200ms;
+  --services-disc-duration: 300ms;
+
+  /* Figma values with no variable behind them */
+  --derived-motion-duration: 383ms; /* NAVITEM smart-animate duration */
+  --derived-motion-ease: cubic-bezier(0.16, 1, 0.3, 1); /* Figma "Gentle", as an exponential ease-out */
+  --derived-focus-ring-width: 2px;
+  --derived-z-nav: 10; /* keeps the fixed nav above every section */
+  --derived-z-wordmark: 5; /* the pinned wordmark band sits above the sections and below the nav */
+  --derived-z-section: 2; /* sections sit above the page and below the pinned wordmark band */
+  --derived-services-width: 1152px; /* widest the services rows grow */
+  --derived-rule-width: 1px; /* hairline between rows */
+  --derived-wordmark-height: 14.28vw; /* wordmark 216px against the 1512px frame */
+  --derived-logo-height: 43px; /* the sticker logo as exported */
+  --derived-band-height: max(
+    var(--derived-wordmark-height),
+    calc(var(--hero-gutter) * 2 + var(--derived-logo-height))
+  ); /* the pinned wordmark band, never shorter than the nav row */
+  --derived-content-width: 1042px; /* hero text column, frame 64:417 */
+  --derived-content-fluid-width: 80vw; /* the column holds 80% of the viewport once it is narrower than 1042px */
+  --derived-content-top: 15.27svh; /* statement top: 150px of the 982px frame */
+  --derived-wordmark-width: 140.1vw; /* wordmark 2119px against the 1512px frame */
+}
