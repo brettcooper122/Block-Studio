@@ -7,7 +7,7 @@ One interactive line drawing per service, made with the [Hairline](https://hairl
 | (01) Agentic End-to-End UX Design & Development | Marble run | Built |
 | (02) Creative Strategy | Sieve | Built |
 | (03) Rapid Pattern Generation & System Scaling | Pyramid | Built |
-| (04) Self-Serve System Enablement & Brand Continuity | Guide rails | Planned |
+| (04) Self-Serve System Enablement & Brand Continuity | Guide rails | Built |
 
 Prompts and plans for all four are in `PLANS.md`.
 

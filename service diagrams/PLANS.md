@@ -122,16 +122,17 @@ First built as a round kitchen sieve on a bowl; reworked into the archaeological
 
 **The object and what gives it away:**
 
-- A belt with a roller at each end and slats across its surface, on two short legs.
-- Two guide rails on posts that narrow into a funnel partway along.
-- Blocks with a dot code on the lid, so each block has an identity without a number drawn.
+- A belt with slats across its surface that move with it, a roller showing at each end, on four legs.
+- A hooded intake at the start, where blocks come out turned and off centre, and a bin at the end that they tip into.
+- Two guide rails that narrow into a funnel partway along.
+- Plain cube boxes riding the belt. (A dot code on each lid was tried first; Brett preferred plain cubes.)
 
 **What the pointer does:** the same "dilate time" pattern as 01, with a different object. The belt always runs. Hovering springs the speed down. The pointer picks a fixed station along the belt, and the block nearest that station takes the bright stroke and keeps it until the pointer leaves. Before the funnel, blocks sit rotated and off-centre. The rails turn them square and centred as they pass.
 
 **Rest:** a line of blocks crooked at the far end and square at the near end, the funnel between them. One bright block has just come out square.
 
-**Read-out:** the block's number from its dot code, `07`, and `rest`.
+**Read-out:** the number of the block being followed, `03`, and `rest`.
 
 **Slider:** how slow the belt gets while hovered: `0.6 / 0.3 / 0.1`.
 
-**Rules it leans on:** 01 hit, 04 accent, 05 rest, 10 quiet (identity as a dot code).
+**Rules it leans on:** 01 hit, 04 accent, 05 rest, 10 quiet.
