@@ -4,22 +4,21 @@ Extracted from the Figma file [Block Studio](https://www.figma.com/design/qGd6RU
 
 ## Layering
 
-Five layers, imported in this order from `src/index.css`:
+Four layers, imported in this order from `src/index.css`:
 
 | # | File | What it holds | Who writes it |
 | --- | --- | --- | --- |
 | 1 | `primitives.css` | `--bs-color-*`, `--bs-radius-*`, `--bs-spacing-*`, `--bs-padding-*`, type scale. Raw Figma variable values, one `--bs-*` per Figma variable. | Regenerated from `figma-export.json` |
 | 2 | `typography.css` | `@font-face` rules and one `.text-*` class per Figma text style, each built from the primitives. | Regenerated from `figma-export.json` |
-| 3 | `semantic.css` | Meaning-based aliases over the primitives (`--bs-surface-*`, `--bs-ink-*`, `--bs-accent*`, `--bs-border-*`, `--bs-focus-*`). | Hand-maintained |
-| 4 | `components.css` | Component-scoped aliases (`--navitem-*`, `--hero-*`, `--services-*`, `--motion-*`) plus the few `--derived-*` values Figma has no variable for. | Hand-maintained |
-| 5 | `tailwind.css` | Tailwind v4 `@theme` block that maps Tailwind utility classes (`bg-charcoal-900`, `rounded-xl`, `p-m`, …) to the `--bs-*` primitives. | Hand-maintained |
+| 3 | `components.css` | Component-scoped aliases (`--navitem-*`, `--hero-*`, `--services-*`, `--motion-*`) plus the few `--derived-*` values Figma has no variable for. | Hand-maintained |
+| 4 | `tailwind.css` | Tailwind v4 `@theme` block that maps Tailwind utility classes (`bg-charcoal-900`, `rounded-xl`, `p-m`, …) to the `--bs-*` primitives. | Hand-maintained |
+
+There is no semantic alias layer yet — component CSS binds straight to `--bs-*` primitives or to component aliases in `components.css`. One will be added when the site is large enough to need it.
 
 ### Binding rules
 
 - Component CSS **never carries a raw hex, px or rem**. Every value is a `var(--bs-*)` or a component alias in `components.css`.
-- Prefer the semantic layer when a meaning fits (`var(--bs-ink-strong)` over `var(--bs-color-brand-charcoal-100)`).
-- Add a semantic token before a component needs one; never resurrect raw primitives in components.
-- Add a component alias in `components.css` before a component CSS file carries a Figma primitive directly.
+- Add a component alias in `components.css` before a component CSS file carries a Figma primitive repeatedly.
 
 ## Variables
 
@@ -46,16 +45,6 @@ Five layers, imported in this order from `src/index.css`:
 | Label | 16 | 100% | Medium |
 
 Serif variants (`H1-serif`, `H2-serif`, `H3-serif`) use **PP Editorial New**; the rest use **PP Neue Montreal TT**.
-
-## Semantic tokens
-
-Grouped by role in `semantic.css`:
-
-- `--bs-surface-page`, `--bs-surface-page-scrolled`, `--bs-surface-section`, `--bs-surface-raised`, `--bs-surface-pressed`, `--bs-surface-hover`
-- `--bs-ink-strong`, `--bs-ink-muted`, `--bs-ink-on-dark`, `--bs-ink-on-light`, `--bs-ink-on-raised`
-- `--bs-accent`, `--bs-accent-strong`, `--bs-accent-subtle`
-- `--bs-border-subtle`, `--bs-border-strong`
-- `--bs-focus-ring`, `--bs-focus-ring-width`
 
 ## Tailwind utilities
 
