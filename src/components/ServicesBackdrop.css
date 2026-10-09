@@ -1,29 +1,8 @@
-/* Badge colours per service, shared by the disc and the backdrop */
-[data-badge="1"] {
-  --badge-bg: var(--services-badge-1-bg);
-  --badge-ink: var(--services-badge-1-ink);
-}
-
-[data-badge="2"] {
-  --badge-bg: var(--services-badge-2-bg);
-  --badge-ink: var(--services-badge-2-ink);
-}
-
-[data-badge="3"] {
-  --badge-bg: var(--services-badge-3-bg);
-  --badge-ink: var(--services-badge-3-ink);
-}
-
-[data-badge="4"] {
-  --badge-bg: var(--services-badge-4-bg);
-  --badge-ink: var(--services-badge-4-ink);
-}
-
-.badge__glyph-fill {
-  fill: var(--badge-ink);
-}
-
-/* Hidden until a service is hovered, and only where a pointer can hover on a wide screen */
+/**
+ * The services backdrop: a full-screen, blurred version of the hovered row's diagram, on the
+ * shared diagram tile colour, under the section scrim. Hidden until a service is hovered, and
+ * only on wide screens with a hover-capable pointer.
+ */
 .backdrop {
   position: fixed;
   inset: 0;
@@ -57,37 +36,19 @@ html[data-service="4"] .backdrop__layer[data-badge="4"] {
   transition-delay: 0s;
 }
 
-/* The badge, blown up and blurred. It overscans so the blur never shows a hard edge. */
+/* The diagram, blown up and blurred. It overscans so the blur never shows a hard edge. */
 .backdrop__art {
   position: absolute;
-  inset: calc(-2 * var(--services-blur));
+  inset: calc(-2 * var(--services-diagram-blur));
   display: grid;
   place-items: center;
-  background-color: var(--badge-bg);
-  filter: blur(var(--services-blur));
-}
-
-/* A diagram's backdrop takes its tile's colour, so the blur reads as the badge grown to fill the screen */
-.backdrop__art--diagram {
   background-color: var(--services-diagram-bg);
-  filter: blur(var(--services-diagram-blur)); /* lighter than a glyph's: a line drawing vanishes under a heavy blur */
+  filter: blur(var(--services-diagram-blur));
 }
 
 .backdrop__diagram {
   display: block;
-  width: var(--services-backdrop-glyph);
-  height: auto;
-}
-
-.backdrop__glyph {
-  display: block;
-  width: var(--services-backdrop-glyph);
-  line-height: 0;
-}
-
-.backdrop__glyph svg {
-  display: block;
-  width: 100%;
+  width: var(--services-backdrop-size);
   height: auto;
 }
 

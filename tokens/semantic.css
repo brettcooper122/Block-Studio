@@ -1,0 +1,42 @@
+/**
+ * Block Studio semantic tokens.
+ *
+ * Meaning-based aliases over the primitive scale in primitives.css. Component
+ * CSS should bind these first, so a palette shift lands in one place.
+ *
+ * Rules:
+ *  - Every semantic token's value is a var(--bs-*) reference. No raw hex or px.
+ *  - If a component needs a value that is not already named here, add the
+ *    semantic token first and bind the component to it.
+ *  - The charcoal scale runs dark to light: --bs-color-brand-charcoal-100 is
+ *    the darkest ink, -900 is the lightest surface. See tokens/README.md.
+ */
+:root {
+  /* ---- Surface ------------------------------------------------------- */
+  --bs-surface-page: var(--bs-color-brand-orange-400);          /* the hero's warm field */
+  --bs-surface-page-scrolled: var(--bs-color-brand-charcoal-200); /* after the hero scrolls out */
+  --bs-surface-section: var(--bs-color-brand-charcoal-200);     /* the services and the sections that follow */
+  --bs-surface-raised: var(--bs-color-brand-charcoal-900);      /* the diagram tile, the nav pill at rest */
+  --bs-surface-pressed: var(--bs-color-brand-charcoal-200);     /* the nav pill pressed */
+  --bs-surface-hover: var(--bs-color-brand-charcoal-300);       /* the nav pill hovered */
+
+  /* ---- Ink ----------------------------------------------------------- */
+  --bs-ink-strong: var(--bs-color-brand-charcoal-100);          /* body copy on a light surface */
+  --bs-ink-muted: var(--bs-color-brand-charcoal-400);           /* secondary labels on a light surface */
+  --bs-ink-on-dark: var(--bs-color-white);                      /* type on a dark surface */
+  --bs-ink-on-light: var(--bs-color-brand-charcoal-100);        /* type on a light surface */
+  --bs-ink-on-raised: var(--bs-color-brand-charcoal-100);       /* type on the raised nav pill */
+
+  /* ---- Accent -------------------------------------------------------- */
+  --bs-accent: var(--bs-color-brand-orange-400);                /* primary brand accent */
+  --bs-accent-strong: var(--bs-color-brand-orange-300);         /* a step hotter for pressed/active */
+  --bs-accent-subtle: var(--bs-color-brand-orange-800);         /* tints on a light surface */
+
+  /* ---- Border -------------------------------------------------------- */
+  --bs-border-subtle: color-mix(in srgb, var(--bs-color-white) 16%, transparent); /* hairline between rows on dark */
+  --bs-border-strong: var(--bs-color-brand-charcoal-400);       /* a visible border on light */
+
+  /* ---- Focus --------------------------------------------------------- */
+  --bs-focus-ring: var(--bs-color-white);
+  --bs-focus-ring-width: 2px;
+}

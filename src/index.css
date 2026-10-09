@@ -1,7 +1,19 @@
-@import "./styles/tokens.css";
+/**
+ * Token layering, in order:
+ *   1. primitives — Figma values as --bs-* custom properties
+ *   2. typography — @font-face + .text-* classes built from primitives
+ *   3. semantic   — meaning-based aliases over the primitives
+ *   4. components — component-scoped aliases (navitem, hero, services)
+ *   5. tailwind   — Tailwind v4 @theme that maps utilities to --bs-*
+ *
+ * Component CSS binds to --bs-* / semantic / component tokens — never raw hex,
+ * px or rem. See tokens/README.md for the layering contract.
+ */
 @import "../tokens/primitives.css";
 @import "../tokens/typography.css";
+@import "../tokens/semantic.css";
 @import "../tokens/components.css";
+@import "../tokens/tailwind.css";
 
 html,
 body,
@@ -14,7 +26,7 @@ body,
 
 body {
   font-family: var(--bs-font-family-sans);
-  background-color: var(--hero-bg);
+  background-color: var(--bs-surface-page);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }

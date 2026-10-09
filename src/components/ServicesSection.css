@@ -79,9 +79,9 @@
   width: 100%;
 }
 
-/* A badge beside the hovered row: a rounded square holding the service's diagram, or the brand
-   asterisk turning when it has none. It is taller than the row and overhangs the rows above and
-   below. It sits beside the row's link, not in it, so it is shown from the link's state with +. */
+/* A rounded-square badge beside the hovered row holding the service's diagram. It is taller than
+   the row and overhangs the rows above and below. It sits beside the row's link, not in it, so it
+   is shown from the link's state with the + combinator. */
 .services__disc {
   position: absolute;
   top: 50%;
@@ -93,23 +93,11 @@
   height: var(--services-disc-size);
   overflow: hidden;
   border-radius: var(--services-disc-radius);
-  background-color: var(--badge-bg);
+  background-color: var(--services-diagram-bg);
   opacity: 0;
   pointer-events: none;
   transform: translateY(-50%);
   transition: opacity var(--services-disc-duration) ease;
-}
-
-.services__disc svg {
-  width: 40%;
-  height: auto;
-  animation: services-spin var(--motion-glyph-period) linear infinite;
-  animation-play-state: paused;
-}
-
-/* A diagram sits on its own tile, in its light palette, and fills it; its pointer comes from the row */
-.services__disc--diagram {
-  background-color: var(--services-diagram-bg);
 }
 
 .services__diagram {
@@ -118,21 +106,6 @@
   height: 100%;
   border: 0;
   pointer-events: none;
-}
-
-/* A service glyph holds still. Its loose cell drops into place when the row is hovered. */
-.services__disc--glyph svg {
-  animation: none;
-}
-
-.services__disc .glyph__drop {
-  transition: transform var(--motion-glyph-drop-duration) var(--derived-motion-ease);
-}
-
-@keyframes services-spin {
-  to {
-    transform: rotate(360deg);
-  }
 }
 
 /* Hover and keyboard focus share one state, on devices that can hover */
@@ -150,15 +123,6 @@
     z-index: 2;
     opacity: 1;
   }
-
-  .services__item:hover + .services__disc svg {
-    animation-play-state: running;
-  }
-
-  .services__item:hover + .services__disc .glyph__drop {
-    transform: translateY(var(--services-glyph-drop));
-    transition-delay: var(--motion-glyph-drop-delay);
-  }
 }
 
 .services__list:has(.services__item:focus-visible) .services__item:not(:focus-visible) {
@@ -167,32 +131,13 @@
 
 .services__item:focus-visible {
   color: var(--services-ink-active);
-  outline: var(--derived-focus-ring-width) solid var(--navitem-focus-ring);
-  outline-offset: calc(-1 * var(--derived-focus-ring-width));
+  outline: var(--bs-focus-ring-width) solid var(--bs-focus-ring);
+  outline-offset: calc(-1 * var(--bs-focus-ring-width));
 }
 
 .services__item:focus-visible + .services__disc {
   z-index: 2;
   opacity: 1;
-}
-
-.services__item:focus-visible + .services__disc svg {
-  animation-play-state: running;
-}
-
-.services__item:focus-visible + .services__disc .glyph__drop {
-  transform: translateY(var(--services-glyph-drop));
-  transition-delay: var(--motion-glyph-drop-delay);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .services__disc svg {
-    animation: none;
-  }
-
-  .services__disc .glyph__drop {
-    transition-duration: 0s;
-  }
 }
 
 /* Tablet: one column, no disc */

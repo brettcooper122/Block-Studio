@@ -1,23 +1,20 @@
-import lastPieceGlyph from "../assets/glyphs/glyph-01-last-piece.svg?raw";
-
 /**
  * The four services, from docs/Block-Studio-Service-Copy.md.
+ *
  * `summary` is the short homepage version. The full description lives on each service page.
- * `glyph` is the service's block glyph, shown in its blurred backdrop (and in its hover badge when
- * it has no diagram). Services without one yet fall back to the studio asterisk.
- * `diagram` is the service's Hairline line drawing, shown in its hover badge: `src` is its frame
- * page in public/diagrams (built from "service diagrams/"), and `at` is the viewBox point the
- * row's hover holds the drawing's pointer at. `intensity` (0 to 1, 0.5 by default) sets how far the
- * drawing answers; the always-moving ones take 0, so the row's hover slows them less. `still` is a
- * picture of the drawing answering, on its tile colour, which the blurred backdrop blows up.
+ * `diagram` is the service's Hairline line drawing, shown in its hover badge:
+ *   - `src` is the frame page in public/diagrams/ (built from "service diagrams/")
+ *   - `at` is the viewBox point the row's hover holds the drawing's pointer at
+ *   - `intensity` (0 to 1, 0.5 by default) sets how far the drawing answers;
+ *      the always-moving ones take 0, so the row's hover slows them less
+ *   - `still` is a picture of the drawing answering, which the blurred backdrop blows up
  */
 export type Service = {
   number: string;
   title: string;
   summary: string;
   href: string;
-  glyph?: string;
-  diagram?: { src: string; at: [number, number]; intensity?: number; still: string };
+  diagram: { src: string; at: [number, number]; intensity?: number; still: string };
 };
 
 export const services: Service[] = [
@@ -27,7 +24,6 @@ export const services: Service[] = [
     summary:
       "We design and ship your product in the same hands, from first sketch to production-ready code, so nothing waits on an engineering handoff.",
     href: "#/services/ux-design-and-development",
-    glyph: lastPieceGlyph,
     diagram: { src: "/diagrams/frame-marble-run.html", at: [212, 160], intensity: 0, still: "/diagrams/backdrop-marble-run.png" },
   },
   {

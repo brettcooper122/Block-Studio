@@ -3,7 +3,8 @@
     "fileKey": "qGd6RUrsyBMqIDE2322C4R",
     "fileName": "Block Studio",
     "heroNode": "64:416",
-    "extractedAt": "2026-10-03"
+    "extractedAt": "2026-10-09",
+    "extractionTool": "figma-console MCP (Desktop Bridge plugin)"
   },
   "variables": {
     "Primitives": {
@@ -83,213 +84,24 @@
       }
     }
   },
-  "textStyles": [
-    {
-      "name": "Typography/H1",
-      "family": "PP Neue Montreal TT",
-      "style": "Bold",
-      "fontSizeVariable": "Font Size/H1",
-      "lineHeightVariable": "Line Height/H1",
-      "letterSpacingPercent": -2,
-      "textCase": "ORIGINAL"
-    },
-    {
-      "name": "Typography/H2",
-      "family": "PP Neue Montreal TT",
-      "style": "Medium",
-      "fontSizeVariable": "Font Size/H2",
-      "lineHeightVariable": "Line Height/H2",
-      "letterSpacingPercent": -2,
-      "textCase": "ORIGINAL"
-    },
-    {
-      "name": "Typography/H3",
-      "family": "PP Neue Montreal TT",
-      "style": "Medium",
-      "fontSizeVariable": "Font Size/H3",
-      "lineHeightVariable": "Line Height/H3",
-      "letterSpacingPercent": -1.5,
-      "textCase": "ORIGINAL"
-    },
-    {
-      "name": "Typography/H4",
-      "family": "PP Neue Montreal TT",
-      "style": "Medium",
-      "fontSizeVariable": "Font Size/H4",
-      "lineHeightVariable": "Line Height/H4",
-      "letterSpacingPercent": -1,
-      "textCase": "ORIGINAL"
-    },
-    {
-      "name": "Typography/H5",
-      "family": "PP Neue Montreal TT",
-      "style": "Medium",
-      "fontSizeVariable": "Font Size/H5",
-      "lineHeightVariable": "Line Height/H5",
-      "letterSpacingPercent": -1,
-      "textCase": "ORIGINAL"
-    },
-    {
-      "name": "Typography/Body Large",
-      "family": "PP Neue Montreal TT",
-      "style": "Book",
-      "fontSizeVariable": "Font Size/Body Large",
-      "lineHeightVariable": "Line Height/Body Large",
-      "letterSpacingPercent": 0,
-      "textCase": "ORIGINAL"
-    },
-    {
-      "name": "Typography/Body Small",
-      "family": "PP Neue Montreal TT",
-      "style": "Book",
-      "fontSizeVariable": "Font Size/Body Small",
-      "lineHeightVariable": "Line Height/Body Small",
-      "letterSpacingPercent": 0,
-      "textCase": "ORIGINAL"
-    },
-    {
-      "name": "Typography/Subtext",
-      "family": "PP Neue Montreal TT",
-      "style": "Regular",
-      "fontSizeVariable": "Font Size/Subtext",
-      "lineHeightVariable": "Line Height/Subtext",
-      "letterSpacingPercent": 1,
-      "textCase": "ORIGINAL"
-    },
-    {
-      "name": "Typography/CTA Text",
-      "family": "PP Neue Montreal TT",
-      "style": "Medium",
-      "fontSizeVariable": "Font Size/CTA Text",
-      "lineHeightVariable": "Line Height/CTA Text",
-      "letterSpacingPercent": 2,
-      "textCase": "UPPER"
-    },
-    {
-      "name": "Typography/Label",
-      "family": "PP Neue Montreal TT",
-      "style": "Medium",
-      "fontSizeVariable": null,
-      "lineHeightVariable": null,
-      "letterSpacingPercent": 0,
-      "textCase": "ORIGINAL"
-    },
-    {
-      "name": "Typography/H1-serif",
-      "family": "PP Editorial New",
-      "style": "Bold",
-      "fontSizeVariable": "Font Size/H1",
-      "lineHeightVariable": "Line Height/H1",
-      "letterSpacingPercent": -2,
-      "textCase": "ORIGINAL"
-    },
-    {
-      "name": "Typography/H2-serif",
-      "family": "PP Editorial New",
-      "style": "Regular",
-      "fontSizeVariable": "Font Size/H2",
-      "lineHeightVariable": "Line Height/H2",
-      "letterSpacingPercent": -2,
-      "textCase": "ORIGINAL"
-    },
-    {
-      "name": "Typography/H3-serif",
-      "family": "PP Editorial New",
-      "style": "Regular",
-      "fontSizeVariable": "Font Size/H3",
-      "lineHeightVariable": "Line Height/H3",
-      "letterSpacingPercent": -1.5,
-      "textCase": "ORIGINAL"
-    }
-  ],
-  "components": [
-    {
-      "id": "64:348",
-      "name": "NAVITEM",
-      "page": "NavItem",
-      "variants": [
-        "DEFAULT",
-        "HOVER"
-      ],
-      "boundTo": {
-        "fill": "Brand-charcoal900 (default) / Brand-charcoal300 (hover)",
-        "radius": "RADIUS SM (default) / RADIUS XL (hover)",
-        "labelColour": "Brand-charcoal500 (start) / Brand-charcoal900 (end)",
-        "textStyle": "Typography/CTA Text (size + line-height bound)"
-      },
-      "unbound": [
-        "padding 8/12 (matches PADDING XSM / SPACING SM)",
-        "item gap 10 (no token)",
-        "label stack gap 10 (no token)"
-      ],
-      "interaction": {
-        "trigger": "ON_HOVER / MOUSE_LEAVE",
-        "transition": "SMART_ANIMATE",
-        "easing": "GENTLE",
-        "durationMs": 383,
-        "change": "fill charcoal900 to charcoal300, radius SM to XL, label stack rolls from START to END"
-      }
-    },
-    {
-      "id": "61:27",
-      "name": "Button",
-      "page": "buttons",
-      "variants": [
-        "Primary",
-        "Secondary",
-        "Ghost",
-        "Inline Link"
-      ],
-      "properties": {
-        "Show Icon": "boolean",
-        "Show Label": "boolean",
-        "Label": "text"
-      },
-      "boundTo": {
-        "padding": "SPACING L (horizontal) / PADDING SM (vertical)",
-        "radius": "RAIDUS M",
-        "stroke": "Brand-charcoal800",
-        "textStyle": "Typography/CTA Text",
-        "iconStroke": "Brand-charcoal400"
-      },
-      "unbound": [
-        "Primary fill gradient",
-        "drop and inner shadows",
-        "label fill #222222 (should be Brand-charcoal300)",
-        "Inline Link gap 6",
-        "item gap 8 (matches SPACING XSM)"
-      ]
-    },
-    {
-      "id": "59:142",
-      "name": "#Navigation",
-      "page": "Components",
-      "variants": [
-        "NavBar-Closed",
-        "NavBar-Open"
-      ],
-      "boundTo": {
-        "fill": "Brand-white (closed) / Brand-orange300 (open)",
-        "padding": "PADDING M, PADDING XL (open bottom)",
-        "gap": "SPACING XXL, SPACING SM, SPACING L, SPACING XSM",
-        "textStyle": "Typography/H1"
-      },
-      "unbound": [
-        "menu button gradient and shadows",
-        "sticker artwork"
-      ]
-    },
-    {
-      "id": "53:42",
-      "name": "Icons / Tabler / 20",
-      "page": "Icons",
-      "variants": [
-        "40 icons: Home, Search, Menu, Close, Check, Plus, Minus, Chevrons, Arrows, User, Users, Settings, Bell, Heart, Star, Bookmark, Calendar, Clock, Mail, Phone, Camera, Photo, Upload, Download, Edit, Trash, Copy, Share, Link, External Link, Eye, Eye Off, Lock, Filter"
-      ],
-      "boundTo": {
-        "stroke": "Brand-charcoal400"
-      },
-      "unbound": []
-    }
+  "textStyles": {
+    "Typography/H1": { "family": "PP Neue Montreal TT", "weight": "Bold", "size": 61.04, "lineHeight": 64, "letterSpacingPercent": -2, "case": "ORIGINAL" },
+    "Typography/H2": { "family": "PP Neue Montreal TT", "weight": "Medium", "size": 48.83, "lineHeight": 54, "letterSpacingPercent": -2, "case": "ORIGINAL" },
+    "Typography/H3": { "family": "PP Neue Montreal TT", "weight": "Medium", "size": 39.06, "lineHeight": 46, "letterSpacingPercent": -1.5, "case": "ORIGINAL" },
+    "Typography/H4": { "family": "PP Neue Montreal TT", "weight": "Medium", "size": 31.25, "lineHeight": 38, "letterSpacingPercent": -1, "case": "ORIGINAL" },
+    "Typography/H5": { "family": "PP Neue Montreal TT", "weight": "Medium", "size": 25, "lineHeight": 32, "letterSpacingPercent": -1, "case": "ORIGINAL" },
+    "Typography/Body Large": { "family": "PP Neue Montreal TT", "weight": "Book", "size": 20, "lineHeight": 30, "letterSpacingPercent": 0, "case": "ORIGINAL" },
+    "Typography/Body Small": { "family": "PP Neue Montreal TT", "weight": "Book", "size": 16, "lineHeight": 24, "letterSpacingPercent": 0, "case": "ORIGINAL" },
+    "Typography/Subtext": { "family": "PP Neue Montreal TT", "weight": "Regular", "size": 12.8, "lineHeight": 18, "letterSpacingPercent": 1, "case": "ORIGINAL" },
+    "Typography/CTA Text": { "family": "PP Neue Montreal TT", "weight": "Medium", "size": 16, "lineHeight": 20, "letterSpacingPercent": 2, "case": "UPPER" },
+    "Typography/Label": { "family": "PP Neue Montreal TT", "weight": "Medium", "size": 16, "lineHeightPercent": 100, "letterSpacingPercent": 0, "case": "ORIGINAL" },
+    "Typography/H1-serif": { "family": "PP Editorial New", "weight": "Bold", "size": 61.04, "lineHeight": 64, "letterSpacingPercent": -2, "case": "ORIGINAL" },
+    "Typography/H2-serif": { "family": "PP Editorial New", "weight": "Regular", "size": 48.83, "lineHeight": 54, "letterSpacingPercent": -2, "case": "ORIGINAL" },
+    "Typography/H3-serif": { "family": "PP Editorial New", "weight": "Regular", "size": 39.06, "lineHeight": 46, "letterSpacingPercent": -1.5, "case": "ORIGINAL" }
+  },
+  "notes": [
+    "Figma spells RADIUS M as 'RAIDUS M'; mirrored in CSS as --bs-radius-m.",
+    "SPACING XSM and PADDING XSM both equal 8 — spacing is between elements, padding is inside containers.",
+    "Primitives collection has one mode (Mode 1); Typography collection has one mode (Desktop)."
   ]
 }
