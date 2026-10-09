@@ -1,6 +1,5 @@
 import { useEffect, useRef } from "react";
 import { services } from "../content/services";
-import asteriskSvg from "../assets/brand/block-asterisk.svg?raw";
 import { ServicesBackdrop } from "./ServicesBackdrop";
 import { useServicesMotion } from "./useServicesMotion";
 import "./ServicesSection.css";
@@ -22,7 +21,7 @@ export function ServicesSection() {
     showBadge(index === null ? null : index + 1);
     frames.current.forEach((frame, i) => {
       const diagram = services[i].diagram;
-      if (!frame?.contentWindow || !diagram) return;
+      if (!frame?.contentWindow) return;
       frame.contentWindow.postMessage(i === index ? { hairline: "enter", at: diagram.at } : { hairline: "leave" }, location.origin);
     });
   };
@@ -56,26 +55,18 @@ export function ServicesSection() {
                 <span className="services__summary text-body-small">{service.summary}</span>
               </a>
               {/* The badge sits beside the link, not in it: a link cannot hold an iframe */}
-              {service.diagram ? (
-                <span className="services__disc services__disc--diagram" aria-hidden="true">
-                  <iframe
-                    className="services__diagram"
-                    ref={(el) => {
-                      frames.current[i] = el;
-                    }}
-                    src={`${service.diagram.src}?bg=none&pad=0.84&intensity=${service.diagram.intensity ?? 0.5}`}
-                    title={`${service.title} diagram`}
-                    tabIndex={-1}
-                    loading="lazy"
-                  />
-                </span>
-              ) : (
-                <span
-                  className={`services__disc${service.glyph ? " services__disc--glyph" : ""}`}
-                  aria-hidden="true"
-                  dangerouslySetInnerHTML={{ __html: service.glyph ?? asteriskSvg }}
+              <span className="services__disc" aria-hidden="true">
+                <iframe
+                  className="services__diagram"
+                  ref={(el) => {
+                    frames.current[i] = el;
+                  }}
+                  src={`${service.diagram.src}?bg=none&pad=0.84&intensity=${service.diagram.intensity ?? 0.5}`}
+                  title={`${service.title} diagram`}
+                  tabIndex={-1}
+                  loading="lazy"
                 />
-              )}
+              </span>
             </li>
           ))}
         </ul>

@@ -1,0 +1,66 @@
+/**
+ * Tailwind v4 theme — the Figma scale as utility classes.
+ *
+ * Tailwind generates `bg-*`, `text-*`, `border-*`, `p-*`, `rounded-*`, `text-*`
+ * utilities from the custom properties declared in @theme. Every value here is
+ * a reference to a --bs-* primitive, so the Figma scale is the one source of
+ * truth; swapping a primitive updates every utility that reads it.
+ *
+ * Available utility shapes:
+ *   bg-charcoal-{100..900}, text-charcoal-{100..900}, border-charcoal-{100..900}
+ *   bg-orange-{100..900}, text-orange-{100..900}
+ *   bg-white, text-white
+ *   p-xsm | p-sm | p-m | p-l | p-xl
+ *   gap-xsm | gap-sm | gap-m | gap-l | gap-xl | gap-xxl
+ *   rounded-xsm | rounded-sm | rounded-m | rounded-l | rounded-xl | rounded-xxl
+ *   text-h1 … text-cta (through the .text-* classes in typography.css)
+ *
+ * The charcoal scale is written dark-first (100 = darkest) to mirror Figma
+ * exactly. Prefer the semantic tokens in semantic.css where one fits.
+ */
+@import "tailwindcss";
+
+@theme {
+  /* ---- Colour -------------------------------------------------------- */
+  --color-charcoal-100: var(--bs-color-brand-charcoal-100);
+  --color-charcoal-200: var(--bs-color-brand-charcoal-200);
+  --color-charcoal-300: var(--bs-color-brand-charcoal-300);
+  --color-charcoal-400: var(--bs-color-brand-charcoal-400);
+  --color-charcoal-500: var(--bs-color-brand-charcoal-500);
+  --color-charcoal-600: var(--bs-color-brand-charcoal-600);
+  --color-charcoal-700: var(--bs-color-brand-charcoal-700);
+  --color-charcoal-800: var(--bs-color-brand-charcoal-800);
+  --color-charcoal-900: var(--bs-color-brand-charcoal-900);
+
+  --color-orange-100: var(--bs-color-brand-orange-100);
+  --color-orange-200: var(--bs-color-brand-orange-200);
+  --color-orange-300: var(--bs-color-brand-orange-300);
+  --color-orange-400: var(--bs-color-brand-orange-400);
+  --color-orange-500: var(--bs-color-brand-orange-500);
+  --color-orange-600: var(--bs-color-brand-orange-600);
+  --color-orange-700: var(--bs-color-brand-orange-700);
+  --color-orange-800: var(--bs-color-brand-orange-800);
+  --color-orange-900: var(--bs-color-brand-orange-900);
+
+  --color-white: var(--bs-color-white);
+
+  /* ---- Spacing (the Figma SPACING scale) ----------------------------- */
+  --spacing-xsm: 8px;
+  --spacing-sm: 12px;
+  --spacing-m: 16px;
+  --spacing-l: 24px;
+  --spacing-xl: 48px;
+  --spacing-xxl: 82px;
+
+  /* ---- Radius (the Figma RADIUS scale) ------------------------------- */
+  --radius-xsm: 4px;
+  --radius-sm: 8px;
+  --radius-m: 12px;
+  --radius-l: 16px;
+  --radius-xl: 24px;
+  --radius-xxl: 32px;
+
+  /* ---- Typography families (sizes live in typography.css) ------------ */
+  --font-sans: var(--bs-font-family-sans);
+  --font-serif: var(--bs-font-family-serif);
+}
