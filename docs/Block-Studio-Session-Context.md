@@ -23,7 +23,6 @@ A creative consulting studio based in Toronto, Canada — Brett's solo practice,
 | `docs/Block-Studio-Service-Copy.md` | **The finalized, locked first-draft copy**: the brand positioning statement plus all four services (headline, description, "what you get," "who it's for"). This is the most current and authoritative copy — if it conflicts with the Messaging Context doc, trust this one |
 | `docs/Block-Studio-Dossier.html` | Shareable dossier covering the research, the eleven practices analyzed, the lead statement, and all four services' copy. Published at **https://claude.ai/artifact/7YzSksuYCmt3Hi2roz53Ln** (private by default; share from the page's Share menu). Republish by passing that URL as `url`, or by republishing this file path from the session that owns it |
 | `docs/Block-Studio-Homepage-Build.md` | **The site build handoff**: what is built, tech stack, repo map, service diagrams, branches and PRs, open threads. Read before any code work |
-| `PRD.md` | Spec for the interactive grid hero effect (technical, unrelated to messaging) |
 | `src/styles/tokens.css` | Tailwind v4 design tokens: primitive palette (charcoal/orange) + semantic aliases, non-negotiable spacing scale (4/8/16/24/32/40/48/56/64px) |
 
 **Known supersessions** (Messaging Context doc is now out of date in these spots, Service Copy doc is correct):
@@ -67,7 +66,7 @@ This was all done live, piece by piece, as an interview/riff process (draft → 
 
 **Dropped deliberately:** the studio-level "who this is for / who it isn't" section. Brett's call, on the grounds that the per-service audience lines and the positioning statement already cover it.
 
-**Visual design and the homepage build have started (from 2026-10-03), on Brett's call, ahead of the docx compile.** The hero and the services section are built, with Figma-exported tokens and one interactive Hairline line drawing per service in the services hover badges. **Read `docs/Block-Studio-Homepage-Build.md` before touching the site code:** it covers what is built, the stack, the repo map, branches and pull requests, and open threads. The earlier grid effect prototype (`PRD.md`) is kept at `#grid` and is not part of the homepage.
+**Visual design and the homepage build have started (from 2026-10-03), on Brett's call, ahead of the docx compile.** The hero and the services section are built, with Figma-exported tokens and one interactive Hairline line drawing per service in the services hover badges. **Read `docs/Block-Studio-Homepage-Build.md` before touching the site code:** it covers what is built, the stack, the repo map, branches and pull requests, and open threads. The earlier grid effect prototype was retired on 2026-10-09 (see the homepage build doc) so the repo now holds only what the live site renders.
 
 ## Voice rules (apply without being asked)
 

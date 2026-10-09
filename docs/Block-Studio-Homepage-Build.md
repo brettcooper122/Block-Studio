@@ -15,14 +15,13 @@ All of it is on GitHub across three branches (see "Branches and pull requests").
 | Part | What | Notes |
 | --- | --- | --- |
 | Build | Vite 8, TypeScript 6, React 19 | `npm run dev` serves on http://localhost:5173. `npm run build` runs `tsc -b` then `vite build` into `dist/` |
-| Styling | Plain CSS per component, Tailwind v4 via `@tailwindcss/vite` | Components use their own `.css` files and CSS custom properties from `tokens/`. Tailwind is wired in but barely used (the old grid demo) |
+| Styling | Plain CSS per component, Tailwind v4 via `@tailwindcss/vite` | Components use their own `.css` files and CSS custom properties from `tokens/`. Tailwind utilities are available via `tokens/tailwind.css` but barely used yet |
 | Motion | GSAP 3 with `@gsap/react` (`useGSAP`), ScrollTrigger, SplitText, CustomEase | All motion values (durations, eases, distances) are read from CSS tokens through `src/lib/tokens.ts` |
-| Noise | `simplex-noise` | Only for the original grid demo at `#grid` |
-| Lint | `oxlint` (`npm run lint`) | One known warning in `GlitchGrid.tsx` (refs during render), pre-existing |
+| Lint | `oxlint` (`npm run lint`) | Clean on the site code; warnings in `.claude/skills/` and `service diagrams/` are third-party |
 | Fonts | PP Neue Montreal and PP Editorial New, self-hosted in `public/fonts/pp/` | `@font-face` rules in `tokens/typography.css` |
 | Diagrams | Hairline (`@lucasmarkes/hairline` engine, MIT) via the `hairline-create` agent skill | Plain JS figures, built into standalone HTML frames. See "Service diagrams" |
 
-No Lenis, no Framer Motion, no router: the page is one React tree, and `#grid` swaps in the old demo.
+No Lenis, no Framer Motion, no router: the page is one React tree.
 
 ## Running it
 
@@ -39,7 +38,7 @@ The services badges and backdrop only show on a wide screen with a mouse (`min-w
 
 | Path | What it is |
 | --- | --- |
-| `index.html`, `src/main.tsx`, `src/App.tsx` | Entry. `App` renders `<Hero />` then `<ServicesSection />`, or the grid demo when the hash is `#grid` |
+| `index.html`, `src/main.tsx`, `src/App.tsx` | Entry. `App` renders `<Hero />` then `<ServicesSection />` |
 | `src/index.css` | Imports every token layer, then base page styles |
 | `src/components/Hero.tsx`, `Hero.css`, `useHeroMotion.ts` | The hero: nav, eyebrow, statement, giant wordmark, and all of its scroll motion |
 | `src/components/NavItem.tsx`, `NavItem.css` | The pill nav item, built from the Figma NAVITEM component (rolling label on hover) |
@@ -54,7 +53,6 @@ The services badges and backdrop only show on a wide screen with a mouse (`min-w
 | `public/diagrams/` | The built diagram frames the site embeds (`frame-<name>.html`) and the backdrop stills (`backdrop-<name>.png`) |
 | `service diagrams/` | The Hairline source for every diagram, plans, build scripts. **Read its `README.md` and `PLANS.md`** |
 | `scripts/build-glyphs.py` | Generates the 6x6 block glyphs |
-| `PRD.md` | Spec for the original grid demo (not the homepage) |
 | `docs/` | Studio docs: positioning audit, service copy, session context, the dossier, and this file |
 
 ## Design tokens
@@ -163,4 +161,4 @@ GitHub CLI gotcha: two accounts are logged in (`brettcooper122` and `BcooperOT`)
 5. **Service pages:** each row links to `#/services/<slug>`, which do not exist yet.
 6. **Mobile:** the badge and backdrop are desktop-only by design. Whether diagrams should appear on mobile is open.
 7. **Copy docx compile** (from the session context roadmap) is still listed there as the gate before design; design work has since started on Brett's call.
-8. Leftovers: `src/assets/hero.png`, `react.svg` and `vite.svg` are unused; the grid demo at `#grid` and `ControlsPanel.tsx` are the original prototype.
+8. The sanity cleanup on 2026-10-09 retired the earlier `#grid` demo (`GlitchGrid.tsx`, `ControlsPanel.tsx`, `src/lib/noise.ts`, `PRD.md`, the `simplex-noise` dep) and the unused Vite-template assets (`hero.png`, `react.svg`, `vite.svg`). The repo now holds only what the live site renders.

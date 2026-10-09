@@ -2,24 +2,20 @@
  * Block Studio text styles. One class per Figma text style, each built
  * only from tokens in primitives.css. Use these instead of setting font
  * properties by hand.
+ *
+ * Only the styles the live site actually renders are declared here. The
+ * unused Figma styles (text-h1, text-h1-serif, text-h3-serif, text-h4,
+ * text-h5, text-body-large, text-subtext) are regenerable from
+ * figma-export.json when a new surface needs one — primitives.css carries
+ * their sizes and line heights already.
  */
 @font-face { font-family: "PP Neue Montreal TT"; font-weight: 400; font-style: normal; font-display: swap; src: url("/fonts/pp/PPNeueMontreal-Book.otf") format("opentype"); }
-@font-face { font-family: "PP Neue Montreal TT"; font-weight: 450; font-style: normal; font-display: swap; src: url("/fonts/pp/PPNeueMontreal-Regular.otf") format("opentype"); }
 @font-face { font-family: "PP Neue Montreal TT"; font-weight: 500; font-style: normal; font-display: swap; src: url("/fonts/pp/PPNeueMontreal-Medium.otf") format("opentype"); }
-@font-face { font-family: "PP Neue Montreal TT"; font-weight: 700; font-style: normal; font-display: swap; src: url("/fonts/pp/PPNeueMontreal-Bold.otf") format("opentype"); }
 @font-face { font-family: "PP Editorial New"; font-weight: 450; font-style: normal; font-display: swap; src: url("/fonts/pp/PPEditorialNew-Regular.otf") format("opentype"); }
-@font-face { font-family: "PP Editorial New"; font-weight: 700; font-style: normal; font-display: swap; src: url("/fonts/pp/PPEditorialNew-Bold.otf") format("opentype"); }
 
-.text-h1 { font-family: var(--bs-font-family-sans); font-weight: var(--bs-font-weight-bold); font-size: var(--bs-font-size-h1); line-height: var(--bs-line-height-h1); letter-spacing: var(--bs-letter-spacing-h1); }
 .text-h2 { font-family: var(--bs-font-family-sans); font-weight: var(--bs-font-weight-medium); font-size: var(--bs-font-size-h2); line-height: var(--bs-line-height-h2); letter-spacing: var(--bs-letter-spacing-h2); }
+.text-h2-serif { font-family: var(--bs-font-family-serif); font-weight: var(--bs-font-weight-regular); font-size: var(--bs-font-size-h2); line-height: var(--bs-line-height-h2); letter-spacing: var(--bs-letter-spacing-h2-serif); }
 .text-h3 { font-family: var(--bs-font-family-sans); font-weight: var(--bs-font-weight-medium); font-size: var(--bs-font-size-h3); line-height: var(--bs-line-height-h3); letter-spacing: var(--bs-letter-spacing-h3); }
-.text-h4 { font-family: var(--bs-font-family-sans); font-weight: var(--bs-font-weight-medium); font-size: var(--bs-font-size-h4); line-height: var(--bs-line-height-h4); letter-spacing: var(--bs-letter-spacing-h4); }
-.text-h5 { font-family: var(--bs-font-family-sans); font-weight: var(--bs-font-weight-medium); font-size: var(--bs-font-size-h5); line-height: var(--bs-line-height-h5); letter-spacing: var(--bs-letter-spacing-h5); }
-.text-body-large { font-family: var(--bs-font-family-sans); font-weight: var(--bs-font-weight-book); font-size: var(--bs-font-size-body-large); line-height: var(--bs-line-height-body-large); letter-spacing: var(--bs-letter-spacing-body-large); }
 .text-body-small { font-family: var(--bs-font-family-sans); font-weight: var(--bs-font-weight-book); font-size: var(--bs-font-size-body-small); line-height: var(--bs-line-height-body-small); letter-spacing: var(--bs-letter-spacing-body-small); }
-.text-subtext { font-family: var(--bs-font-family-sans); font-weight: var(--bs-font-weight-regular); font-size: var(--bs-font-size-subtext); line-height: var(--bs-line-height-subtext); letter-spacing: var(--bs-letter-spacing-subtext); }
 .text-cta-text { font-family: var(--bs-font-family-sans); font-weight: var(--bs-font-weight-medium); font-size: var(--bs-font-size-cta-text); line-height: var(--bs-line-height-cta-text); letter-spacing: var(--bs-letter-spacing-cta-text); text-transform: uppercase; }
 .text-label { font-family: var(--bs-font-family-sans); font-weight: var(--bs-font-weight-medium); font-size: var(--bs-font-size-body-small); line-height: 1; letter-spacing: var(--bs-letter-spacing-label); }
-.text-h1-serif { font-family: var(--bs-font-family-serif); font-weight: var(--bs-font-weight-bold); font-size: var(--bs-font-size-h1); line-height: var(--bs-line-height-h1); letter-spacing: var(--bs-letter-spacing-h1-serif); }
-.text-h2-serif { font-family: var(--bs-font-family-serif); font-weight: var(--bs-font-weight-regular); font-size: var(--bs-font-size-h2); line-height: var(--bs-line-height-h2); letter-spacing: var(--bs-letter-spacing-h2-serif); }
-.text-h3-serif { font-family: var(--bs-font-family-serif); font-weight: var(--bs-font-weight-regular); font-size: var(--bs-font-size-h3); line-height: var(--bs-line-height-h3); letter-spacing: var(--bs-letter-spacing-h3-serif); }
