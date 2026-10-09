@@ -1,7 +1,8 @@
 /**
- * Block Studio text styles. One class per Figma text style, each built
- * only from tokens in primitives.css. Use these instead of setting font
- * properties by hand.
+ * Block Studio text styles. One class per Figma text style in the Block
+ * Studio file, each built only from tokens in primitives.css. Mirrors the
+ * Figma Typography collection 1:1 — every style the file defines ships here,
+ * whether a surface renders it yet or not.
  */
 @font-face { font-family: "PP Neue Montreal TT"; font-weight: 400; font-style: normal; font-display: swap; src: url("/fonts/pp/PPNeueMontreal-Book.otf") format("opentype"); }
 @font-face { font-family: "PP Neue Montreal TT"; font-weight: 450; font-style: normal; font-display: swap; src: url("/fonts/pp/PPNeueMontreal-Regular.otf") format("opentype"); }

@@ -131,8 +131,8 @@
 
 .services__item:focus-visible {
   color: var(--services-ink-active);
-  outline: var(--bs-focus-ring-width) solid var(--bs-focus-ring);
-  outline-offset: calc(-1 * var(--bs-focus-ring-width));
+  outline: var(--derived-focus-ring-width) solid var(--navitem-focus-ring);
+  outline-offset: calc(-1 * var(--derived-focus-ring-width));
 }
 
 .services__item:focus-visible + .services__disc {
