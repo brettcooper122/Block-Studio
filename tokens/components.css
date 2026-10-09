@@ -68,7 +68,7 @@
   --services-ink: color-mix(in srgb, var(--bs-color-white) 88%, transparent);
   --services-ink-dim: color-mix(in srgb, var(--bs-color-white) 32%, transparent);
   --services-ink-active: var(--bs-color-white);
-  --services-rule: var(--bs-border-subtle);
+  --services-rule: color-mix(in srgb, var(--bs-color-white) 16%, transparent);
   --services-label-ink: var(--bs-color-white);
   --services-label-gap-inline: var(--bs-spacing-xsm); /* between the © and the word, as in the hero emblem */
   --services-diagram-bg: var(--bs-color-brand-charcoal-900); /* the tile behind each service's diagram, in its light palette */
