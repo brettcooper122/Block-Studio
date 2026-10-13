@@ -1,0 +1,218 @@
+.footer {
+  position: relative;
+  z-index: var(--derived-z-section);
+  background-color: var(--footer-bg);
+  color: var(--footer-ink);
+  border-top: var(--derived-rule-width) solid var(--footer-rule);
+  --roll-hover-ink: var(--footer-accent);
+}
+
+.footer ::selection {
+  background-color: var(--hero-selection-bg);
+  color: var(--hero-selection-ink);
+}
+
+:where(.footer) :where(p, ul) {
+  margin: 0;
+}
+
+:where(.footer) :where(ul) {
+  padding: 0;
+  list-style: none;
+}
+
+.footer a {
+  color: inherit;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.footer a:focus-visible {
+  outline: var(--derived-focus-ring-width) solid var(--navitem-focus-ring);
+  outline-offset: var(--derived-focus-ring-width);
+}
+
+/* Navigation takes the wider left share, studio details sit to the right */
+.footer__main {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  column-gap: var(--footer-column-gap);
+  padding: var(--footer-pad-top) var(--footer-gutter) 0;
+}
+
+.footer__label {
+  color: var(--footer-ink-strong);
+}
+
+.footer__label--mark {
+  display: flex;
+  align-items: center;
+  gap: var(--footer-label-gap);
+}
+
+.footer__label--caps {
+  color: var(--footer-ink-dim);
+  text-transform: uppercase;
+}
+
+.footer__nav-list {
+  margin-top: var(--footer-list-gap);
+}
+
+.footer__nav-row {
+  position: relative;
+}
+
+/* The whole row answers the pointer, not only the word */
+.footer__nav-link {
+  display: flex;
+  padding-block: var(--footer-nav-row-pad);
+  color: var(--footer-ink-strong);
+}
+
+.footer__rule {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: var(--derived-rule-width);
+  background-color: var(--footer-rule);
+}
+
+/* Sized by its own width, so the two groups sit side by side only where both fit whole */
+.footer__details {
+  container: footer-details / inline-size;
+}
+
+.footer__details-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  row-gap: var(--footer-list-gap);
+  margin-top: var(--footer-list-gap);
+}
+
+@container footer-details (min-width: 360px) {
+  .footer__details-body {
+    grid-template-columns: minmax(max-content, 1fr) minmax(max-content, 1fr);
+    column-gap: var(--footer-details-column-gap);
+    align-items: start;
+  }
+}
+
+.footer__contact {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.footer__socials {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.footer__social {
+  display: inline-flex;
+  color: var(--footer-ink-strong);
+}
+
+.footer__arrow {
+  margin-left: 0.15em;
+}
+
+.footer__email {
+  display: inline-flex;
+  color: var(--footer-ink-strong);
+}
+
+.footer__location {
+  display: flex;
+  flex-direction: column;
+  margin-top: var(--footer-location-gap);
+  color: var(--footer-ink-dim);
+}
+
+.footer__email-address {
+  text-decoration: underline;
+  text-decoration-thickness: var(--derived-rule-width);
+  text-underline-offset: 0.18em;
+}
+
+/* Clock under the nav, back to top level with the details column, copyright on the right */
+.footer__meta {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  column-gap: var(--footer-column-gap);
+  align-items: end;
+  padding: var(--footer-meta-gap) var(--footer-gutter) var(--footer-meta-pad-bottom);
+  color: var(--footer-ink-strong);
+}
+
+.footer__clock {
+  display: flex;
+  flex-direction: column;
+  font-variant-numeric: tabular-nums;
+}
+
+.footer__meta-end {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--footer-email-gap);
+}
+
+.footer__canvas {
+  position: relative;
+  height: var(--derived-footer-canvas-height);
+  overflow: hidden;
+  background-color: var(--footer-canvas-bg);
+  border-top: var(--derived-rule-width) solid var(--footer-rule);
+}
+
+.footer__canvas-mount {
+  position: absolute;
+  inset: 0;
+}
+
+.footer__wordmark {
+  position: absolute;
+  top: 50%;
+  left: var(--footer-gutter);
+  width: var(--footer-wordmark-width);
+  line-height: 0;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.footer__wordmark svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.footer__wordmark .wordmark__letter {
+  fill: var(--footer-wordmark-letter);
+}
+
+.footer__wordmark .wordmark__asterisk {
+  fill: var(--footer-wordmark-asterisk);
+}
+
+/* One column on small screens: nav, details, the bottom row stacked, then the frame */
+@media (max-width: 700px) {
+  .footer__main {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: var(--footer-details-gap);
+  }
+
+  .footer__meta {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: var(--footer-email-gap);
+    padding-top: var(--footer-details-gap);
+  }
+
+  .footer__meta-end {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
