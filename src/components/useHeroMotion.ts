@@ -158,13 +158,18 @@ export function useHeroMotion() {
           }
 
           // Once the footer comes up the pinned wordmark shrinks into the top left corner, following
-          // the scroll both ways, and the band behind it closes up to the smaller word. It moves the
-          // svg, not the track, so it never fights the travel above.
+          // the scroll both ways. It moves the svg, not the track, so it never fights the travel above.
           const shrinkTrigger = document.querySelector<HTMLElement>("[data-wordmark-shrink]");
           if (!reduced && wordmarkSvg && shrinkTrigger) {
-            const scale = readNumber("--motion-wordmark-shrink-scale");
-            const shrink = gsap.timeline({
-              defaults: { ease: "none" },
+            gsap.to(wordmarkSvg, {
+              scale: readNumber("--motion-wordmark-shrink-scale"),
+              // Undoes the track's travel, so the word starts at the inset
+              x: () => {
+                const inset = readNumber("--hero-wordmark-inset");
+                return track.offsetLeft + track.offsetWidth - (hero.clientWidth - inset);
+              },
+              transformOrigin: "0% 0%",
+              ease: "none",
               scrollTrigger: {
                 trigger: shrinkTrigger,
                 start: "top bottom",
@@ -178,30 +183,6 @@ export function useHeroMotion() {
                 invalidateOnRefresh: true,
               },
             });
-            shrink
-              .to(
-                wordmarkSvg,
-                {
-                  scale,
-                  // Undoes the track's travel, so the word starts at the inset
-                  x: () => {
-                    const inset = readNumber("--hero-wordmark-inset");
-                    return track.offsetLeft + track.offsetWidth - (hero.clientWidth - inset);
-                  },
-                  transformOrigin: "0% 0%",
-                },
-                0,
-              )
-              .fromTo(
-                wordmark,
-                { clipPath: "inset(0px 0px 0px 0px)" },
-                {
-                  // The track keeps the word's full height, whatever the svg's scale
-                  clipPath: () =>
-                    `inset(0px 0px ${wordmark.offsetHeight - track.offsetHeight * scale}px 0px)`,
-                },
-                0,
-              );
           }
 
           // The statement scrolls at 120% of the page, so it climbs out of view faster than the page
@@ -311,7 +292,6 @@ export function useHeroMotion() {
             split?.revert();
             gsap.set(letters, { clearProps: "visibility,opacity" });
             if (wordmarkSvg) gsap.set(wordmarkSvg, { clearProps: "transform" });
-            gsap.set(wordmark, { clearProps: "clipPath" });
             gsap.set([eyebrow, headline], { clearProps: "visibility,opacity,transform" });
             gsap.set(content, { clearProps: "opacity" });
           };

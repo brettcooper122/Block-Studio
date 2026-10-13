@@ -106,7 +106,6 @@
 /* The band spans the screen. Its track bleeds off the right edge, as in the Figma frame. */
 .hero__wordmark {
   overflow: clip;
-  clip-path: inset(0); /* keeps the fixed backdrop copy inside the band */
   line-height: 0;
   pointer-events: none;
   user-select: none;
@@ -127,7 +126,6 @@
   left: 0;
   z-index: var(--derived-z-wordmark);
   min-height: var(--derived-band-height);
-  background-color: var(--hero-bg-scrolled);
 }
 
 .hero__wordmark svg {
