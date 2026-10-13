@@ -17,11 +17,13 @@ export function Footer() {
   const clock = useLocalTime(studio.timeZone);
 
   return (
-    <footer className="footer" id="contact" ref={footerRef}>
+    <footer className="footer" id="contact" ref={footerRef} data-wordmark-shrink>
       <div className="footer__main">
         <nav className="footer__nav" aria-labelledby="footer-nav-label">
-          <p className="footer__label footer__label--dot text-body-large" id="footer-nav-label">
-            Navigation
+          {/* Same label as © SERVICES */}
+          <p className="footer__label footer__label--mark text-label" id="footer-nav-label">
+            <span aria-hidden="true">©</span>
+            <span>NAVIGATION</span>
           </p>
           <ul className="footer__nav-list">
             {footerNav.map((item) => (

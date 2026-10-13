@@ -44,19 +44,10 @@
   color: var(--footer-ink-strong);
 }
 
-.footer__label--dot {
+.footer__label--mark {
   display: flex;
   align-items: center;
   gap: var(--footer-label-gap);
-}
-
-.footer__label--dot::before {
-  content: "";
-  flex: none;
-  width: var(--footer-dot-size);
-  height: var(--footer-dot-size);
-  border-radius: 50%;
-  background-color: var(--footer-dot);
 }
 
 .footer__label--caps {
