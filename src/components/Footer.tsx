@@ -40,37 +40,42 @@ export function Footer() {
         <div className="footer__details">
           <p className="footer__label footer__label--caps text-subtext">(Studio details)</p>
 
-          <ul className="footer__socials">
-            {footerSocials.map((social) => (
-              <li className="footer__lift" key={social.label}>
-                <a
-                  className="footer__social roll-trigger"
-                  href={social.href}
-                  {...(social.href !== "#" && { target: "_blank", rel: "noopener noreferrer" })}
-                >
-                  <RollText className="text-h5">
-                    {social.label}
-                    <span className="footer__arrow" aria-hidden="true">
-                      ↗
-                    </span>
-                  </RollText>
-                </a>
-              </li>
-            ))}
-          </ul>
+          {/* Email and location on the left, socials beside them, as in the reference */}
+          <div className="footer__details-body">
+            <div className="footer__contact">
+              <a className="footer__email footer__lift roll-trigger" href={studio.emailHref}>
+                <RollText className="text-body-small">
+                  <span aria-hidden="true">↳ </span>
+                  <span className="footer__email-address">{studio.email}</span>
+                </RollText>
+              </a>
 
-          <p className="footer__location footer__lift text-body-small">
-            {studio.location.map((line) => (
-              <span key={line}>{line}</span>
-            ))}
-          </p>
+              <p className="footer__location footer__lift text-body-small">
+                {studio.location.map((line) => (
+                  <span key={line}>{line}</span>
+                ))}
+              </p>
+            </div>
 
-          <a className="footer__email footer__lift roll-trigger" href={studio.emailHref}>
-            <RollText className="text-body-small">
-              <span aria-hidden="true">↳ </span>
-              <span className="footer__email-address">{studio.email}</span>
-            </RollText>
-          </a>
+            <ul className="footer__socials">
+              {footerSocials.map((social) => (
+                <li className="footer__lift" key={social.label}>
+                  <a
+                    className="footer__social roll-trigger"
+                    href={social.href}
+                    {...(social.href !== "#" && { target: "_blank", rel: "noopener noreferrer" })}
+                  >
+                    <RollText className="text-h5">
+                      {social.label}
+                      <span className="footer__arrow" aria-hidden="true">
+                        ↗
+                      </span>
+                    </RollText>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
 

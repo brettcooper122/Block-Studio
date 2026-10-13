@@ -101,7 +101,9 @@
   --footer-label-gap: var(--services-label-gap-inline); /* between the © and the word, as in © SERVICES */
   --footer-list-gap: var(--bs-spacing-xl); /* from a column label to its list */
   --footer-nav-row-pad: var(--bs-spacing-sm);
-  --footer-details-gap: var(--bs-spacing-xxl); /* from the socials to the location line */
+  --footer-details-gap: var(--bs-spacing-xxl); /* between stacked groups on small screens */
+  --footer-details-column-gap: var(--bs-spacing-l); /* between the email column and the socials */
+  --footer-location-gap: var(--bs-spacing-l); /* from the email down to the location line */
   --footer-email-gap: var(--bs-spacing-m);
   --footer-meta-gap: calc(var(--bs-spacing-xxl) * 2); /* open space above the time and copyright row */
   --footer-meta-pad-bottom: var(--bs-padding-m);
