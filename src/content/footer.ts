@@ -9,7 +9,6 @@ export const footerNav = [
 export const footerSocials = [
   { label: "LinkedIn", href: "#" },
   { label: "Instagram", href: "#" },
-  { label: "X", href: "#" },
 ];
 
 export const studio = {

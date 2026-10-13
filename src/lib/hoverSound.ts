@@ -2,13 +2,14 @@
  * A short tap whenever a mouse pointer moves onto a link, button or [data-sound-hover], picked at
  * random from five takes so repeated hovers never sound mechanical.
  *
- * The taps are bymonolog.com's hover sounds, used as a stand-in and a reference while we find
- * our own. Replace them before launch.
+ * The taps are tap_01 to tap_05 from SND01 "sine" by Yasuhiro Tsuchiya (https://snd.dev), cut
+ * from the snd-lib audio sprite. Free for commercial use; the raw files must not be redistributed
+ * or resold on their own, or used as a sound logo.
  *
  * Browsers keep audio locked until the visitor first clicks, taps or presses a key, so hovers
  * before that stay silent.
  */
-const SOUNDS = ["tap_01", "tap_02", "tap_03", "tap_04", "tap_05"].map((name) => `/sounds/${name}.mp3`);
+const SOUNDS = [1, 2, 3, 4, 5].map((n) => `/sounds/snd01-tap-0${n}.wav`);
 const TARGETS = "a[href], button, [role='button'], [data-sound-hover]";
 const VOLUME = 0.15;
 const MIN_GAP_MS = 60; // sweeping across a list should not stack taps on top of each other
