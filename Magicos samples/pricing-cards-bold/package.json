@@ -1,0 +1,29 @@
+{
+  "name": "magicos-pricing-cards-bold",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build && cp dist/index.html ../pricing-cards-bold.html",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@gsap/react": "2.1.2",
+    "@untitledui/icons": "0.0.22",
+    "gsap": "3.13.0",
+    "lucide-react": "0.577.0",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "4.3.1",
+    "@types/react": "^18.3.23",
+    "@types/react-dom": "^18.3.7",
+    "@vitejs/plugin-react": "^4.5.0",
+    "tailwindcss": "4.3.1",
+    "typescript": "~5.8.3",
+    "vite": "^6.3.5",
+    "vite-plugin-singlefile": "^2.2.0"
+  }
+}

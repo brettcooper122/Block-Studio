@@ -1,0 +1,202 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600&display=swap');
+
+@import "tailwindcss";
+
+@theme {
+  --color-primitives-colours-brand-orange100: var(
+    --primitives-colours-brand-orange100
+  );
+  --color-primitives-colours-brand-orange200: var(
+    --primitives-colours-brand-orange200
+  );
+  --color-primitives-colours-brand-orange300: var(
+    --primitives-colours-brand-orange300
+  );
+  --color-primitives-colours-brand-orange400: var(
+    --primitives-colours-brand-orange400
+  );
+  --color-primitives-colours-brand-orange500: var(
+    --primitives-colours-brand-orange500
+  );
+  --color-primitives-colours-brand-orange600: var(
+    --primitives-colours-brand-orange600
+  );
+  --color-primitives-colours-brand-orange700: var(
+    --primitives-colours-brand-orange700
+  );
+  --color-primitives-colours-brand-orange800: var(
+    --primitives-colours-brand-orange800
+  );
+  --color-primitives-colours-brand-orange900: var(
+    --primitives-colours-brand-orange900
+  );
+  --color-primitives-colours-brand-charcoal100: var(
+    --primitives-colours-brand-charcoal100
+  );
+  --color-primitives-colours-brand-charcoal200: var(
+    --primitives-colours-brand-charcoal200
+  );
+  --color-primitives-colours-brand-charcoal300: var(
+    --primitives-colours-brand-charcoal300
+  );
+  --color-primitives-colours-brand-charcoal400: var(
+    --primitives-colours-brand-charcoal400
+  );
+  --color-primitives-colours-brand-charcoal500: var(
+    --primitives-colours-brand-charcoal500
+  );
+  --color-primitives-colours-brand-charcoal600: var(
+    --primitives-colours-brand-charcoal600
+  );
+  --color-primitives-colours-brand-charcoal700: var(
+    --primitives-colours-brand-charcoal700
+  );
+  --color-primitives-colours-brand-charcoal800: var(
+    --primitives-colours-brand-charcoal800
+  );
+  --color-primitives-colours-brand-charcoal900: var(
+    --primitives-colours-brand-charcoal900
+  );
+  --color-primitives-colours-brand-white: var(--primitives-colours-brand-white);
+
+  --spacing-spacing-xsm: var(--primitives-spacing-spacing-xsm);
+  --spacing-spacing-sm: var(--primitives-spacing-spacing-sm);
+  --spacing-spacing-m: var(--primitives-spacing-spacing-m);
+  --spacing-spacing-l: var(--primitives-spacing-spacing-l);
+  --spacing-spacing-xl: var(--primitives-spacing-spacing-xl);
+  --spacing-spacing-xxl: var(--primitives-spacing-spacing-xxl);
+
+  --padding-padding-xsm: var(--primitives-padding-padding-xsm);
+  --padding-padding-sm: var(--primitives-padding-padding-sm);
+  --padding-padding-m: var(--primitives-padding-padding-m);
+  --padding-padding-l: var(--primitives-padding-padding-l);
+  --padding-padding-xl: var(--primitives-padding-padding-xl);
+
+  --radius-radius-xsm: var(--primitives-radius-radius-xsm);
+  --radius-radius-sm: var(--primitives-radius-radius-sm);
+  --radius-radius-m: var(--primitives-radius-raidus-m);
+  --radius-radius-l: var(--primitives-radius-radius-l);
+  --radius-radius-xl: var(--primitives-radius-radius-xl);
+  --radius-radius-xxl: var(--primitives-radius-radius-xxl);
+
+  --shadow-sm: var(--shadow-sm);
+  --shadow-md: var(--shadow-md);
+
+  --font-sans: var(--font-body);
+  --font-host: var(--font-body);
+  --font-heading: var(--font-heading);
+  --font-display: var(--font-display);
+  --font-caption: var(--font-caption);
+}
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
+
+@layer utilities {
+  /* UxbyBrett design system — PP Neue Montreal (self-hosted, licensed files) */
+  @font-face {
+    font-family: 'PP Neue Montreal';
+    src: url('https://cdn.magicpatterns.com/uploads/pAcUWm9TPuxrXjW9bXtWCR/PPNeueMontreal-Book.otf')
+      format('opentype');
+    font-weight: 350;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'PP Neue Montreal';
+    src: url('https://cdn.magicpatterns.com/uploads/caESTS3Z3BgAi4zdwURwKu/PPNeueMontreal-Regular.otf')
+      format('opentype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'PP Neue Montreal';
+    src: url('https://cdn.magicpatterns.com/uploads/nUx2ojs9LVveEAEQVsZ6Vw/PPNeueMontreal-Medium.otf')
+      format('opentype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'PP Neue Montreal';
+    src: url('https://cdn.magicpatterns.com/uploads/fz7jtPnyymHWTLGbQyXWCB/PPNeueMontreal-Bold.otf')
+      format('opentype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+  /* UxbyBrett design system tokens */
+  :root {
+    --primitives-colours-brand-orange100: #832c0a;
+    --primitives-colours-brand-orange200: #ae3b0e;
+    --primitives-colours-brand-orange300: #da4a11;
+    --primitives-colours-brand-orange400: #e16e41;
+    --primitives-colours-brand-orange500: #e99270;
+    --primitives-colours-brand-orange600: #f0b7a0;
+    --primitives-colours-brand-orange700: #f4c9b8;
+    --primitives-colours-brand-orange800: #f8dbcf;
+    --primitives-colours-brand-orange900: #fbede7;
+    --primitives-colours-brand-charcoal100: #141414;
+    --primitives-colours-brand-charcoal200: #1b1b1b;
+    --primitives-colours-brand-charcoal300: #222222;
+    --primitives-colours-brand-charcoal400: #4e4e4e;
+    --primitives-colours-brand-charcoal500: #7a7a7a;
+    --primitives-colours-brand-charcoal600: #a7a7a7;
+    --primitives-colours-brand-charcoal700: #bdbdbd;
+    --primitives-colours-brand-charcoal800: #d3d3d3;
+    --primitives-colours-brand-charcoal900: #e9e9e9;
+    --primitives-colours-brand-white: #ffffff;
+    --primitives-radius-radius-xsm: 4px;
+    --primitives-radius-radius-sm: 8px;
+    --primitives-radius-raidus-m: 12px;
+    --primitives-radius-radius-l: 16px;
+    --primitives-radius-radius-xl: 24px;
+    --primitives-radius-radius-xxl: 32px;
+    --primitives-spacing-spacing-xsm: 8px;
+    --primitives-spacing-spacing-sm: 12px;
+    --primitives-spacing-spacing-m: 16px;
+    --primitives-spacing-spacing-l: 24px;
+    --primitives-spacing-spacing-xl: 48px;
+    --primitives-spacing-spacing-xxl: 82px;
+    --primitives-padding-padding-xsm: 8px;
+    --primitives-padding-padding-sm: 16px;
+    --primitives-padding-padding-m: 24px;
+    --primitives-padding-padding-l: 48px;
+    --primitives-padding-padding-xl: 82px;
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.08);
+    --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.12);
+    --font-body: 'PP Neue Montreal', 'Helvetica Neue', Arial, sans-serif;
+    --font-heading: 'PP Neue Montreal', 'Helvetica Neue', Arial, sans-serif;
+    --font-display: 'Anton', Impact, sans-serif;
+    --font-caption: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  }
+}
+@layer base {
+  html,
+  body {
+    font-family: var(--font-body);
+    color: var(--primitives-colours-brand-charcoal100);
+    -webkit-font-smoothing: antialiased;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-heading);
+  }
+}
