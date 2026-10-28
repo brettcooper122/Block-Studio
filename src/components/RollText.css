@@ -1,0 +1,39 @@
+.roll {
+  display: inline-block;
+  height: 1lh;
+  overflow: hidden;
+  vertical-align: top;
+}
+
+.roll__stack {
+  display: flex;
+  flex-direction: column;
+  transition: transform var(--derived-motion-duration) var(--derived-motion-ease);
+}
+
+.roll__label {
+  display: block;
+  height: 1lh;
+  white-space: nowrap;
+}
+
+.roll__label--hover {
+  color: var(--roll-hover-ink, currentColor);
+}
+
+.roll-trigger:focus-visible .roll__stack {
+  transform: translateY(-50%);
+}
+
+/* Hover only where a pointer can hover, so touch screens never stick on it */
+@media (hover: hover) and (pointer: fine) {
+  .roll-trigger:hover .roll__stack {
+    transform: translateY(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .roll__stack {
+    transition-duration: 0s;
+  }
+}

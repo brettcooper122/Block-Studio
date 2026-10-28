@@ -1,5 +1,4 @@
 import { NavItem } from "./NavItem";
-import { ServicesBackdrop } from "./ServicesBackdrop";
 import { useHeroMotion } from "./useHeroMotion";
 import stickerUrl from "../assets/brand/block-sticker.svg";
 import wordmarkSvg from "../assets/brand/block-wordmark.svg?raw";
@@ -45,7 +44,6 @@ export function Hero() {
 
       <div className="hero__wordmark-slot" ref={wordmarkSlotRef}>
         <div className="hero__wordmark" ref={wordmarkRef} aria-hidden="true">
-          <ServicesBackdrop />
           <div
             className="hero__wordmark-track"
             ref={trackRef}

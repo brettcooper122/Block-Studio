@@ -157,6 +157,34 @@ export function useHeroMotion() {
             });
           }
 
+          // Once the footer comes up the pinned wordmark shrinks into the top left corner, following
+          // the scroll both ways. It moves the svg, not the track, so it never fights the travel above.
+          const shrinkTrigger = document.querySelector<HTMLElement>("[data-wordmark-shrink]");
+          if (!reduced && wordmarkSvg && shrinkTrigger) {
+            gsap.to(wordmarkSvg, {
+              scale: readNumber("--motion-wordmark-shrink-scale"),
+              // Undoes the track's travel, so the word starts at the inset
+              x: () => {
+                const inset = readNumber("--hero-wordmark-inset");
+                return track.offsetLeft + track.offsetWidth - (hero.clientWidth - inset);
+              },
+              transformOrigin: "0% 0%",
+              ease: "none",
+              scrollTrigger: {
+                trigger: shrinkTrigger,
+                start: "top bottom",
+                // Done when the footer reaches the top, or at the foot of the page if it never can
+                end: () =>
+                  Math.min(
+                    shrinkTrigger.getBoundingClientRect().top + window.scrollY,
+                    ScrollTrigger.maxScroll(window),
+                  ),
+                scrub: readSeconds("--motion-wordmark-smoothing"),
+                invalidateOnRefresh: true,
+              },
+            });
+          }
+
           // The statement scrolls at 120% of the page, so it climbs out of view faster than the page
           if (!reduced) {
             gsap.to(content, {
@@ -263,6 +291,7 @@ export function useHeroMotion() {
             cancelled = true;
             split?.revert();
             gsap.set(letters, { clearProps: "visibility,opacity" });
+            if (wordmarkSvg) gsap.set(wordmarkSvg, { clearProps: "transform" });
             gsap.set([eyebrow, headline], { clearProps: "visibility,opacity,transform" });
             gsap.set(content, { clearProps: "opacity" });
           };
