@@ -18,21 +18,36 @@ Block uses **register A (Swiss grotesk)**: PP Neue Montreal for display, text an
 
 ---
 
+## Colour roles
+
+Decided 2026-11-15: Block is light-mode first, with dark charcoal carrying text and structure and orange demoted to a tertiary colour.
+
+| Role | What it covers | Block tokens |
+| --- | --- | --- |
+| **Primary: light grounds** | Page background, section fields, image placeholders | `--bs-color-white`, `--bs-color-brand-charcoal-900` |
+| **Secondary: dark charcoal** | All text, all dividers and rules, outlined controls, focus rings | `--bs-color-brand-charcoal-100` to `-400` |
+| **Tertiary: orange** | Occasional small moments only | `--bs-color-brand-orange-300`, `-900` |
+
 ## Colour mapping
 
 | Guide token | Block token | Value | Contrast on white | Notes |
 | --- | --- | --- | --- | --- |
 | `--color-paper` | `--bs-color-white` | `#FFFFFF` | — | Default ground |
+| `--color-panel` | `--bs-color-brand-charcoal-900` | `#E9E9E9` | — | Alternate light section field, image placeholders |
 | `--color-ink` | `--bs-color-brand-charcoal-100` | `#141414` | 18.4:1 | All primary text |
-| `--color-ink-secondary` | `--bs-color-brand-charcoal-400` | `#4E4E4E` | 8.3:1 | Secondary text at any size |
+| `--color-ink-secondary` | `--bs-color-brand-charcoal-400` | `#4E4E4E` | 8.3:1 (6.9:1 on charcoal-900) | Secondary text at any size |
 | (large secondary only) | `--bs-color-brand-charcoal-500` | `#7A7A7A` | 4.29:1 | **Fails 4.5:1.** Use only at 24px and above |
 | `--color-ink-dim` | `--bs-color-brand-charcoal-700` | `#BDBDBD` | — | Inactive and decorative states only |
-| `--color-rule` | `--bs-color-brand-charcoal-800` | `#D3D3D3` | — | Hairlines |
-| `--color-panel` | `--bs-color-brand-charcoal-900` | `#E9E9E9` | — | Section fields, image placeholders |
-| `--color-accent` | `--bs-color-brand-orange-300` | `#DA4A11` | 4.23:1 | **Fails 4.5:1 for small text.** Use as a fill or for text 24px and above |
-| Accent field | `--bs-color-brand-orange-900` | `#FBEDE7` | — | Full-bleed section ground, ink text 16.1:1 |
+| `--color-rule-strong` | `--bs-color-brand-charcoal-300` | `#222222` | — | **Default divider.** 1px dark charcoal for section rules, index rows, tables |
+| `--color-rule` | `--bs-color-brand-charcoal-800` | `#D3D3D3` | — | Optional lighter hairline inside dense lists only |
+| `--color-accent` | `--bs-color-brand-orange-300` | `#DA4A11` | 4.23:1 | Tertiary. **Fails 4.5:1 for small text.** |
+| Accent tint | `--bs-color-brand-orange-900` | `#FBEDE7` | — | Tertiary. Ink text on it 16.1:1 |
 
-Orange follows the guide's accent rule: either rare and small (one CTA fill, an active dot, an index tile), or one full-bleed field per page. Text on an orange-300 fill must be charcoal-100 (4.36:1) at 18.66px bold / 24px regular or larger, since it falls short of 4.5:1 for small text.
+**Tertiary orange usage:**
+
+- Small and rare: an active-state dot, a hover or focus moment, a chapter index tile in a case study, one highlighted figure in a results table. Keep it under about 5% of any screen.
+- No orange body text, links, dividers or section backgrounds by default. A single orange-900 field per page is the most it should take, and only when a page needs a deliberate break.
+- Text on an orange-300 fill must be charcoal-100 at 24px regular / 18.66px bold or larger (4.36:1).
 
 ---
 
@@ -77,7 +92,13 @@ Existing tracking (H1 −0.02em, H3 −0.015em) already matches the guide's dire
 
 ## Radius
 
-Block's radius scale runs from 4px to 32px, and the services hover tile is a rounded square. The guide defaults to radius 0 for images and containers and allows one consistent radius site-wide. Decision needed: keep the rounded glyph/tile language as Block's single radius, or move images and panels to 0. This is open question 2 in the research notes.
+Decided 2026-11-15: Block moves to sharp, small radii. Working value **4px** (`--bs-radius-xsm`), applied identically to images, panels, buttons and tiles. The exact value is confirmed during build. The 8–32px steps (`--bs-radius-sm` to `--bs-radius-xxl`) fall outside the editorial guide (0–4px) and should not be used on new work. The services hover tile currently uses a larger radius and should move to the site radius when it is next touched.
+
+---
+
+## Case studies
+
+Block case studies follow the guide's long-form pattern (`style.md` section 8.11): title, summary and metadata table in the opening viewport; an intro statement; chapters (Context, Challenge, Approach, Outcome) opened by label rows; a 65ch body column at about 18px placed off-centre with a side lane for captions; varied image breaks; a results table with real figures only; credits and a large next-project link. Copy follows the Block voice rules.
 
 ---
 
@@ -87,4 +108,4 @@ Block's radius scale runs from 4px to 32px, and the services hover tile is a rou
 2. Add section spacing variables (96 / 160 / 240 / 360px) and a 4px and 32px step.
 3. Add a secondary grey between charcoal-400 and charcoal-500 that clears 4.5:1 on white (for example `#6B6B6B`), or standardise on charcoal-400.
 4. Add Tablet and Mobile modes to the typography collection, or adopt fluid sizes.
-5. Decide the radius rule.
+5. Confirm the site radius (working value 4px) and retire 8–32px radius steps from new components.
