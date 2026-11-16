@@ -12,3 +12,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Local reference screenshots (kept out of the repo)
+Editorial inspo snapshots/
